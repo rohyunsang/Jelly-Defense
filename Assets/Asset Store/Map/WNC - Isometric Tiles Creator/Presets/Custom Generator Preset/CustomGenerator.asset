@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CustomGenerator
   m_EditorClassIdentifier: 
   size_WidthRandom: 0
-  size_Width: 20
+  size_Width: 40
   size_Width_Min: 20
   size_Width_Max: 100
   size_LengthRandom: 0
@@ -21,18 +21,18 @@ MonoBehaviour:
   size_Length_Min: 20
   size_Length_Max: 100
   height_HeightRandom: 0
-  height_Height: 10
+  height_Height: 0
   height_Height_Min: 0
   height_Height_Max: 30
   height_ContrastRandom: 0
-  height_Contrast: 4
+  height_Contrast: 0
   height_Contrast_Min: 0
   height_Contrast_Max: 10
   filling_pois: []
   filling_poisChance: 0
-  filling_roadsChance: 0.91034484
-  filling_roadsFilling: 0.8344827
-  filling_roadsFenceChance: 0.17931035
+  filling_roadsChance: 0.000000011509862
+  filling_roadsFilling: 0
+  filling_roadsFenceChance: 0
   mixingType: 0
   biomes:
   - Standard - Meadow
