@@ -7,7 +7,7 @@ public class TestNav : MonoBehaviour
 {
     private NavMeshAgent slimeAgent;
     public Transform enemyCastle;
-    public float detectionRadius = 500f; // 아군 유닛의 적 감지 반경
+    public float detectionRadius = 10f; // 아군 유닛의 적 감지 반경
 
     void Start()
     {
@@ -18,15 +18,16 @@ public class TestNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
-
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
+
         foreach (Collider col in hitColliders)
         {
-            if (col.CompareTag("enemy")) // 적군 태그면 
+            if (col.CompareTag("Enemy")) // 적군 태그면 
             {
+                Debug.Log("Enemy");
                 float distanceToEnemy = Vector3.Distance(transform.position, col.transform.position);
 
                 if (distanceToEnemy < closestDistance)
