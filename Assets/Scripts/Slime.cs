@@ -4,40 +4,51 @@ using UnityEngine.AI;
 
 public class Slime : MonoBehaviour
 {
-    public int HP = 10; //아군 유닛 체력
-    public float detectionRadius = 10f; //아군 유닛의 적 감지 반경
+    //체력, 피격,방어력(예정)
+    public int HP = 10; //유닛 체력
     public float damageInterval = 1f; // 데미지를 받을 주기
     private float nextDamageTime; //다음 데미지를 받을 타이밍
+    bool isDead = false;
 
+    //이동용
+    public float detectionRadius = 10f; //적 감지 반경
+    private float detectionInterval = 0.5f;  // 범위 탐지 주기
+    private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
+    private Transform target; // current target 적
+    public Transform enemyCastle; //적 기지 위치. 적 기지> 프리팹>슬라임 프리팹에 연결, Revert>> 스폰 슬라임의 null 오류 해결
+
+    //공격, 공격력(예정)
+    public float attackDistance = 3f; // 공격 가능 거리
+    public float attackInterval = 1f; //다음 공격 주기
+    private float nextAttackTime; //공격주기 누적 초기화용
+
+    //컴포넌트들
     private Animator animator;
     private NavMeshAgent navAgent;
-    private Transform enemyCastle; //프리팹 사용시 null이 되는 오류 방지를 위해 private로 변경
-
-    bool isDead = false;
 
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
         navAgent.enabled = true;
         navAgent.isStopped = false;
+    }
+    
+    private void Start()
+    {
         //게임오브젝트 중 적군 성 태그를 가진 오브젝트의 트랜스폼을 향해 가도록 함
-        GameObject enemyCastleObject = GameObject.FindGameObjectWithTag("EnemyCastle");
-        if (enemyCastleObject != null)
+        
+        if (enemyCastle != null)
         {
-            enemyCastle = enemyCastleObject.transform;
-            navAgent.SetDestination(enemyCastle.position);
+            target = enemyCastle.transform;  //타겟에 넣기
+            MoveToTarget(target);// 시작 시 적군 성으로 이동
         }
         else
         {
             Debug.LogError("EnemyCastle not found in the scene.");
         }
-    
-        // NavMeshAgent를 초기화할 때 NavMesh에 적용되어 있어야 합니다.
+
+        // NavMeshAgent를 초기화할 때 NavMesh에 적용되어 있어야 함. 없으면 에러발생
         if (navAgent.isOnNavMesh)
         {
             // NavMeshAgent를 활성화하고 초기 위치로 이동
@@ -51,33 +62,58 @@ public class Slime : MonoBehaviour
     }
     void Update()
     {
-        if (isDead) return;
+        if (isDead) return; //죽었으면 아래로는 실행하지 않기
 
-
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지
-        Transform closestEnemy = FindClosestEnemy(hitColliders); //가까운 적의 위치
-
-        if (closestEnemy != null)
+        sinceLastDetectionTime += Time.deltaTime; //시간흐름 저장으로 최적화
+        if (sinceLastDetectionTime >= detectionInterval) //범위스캔 간격보다 시간 흐름이 크면
         {
-            // 가장 가까운 적을 향해 이동 //#이게 성을 떄리다가도 주변에 몬스터가 생성되면 몬스터를 공격해야함.
-            navAgent.SetDestination(closestEnemy.position);
+            SearchEnemyInDetection(); //범위 스캔
+            sinceLastDetectionTime = 0f; //시간 초기화
+        }
+
+        if (target != null) //타겟이 있으면
+        {
+            MoveToTarget(target); //타겟을향해 네비메쉬 이동
+
+            float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
+            if (distanceToTarget <= attackDistance) //공격범위 이하의 간격이면
+            {
+                  if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
+                  {
+                       Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                       nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                   }
+            }
         }
         else
         {
-            // Enemy 태그를 가진 오브젝트 감지되지 않으면 EnemyCastle 태그를 가진 오브젝트를 따라감
-            GameObject enemyCastleObject = GameObject.FindGameObjectWithTag("EnemyCastle");
-
-            if (enemyCastleObject != null)
+            float currentVelocity = navAgent.velocity.magnitude;// 움직임 여부를 판단
+            if (currentVelocity <= 1f)
             {
-                enemyCastle = enemyCastleObject.transform;
-                navAgent.SetDestination(enemyCastle.position);
+                animator.SetBool("isMove", false); //idle 애니메이션 실행
             }
-
-            animator.SetBool("isMove", true);
+            else
+            {
+                animator.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
+            }
         }
     }
 
-    Transform FindClosestEnemy(Collider[] colliders)
+    void SearchEnemyInDetection() //범위 스캔
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지, 배열 저장
+        Transform closestEnemy = FindClosestEnemy(hitColliders); //가까운 적의 위치 저장
+        
+        if (closestEnemy != null)
+        {
+            target = closestEnemy; //가까운 적의 위치로 이동
+        }
+        else
+        {
+            target = enemyCastle.transform; //적군 성으로 이동
+        }
+    }
+    Transform FindClosestEnemy(Collider[] colliders) 
     {
         Transform closestEnemy = null; //가장 가까운 적의 위치
         float closestDistance = Mathf.Infinity; //가장 가까운적의 거리
@@ -85,70 +121,91 @@ public class Slime : MonoBehaviour
         foreach (Collider col in colliders)
         {
             if (col.CompareTag("Enemy")) //적 태그면
-            {//현재 슬라임과 적의 거리 계산
+            {
+                //현재 슬라임과 적의 거리 계산
                 float distanceToEnemy = Vector3.Distance(transform.position, col.transform.position);
 
-                if (distanceToEnemy < closestDistance)
+                if (distanceToEnemy < closestDistance) //적 거리가 가장 가까운적과의 간격보다 작으면
                 {
-                    closestDistance = distanceToEnemy;
-                    closestEnemy = col.transform;
+                    closestDistance = distanceToEnemy; //적 거리를 가장 가까운 적과의 간격에 넣기
+                    closestEnemy = col.transform; //콜리더의 위치를 가장 가까운 적의 위치에 넣기
                 }
             }
         }
-        
-        return closestEnemy;
+
+        return closestEnemy; //가장 가까운 적의위치를 반환
     }
 
-    private void OnTriggerEnter(Collider other) //물리 충돌로 인한 밀려남 방지
+    private void MoveToTarget(Transform target) //타겟의 위치로 이동
+    {
+        navAgent.SetDestination(target.position); //네비메쉬를 통해 이동 
+    }
+ 
+    private void OnTriggerEnter(Collider other) //물리 충돌로 인한 밀려남 방지를 위한 트리거
+    {
+        SlimeCollision(other); 
+    }
+    private void OnTriggerStay(Collider other) //지속적인 트리거 감지중일때도 일정하게 발생하기위함
     {
         SlimeCollision(other);
     }
-    private void OnTriggerStay(Collider other)
-    {
-        SlimeCollision(other);
-    }
-
+   
     void SlimeCollision(Collider other)
-    {
-        if (other.gameObject.CompareTag("EnemyCastle") && Time.time >= nextDamageTime)
+    {/*
+        if (other.gameObject.CompareTag("EnemyCastle") && Time.time >= nextDamageTime) 
         {
-            animator.SetTrigger("Attack01");
             nextDamageTime = Time.time + damageInterval;
-        }
-        if ((other.gameObject.CompareTag("Enemy")) && Time.time >= nextDamageTime)
+        }*/
+        if ((other.gameObject.CompareTag("Enemy")) && Time.time >= nextDamageTime)//다음 데미지타임일때만
         {
-            animator.SetTrigger("Attack01");
-            GetHit(1);
-            nextDamageTime = Time.time + damageInterval;
+            GetHit(1); //체력 감소
+            nextDamageTime = Time.time + damageInterval; //다음데미지 시간 누적초기화
         }
     }
-
-    void GetHit(int damage)
+    void Attack()//공격
     {
-        HP -= damage;
-        Debug.Log(HP);
+        animator.SetTrigger("Attack01"); StopNavAgent(); //공격애니메이션
+        StartCoroutine(ResumeMovementAfterAttack()); // 일정 시간 후 이동 다시 시작
+    }
+    IEnumerator ResumeMovementAfterAttack()
+    {
+        yield return new WaitForSeconds(1f); // 원하는 대기 시간을 설정
+
+        // 코루틴이 실행되는 동안 navAgent가 비활성화되거나 제거되었는지 확인
+        while (navAgent == null || !navAgent.isActiveAndEnabled || !navAgent.isOnNavMesh)
+        {
+            yield return null;
+        }
+
+        navAgent.isStopped = false; // 네비 이동 다시 시작
+        animator.SetBool("isMove", true); // isMove를 true로 설정하여 이동 애니메이션 재생
+    }
+    void GetHit(int damage) //데미지를 받음
+    {
+        HP -= damage; //받을 데미지량만큼 감소
+        Debug.Log("Slime HP : " + HP); //콘솔창에 출력
+
         if (HP <= 0)
         {
-            isDead = true;
-            //# 여기서 막을 건 다막아야됨 
-            //# rigidbody끄고 
-            StopNavAgent(); //# 어차피 죽은애니까 멈춰도 좋아요 
-            navAgent.enabled = false; //# NavMeshAgent끄고
-            animator.SetTrigger("Death");
-            Invoke("Die", 1);
+            isDead = true; //슬라임은 죽음
+            StopNavAgent();  //네비 멈추기
+            navAgent.enabled = false; // Agent끄기. StopNavAgent()으로 이동시키면 이동하지않는 문제 발생
+            animator.SetTrigger("Death");//사망 애니메이션 재생
+            Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
         }
     }
 
-    void StopNavAgent()
+    void StopNavAgent() //네비 멈추기
     {
         if (navAgent != null && navAgent.isOnNavMesh && navAgent.isActiveAndEnabled)
         {
-            navAgent.isStopped = true;
+            navAgent.isStopped = true; //네비 멈추기
+            animator.SetBool("isMove", false); // 이동 애니메이션 멈춤
         }
     }
-    void Die() //# 핵심 문제점 Die() 
+    void Die() //사망
     {
-        Destroy(gameObject);
+        Destroy(gameObject); //오브젝트 삭제
     }
 
 }

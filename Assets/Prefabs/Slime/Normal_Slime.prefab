@@ -193,9 +193,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8197599759863653307}
   - component: {fileID: 9145181352843142872}
-  - component: {fileID: 5387811972003367576}
+  - component: {fileID: 4253852072046645496}
   - component: {fileID: 9180176953063321710}
-  - component: {fileID: 7414792665874956856}
   - component: {fileID: 1928707285037531593}
   m_Layer: 0
   m_Name: Normal_Slime
@@ -244,7 +243,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5387811972003367576
+--- !u!114 &4253852072046645496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,8 +256,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 10
-  detectionRadius: 1
   damageInterval: 1
+  detectionRadius: 10
+  attackDistance: 3
+  attackInterval: 1
+  nextAttackTime: 0
+  enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
+    type: 3}
 --- !u!195 &9180176953063321710
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -273,7 +277,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -281,22 +285,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &7414792665874956856
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5607539314862477481}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!136 &1928707285037531593
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -307,7 +295,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.83
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
