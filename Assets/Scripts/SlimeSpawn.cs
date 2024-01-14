@@ -10,7 +10,19 @@ public class SlimeSpawn : MonoBehaviour
 
     public int slimeCost = 1; //아군 유닛 스폰 코스트
     public float jellyPower = 0; //아군 스폰 코스트 총량
+    void Awake()
+    {
 
+        // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        // Set the instance to this object and make sure it persists between scene loads
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     void Update()
     {
         jellyPower += Time.deltaTime; //시간 증가시 젤리력 증가
