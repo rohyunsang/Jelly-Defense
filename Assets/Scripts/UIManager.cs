@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour
         settingScreen2.SetActive(false);
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
         canvas_1.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        SceneManager.LoadScene("ImplementStageScreen"); //게임 시작씬으로 이동
+        SceneManager.LoadScene("StageScreen"); //게임 시작씬으로 이동
         ResumeGame();
     }
 
@@ -184,7 +184,7 @@ public class UIManager : MonoBehaviour
        // mainScreen.SetActive(true); //메인화면 캔버스 켜주기
         Destroy(dontDestroy);//메인씬 중복방지용 파괴
 
-        SceneManager.LoadScene("ImplementMainScreen");
+        SceneManager.LoadScene("MainScreen");
     }
 
     #endregion
