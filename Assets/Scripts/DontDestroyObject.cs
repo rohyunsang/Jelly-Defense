@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DontDestroyCanvas : MonoBehaviour
+public class DontDestroyObject : MonoBehaviour
 { 
     private void Awake()
     {//ImplementMainScreen에 DontDestroy 오브젝트에 넣어서

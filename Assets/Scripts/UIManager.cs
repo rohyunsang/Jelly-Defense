@@ -5,11 +5,14 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;  // Singleton instance
 
-    public  GameObject canvas_1; 
 
-    //GameTitleScreen
+    //DontdisrtoyObject //게임중 Home버튼을 눌러서 메인 씬으로 넘어올때는 파괴해야 함
+   // public GameObject dontDestroyObject;
     public GameObject uIManager;
-    public GameObject dontDestroy;
+    public GameObject slimeSpawnPoint;
+    public GameObject slimeSpawnManager;
+    public GameObject canvas_1; //메인씬용 스크린
+    public GameObject battleHUDScreen;  //HUD 스크린
 
     //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
 
@@ -25,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     //HUD > 환경설정
     public GameObject settingScreen2;  //HUD 세팅
-    public GameObject battleHUDScreen;  //HUD 스크린
+
 
     // public GameObject soundScreen;  // 만들어야 함
     public GameObject timeStopPanel;   //시간멈춤확인가능 색 패널
@@ -181,13 +184,23 @@ public class UIManager : MonoBehaviour
     public void OnClickHomeButton()
     {
         canvas_1.SetActive(true); //메인씬 최상위 캔버스 켜주기
-       // mainScreen.SetActive(true); //메인화면 캔버스 켜주기
-        Destroy(dontDestroy);//메인씬 중복방지용 파괴
+        OnDestroyObjects();
 
-        SceneManager.LoadScene("MainScreen");
+
+    SceneManager.LoadScene("MainScreen");
     }
 
     #endregion
+
+    void OnDestroyObjects()
+    {
+       // Destroy(dontDestroyObject);//메인씬 중복방지용 파괴
+        Destroy(uIManager);//메인씬 중복방지용 파괴
+        Destroy(canvas_1);//메인씬 중복방지용 파괴
+        Destroy(slimeSpawnPoint);//메인씬 중복방지용 파괴
+        Destroy(slimeSpawnManager);//메인씬 중복방지용 파괴
+        Destroy(battleHUDScreen);//메인씬 중복방지용 파괴
+    }
 
 
     // 게임 일시정지 함수
