@@ -48,16 +48,6 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    //게임 타이틀 스크린
-    #region GameTitleScreen
-    public void OnClickTouchButton() //타이틀화면 터치 버튼 누르면
-    {
-
-        Destroy(uIManager);//메인씬 중복방지용 파괴
-        SceneManager.LoadScene("ImplementMainScreen"); //메인씬으로 이동
-    }
-    #endregion
-
     //메인 스크린
     #region MainScreen 
     public void OnClickBattleButton() //배틀 버튼 누르면

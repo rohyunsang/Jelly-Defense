@@ -304,7 +304,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782360440
 GameObject:
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 1782360442}
   - component: {fileID: 1782360441}
   m_Layer: 0
-  m_Name: Main Camera_1
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -424,64 +424,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 23.6, y: -22.946, z: 0.03}
---- !u!114 &3999404586608215440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999404586608215441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0432b8344b2a89949a6c1407168d7221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas_1: {fileID: 7718234852075346967}
-  uIManager: {fileID: 3999404586608215441}
-  dontDestroy: {fileID: 0}
-  stageScreen: {fileID: 0}
-  imageEnemyExplain: {fileID: 0}
-  imageStageStory: {fileID: 0}
-  buttonChaosClosed: {fileID: 0}
-  buttonChaos: {fileID: 0}
-  stageScreenChaos: {fileID: 0}
-  settingScreen: {fileID: 0}
-  settingScreen2: {fileID: 0}
-  battleHUDScreen: {fileID: 0}
-  timeStopPanel: {fileID: 0}
-  slimePickUpScreen: {fileID: 0}
---- !u!1 &3999404586608215441
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3999404586608215443}
-  - component: {fileID: 3999404586608215440}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3999404586608215443
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999404586608215441}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4270757104372023536
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,8 +518,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3999404586608215440}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 7718234852075346968}
+        m_TargetAssemblyTypeName: GameStartScene, Assembly-CSharp
         m_MethodName: OnClickTouchButton
         m_Mode: 1
         m_Arguments:
@@ -4630,7 +4572,7 @@ RectTransform:
   m_Children:
   - {fileID: 4270757104887231860}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4737,10 +4679,23 @@ GameObject:
   - component: {fileID: 7718234852075346962}
   - component: {fileID: 7718234852075346965}
   - component: {fileID: 7718234852075346964}
+  - component: {fileID: 7718234852075346968}
   m_Layer: 5
-  m_Name: Canvas_1
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7718234852075346968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7718234852075346967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec29921455f7af40bf8af2b3a769e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
