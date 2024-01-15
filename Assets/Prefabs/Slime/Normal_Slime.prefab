@@ -258,11 +258,10 @@ MonoBehaviour:
   HP: 10
   damageInterval: 1
   detectionRadius: 10
-  attackDistance: 3
-  attackInterval: 1
-  nextAttackTime: 0
   enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
     type: 3}
+  attackDistance: 3
+  attackInterval: 1
 --- !u!195 &9180176953063321710
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -295,10 +294,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.83
+  m_Radius: 1.88
   m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0.63, y: 0.5, z: 0}
 --- !u!1 &5914846185154948114
 GameObject:
   m_ObjectHideFlags: 0

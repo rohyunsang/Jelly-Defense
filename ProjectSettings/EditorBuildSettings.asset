@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Implement/ImplementTitleScreen.unity
+    path: Assets/Scenes/ImplementTitleScreen.unity
     guid: ebfdd602cc78d464a8660014f4031fc0
   - enabled: 1
-    path: Assets/Scenes/Implement/ImplementMainScreen.unity
+    path: Assets/Scenes/ImplementMainScreen.unity
     guid: 9ff072060f7241243a3a5b01f8b8f316
   - enabled: 1
-    path: Assets/Scenes/Implement/ImplementStageScreen.unity
+    path: Assets/Scenes/ImplementStageScreen.unity
     guid: 333b0bd1e331e5349b7573d097382273
   m_configObjects: {}

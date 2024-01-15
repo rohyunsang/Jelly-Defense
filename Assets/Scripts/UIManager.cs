@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;  // Singleton instance
+
     public  GameObject canvas_1; 
 
     //GameTitleScreen
@@ -13,27 +14,27 @@ public class UIManager : MonoBehaviour
     //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
 
     //메인화면>StageScreen
-    public GameObject stageScreen;//스테이지 프리팹으로 만들예정. 배열사용할것
-    public GameObject imageEnemyExplain;// 적군 설명
-    public GameObject imageStageStory;// 스테이지 번호마다 스토리가 바뀌도록 만들어야 함
-    public GameObject buttonChaosClosed;// 특정 조건을 완료하면 오브젝트 끄기
-    public GameObject buttonChaos;// 카오스 버튼을 누르면 5~8스테이지가 카오스모드로 변해야함
-                                  //>2페이지에만 버튼이 있어야할거같음. 나중에 말하기                                
-    public GameObject stageScreenChaos;//카오스 스크린
-    public GameObject settingScreen;//메인화면 세팅
+    public GameObject stageScreen;  //스테이지 프리팹으로 만들예정. 배열사용할것
+    public GameObject imageEnemyExplain;  // 적군 설명
+    public GameObject imageStageStory;  // 스테이지 번호마다 스토리가 바뀌도록 만들어야 함
+    public GameObject buttonChaosClosed;  // 특정 조건을 완료하면 오브젝트 끄기
+    public GameObject buttonChaos;  // 카오스 버튼을 누르면 5~8스테이지가 카오스모드로 변해야함
+                                    //>2페이지에만 버튼이 있어야할거같음. 나중에 말하기                                
+    public GameObject stageScreenChaos;  //카오스 스크린
+    public GameObject settingScreen;  //메인화면 세팅
 
     //HUD > 환경설정
-    public GameObject settingScreen2;//HUD 세팅
-    public GameObject battleHUDScreen;//HUD 스크린
+    public GameObject settingScreen2;  //HUD 세팅
+    public GameObject battleHUDScreen;  //HUD 스크린
 
-   // public GameObject soundScreen;// 만들어야 함
-    public GameObject timeStopPanel; //시간멈춤확인가능 색 패널
+    // public GameObject soundScreen;  // 만들어야 함
+    public GameObject timeStopPanel;   //시간멈춤확인가능 색 패널
 
     //SlimePickUpScreen
-    public GameObject slimePickUpScreen;//슬라임 선택창
+    public GameObject slimePickUpScreen;  //슬라임 선택창
 
 
-    void Awake()
+    void Awake() // SingleTon
     {
 
         // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
