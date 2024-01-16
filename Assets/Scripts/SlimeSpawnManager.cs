@@ -14,8 +14,8 @@ public class SlimeSpawnManager : MonoBehaviour
     public GameObject[] slimePrefab; //아군 유닛 프리팹
     public Transform spawnPoint; //아군 유닛 스폰 장소 
 
-    public int slimeCost = 1; //아군 유닛 스폰 코스트
-    public int maxJellyPower = 250; //아군 유닛 스폰 코스트
+    public int slimeCost = 300; //아군 유닛 스폰 코스트
+    public int maxJellyPower = 500; //아군 유닛 스폰 코스트
 
     public TMP_Text jellyPowerText; // TextMeshPro Text 오브젝트를 할당할 변수
     public float jellyPower = 0; // 아군 스폰 코스트 총량
@@ -52,28 +52,28 @@ public class SlimeSpawnManager : MonoBehaviour
         SlimeSpawn(SlimeManager.instance.GetSlimePrefabByName(SlimeManager.instance.selectedSlimeName[int.Parse(button.name)]));
         
         // slimeManager.selectedSlimeName 에 접근하여 이름 목록을 가져올 수 있음
-        List<string> slimeNames = SlimeManager.instance.selectedSlimeName;
+        //List<string> slimeNames = SlimeManager.instance.selectedSlimeName;
     }
 
     public void SlimeSpawn(GameObject slimePrefab) // Canvas - Spawn Button 
     {
         // 찾고자 하는 Slime의 Name
-        string desiredSlimeName = slimePrefab.name;
+        string spawnedSlimeName = slimePrefab.name;
 
         // slimes 리스트에서 Name이 일치하는 Slime 항목을 찾음
-        Slime desiredSlime = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == desiredSlimeName);
+        Slime spawnedSlime = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == spawnedSlimeName);
 
-        if (desiredSlime != null)
+        if (spawnedSlime != null)
         {
             // 원하는 Slime을 찾았을 때, 해당 Slime의 정보에 접근할 수 있음
-            slimeCost = desiredSlime.Cost;
+            slimeCost = spawnedSlime.Cost;
 
             Debug.Log("슬라임 코스트:" + slimeCost);
         }
         else
         {
             // 원하는 Slime을 찾지 못한 경우 처리할 내용을 여기에 추가하세요.
-            Debug.LogError("Desired Slime with name " + desiredSlimeName + " not found in the Google Sheet data.");
+            Debug.LogError("Desired Slime with name " + spawnedSlimeName + " not found in the Google Sheet data.");
         }
 
         if (jellyPower >= slimeCost)
@@ -88,5 +88,11 @@ public class SlimeSpawnManager : MonoBehaviour
                 Debug.Log("jellyPower가 부족합니다");
             }
         
+    }
+
+    public void FindSlimeSpawn()
+    {
+        Debug.Log(2);
+        spawnPoint = GameObject.FindWithTag("SlimeCastle").transform;
     }
 }

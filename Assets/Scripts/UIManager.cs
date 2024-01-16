@@ -3,21 +3,30 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+#region SingleTon Pattern
     public static UIManager instance;  // Singleton instance
+    void Awake() // SingleTon
+    {
 
-
+        // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        // Set the instance to this object and make sure it persists between scene loads
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+#endregion
     //DontdisrtoyObject //게임중 Home버튼을 눌러서 메인 씬으로 넘어올때는 파괴해야 함
     // public GameObject dontDestroyObject;
-    public GameObject uIManager;
-    public GameObject slimeSpawnPoint;
-    public GameObject slimeSpawnManager;
-    public GameObject canvas_1; //메인씬용 스크린
-    public GameObject battleHUDScreen;  //HUD 스크린
+
 
     //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
 
     //메인화면>StageScreen
-    public GameObject stageScreen;  //스테이지 프리팹으로 만들예정. 배열사용할것
+    public GameObject stageScreen;  
     public GameObject imageEnemyExplain;  // 적군 설명
     public GameObject imageStageStory;  // 스테이지 번호마다 스토리가 바뀌도록 만들어야 함
     public GameObject buttonChaosClosed;  // 특정 조건을 완료하면 오브젝트 끄기
@@ -36,27 +45,20 @@ public class UIManager : MonoBehaviour
     //SlimePickUpScreen
     public GameObject slimePickUpScreen;  //슬라임 선택창
 
+    [Header("DontDestroy")]
+    public GameObject slimeSpawnManager;
+    public GameObject mainUI; //메인씬용 스크린
+    public GameObject battleHUDScreen;  //HUD 스크린
 
-    void Awake() // SingleTon
-    {
 
-        // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        // Set the instance to this object and make sure it persists between scene loads
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    
 
     //메인 스크린
     #region MainScreen 
     public void OnClickBattleButton() //배틀 버튼 누르면
     {
         stageScreen.SetActive(true); //스테이지 화면 열기
-        ResumeGame();
+        GameManager.Instance.ResumeGame();
     }
 
     #endregion
@@ -130,9 +132,9 @@ public class UIManager : MonoBehaviour
     {
         settingScreen2.SetActive(false);
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
-        canvas_1.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        SceneManager.LoadScene("StageScreen"); //게임 시작씬으로 이동
-        ResumeGame();
+        mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
+        GameManager.Instance.ChangeScene("Stage1"); // 이거 나중에 변수로 #####################
+        GameManager.Instance.ResumeGame();
     }
 
 
@@ -140,7 +142,7 @@ public class UIManager : MonoBehaviour
     #region HUDScreen
     public void OnClickSettingButton2() //설정창 들어가기 버튼
     {
-        PauseGame();
+        GameManager.Instance.PauseGame();
         timeStopPanel.SetActive(true);
         settingScreen2.SetActive(true);
     }
@@ -148,7 +150,7 @@ public class UIManager : MonoBehaviour
     {
         timeStopPanel.SetActive(false);
         settingScreen2.SetActive(false);
-        ResumeGame();
+        GameManager.Instance.ResumeGame();
     }
     #endregion
 
@@ -156,7 +158,7 @@ public class UIManager : MonoBehaviour
     #region SettingScreen
     public void OnClickSettingButton() //설정창 들어가기 버튼
     {
-        PauseGame();
+        GameManager.Instance.PauseGame();
         timeStopPanel.SetActive(true);
         settingScreen.SetActive(true);
     }
@@ -164,7 +166,7 @@ public class UIManager : MonoBehaviour
     {
         timeStopPanel.SetActive(false);
         settingScreen.SetActive(false);
-        ResumeGame();
+        GameManager.Instance.ResumeGame();
     }
 
 
@@ -183,10 +185,10 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickHomeButton()
     {
-        canvas_1.SetActive(true); //메인씬 최상위 캔버스 켜주기
+        mainUI.SetActive(true); //메인씬 최상위 캔버스 켜주기
         OnDestroyObjects();
         SceneManager.LoadScene("MainScreen");
-        ResumeGame();
+        GameManager.Instance.ResumeGame();
     }
 
     #endregion
@@ -194,23 +196,12 @@ public class UIManager : MonoBehaviour
     void OnDestroyObjects()
     {
         // Destroy(dontDestroyObject);//메인씬 중복방지용 파괴
-        Destroy(uIManager);//메인씬 중복방지용 파괴
-        Destroy(canvas_1);//메인씬 중복방지용 파괴
-        Destroy(slimeSpawnPoint);//메인씬 중복방지용 파괴
+        Destroy(mainUI);//메인씬 중복방지용 파괴
         Destroy(slimeSpawnManager);//메인씬 중복방지용 파괴
         Destroy(battleHUDScreen);//메인씬 중복방지용 파괴
     }
 
 
     // 게임 일시정지 함수
-    void PauseGame()
-    {
-        Time.timeScale = 0; // 시간을 멈춤
-    }
-
-    // 게임 재개 함수
-    void ResumeGame()
-    {
-        Time.timeScale = 1; // 시간을 다시 시작
-    }
+    
 }

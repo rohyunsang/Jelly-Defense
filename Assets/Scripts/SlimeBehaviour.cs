@@ -46,8 +46,8 @@ public class SlimeBehaviour : MonoBehaviour
         navAgent.isStopped = false;
 
         //슬라임 수치 가져오기
-        string originalPrefabName = gameObject.name.Replace("(Clone)", "");
-        Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == originalPrefabName);
+        string slimePrefabName = gameObject.name.Replace("(Clone)", "");
+        Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
 
         if (slimeData != null)
         {
@@ -59,8 +59,10 @@ public class SlimeBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Slime data not found for " + originalPrefabName);
+            Debug.LogError("Slime data not found for " + slimePrefabName);
         }
+
+        enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
     }
     
     private void Start()
