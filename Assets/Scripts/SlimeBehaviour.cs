@@ -1,11 +1,11 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SlimeBehaviour : MonoBehaviour
 {
     //체력, 피격,방어력(예정)
-    public int HP = 10; //유닛 체력
     public float damageInterval = 1f; // 데미지를 받을 주기
     private float nextDamageTime; //다음 데미지를 받을 타이밍
     bool isDead = false;
@@ -26,12 +26,41 @@ public class SlimeBehaviour : MonoBehaviour
     private Animator animator;
     private NavMeshAgent navAgent;
 
+
+
+    // Slime 정보를 저장할 변수들
+    public Slime slimeData; // Slime 스크립트를 연결할 변수
+    //public int slimeCost; // Slime의 코스트
+   // public int slimeHP; // Slime의 HP
+    public int HP = 10; //유닛 체력
+    public int slimeAttack; // Slime의 공격력
+    public int slimeDefense; // Slime의 방어력
+    public float slimeAttackSpeed; // Slime의 공격 속도
+
+
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         navAgent.enabled = true;
         navAgent.isStopped = false;
+
+        //슬라임 수치 가져오기
+        string originalPrefabName = gameObject.name.Replace("(Clone)", "");
+        Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == originalPrefabName);
+
+        if (slimeData != null)
+        {
+            //slimeCost = slimeData.Cost;
+            HP = slimeData.HP;
+            slimeAttack = slimeData.Attack;
+            slimeDefense = slimeData.Defense;
+            slimeAttackSpeed = slimeData.AttackSpeed;
+        }
+        else
+        {
+            Debug.LogError("Slime data not found for " + originalPrefabName);
+        }
     }
     
     private void Start()
@@ -99,6 +128,10 @@ public class SlimeBehaviour : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+    }
+
     void SearchEnemyInDetection() //범위 스캔
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지, 배열 저장
@@ -151,14 +184,10 @@ public class SlimeBehaviour : MonoBehaviour
     }
    
     void SlimeCollision(Collider other)
-    {/*
-        if (other.gameObject.CompareTag("EnemyCastle") && Time.time >= nextDamageTime) 
-        {
-            nextDamageTime = Time.time + damageInterval;
-        }*/
+    {
         if ((other.gameObject.CompareTag("Enemy")) && Time.time >= nextDamageTime)//다음 데미지타임일때만
         {
-            GetHit(1); //체력 감소
+            GetHit(10); //체력 감소
             nextDamageTime = Time.time + damageInterval; //다음데미지 시간 누적초기화
         }
     }

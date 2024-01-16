@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.TextCore.Text;
@@ -64,6 +65,19 @@ public class GoogleSheetManager : MonoBehaviour
                 };
                 slimes.Add(slime);
             }
+        }
+    }
+    public int GetCostByName(string name)
+    {
+        Slime slimeData = slimes.FirstOrDefault(slime => slime.Name == name);
+        if (slimeData != null)
+        {
+            return slimeData.Cost;
+        }
+        else
+        {
+            // 해당 이름의 Slime을 찾지 못한 경우, 원하는 처리를 추가하세요.
+            return -1; // 예를 들어 오류 처리 등을 할 수 있습니다.
         }
     }
 }

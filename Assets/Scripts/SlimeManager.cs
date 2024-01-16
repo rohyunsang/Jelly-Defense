@@ -58,6 +58,7 @@ public class SlimeManager : MonoBehaviour
     }
     public GameObject GetSlimePrefabByName(string name)
     {
+        //반환하라 슬라임 프리팹의 이름이 같은
         return slimePrefabs.FirstOrDefault(slime => slime.name == name);
     }
     public void UpdateSlime()
@@ -108,7 +109,6 @@ public class SlimeManager : MonoBehaviour
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);
             SlimeButtons[i].transform.Find("CostText").GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
 
-            
         }
     }
 }
