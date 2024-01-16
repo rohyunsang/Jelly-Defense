@@ -27,18 +27,39 @@ public class SlimeSpawn : MonoBehaviour
     {
         jellyPower += Time.deltaTime; //시간 증가시 젤리력 증가
     }
-
-
-    public void SpawnSlimePrefab0() // Canvas - Spwan Button
+    
+    public void SpawnSlimePrefab0() // Canvas - Spawn Button
     {
-        SlimesSpawn(slimePrefab[0]);
+        SlimesSpawn(slimePrefab[SlimeManager.Instance.index0]);
+        Debug.Log("인덱스: " + SlimeManager.Instance.index0); // "인덱스: "와 함께 index 값을 출력
     }
     public void SpawnSlimePrefab1() // Canvas - Spwan Button
     {
-        SlimesSpawn(slimePrefab[1]);
+        SlimesSpawn(slimePrefab[SlimeManager.Instance.index1]);
+        Debug.Log("인덱스: " + SlimeManager.Instance.index1); // "인덱스: "와 함께 index 값을 출력
     }
-
-
+    public void SpawnSlimePrefab2() // Canvas - Spwan Button
+    {
+        SlimesSpawn(slimePrefab[SlimeManager.Instance.index2]);
+        Debug.Log("인덱스: " + SlimeManager.Instance.index2); // "인덱스: "와 함께 index 값을 출력
+    }
+    public void SpawnSlimePrefab3() // Canvas - Spwan Button
+    {
+        SlimesSpawn(slimePrefab[SlimeManager.Instance.index3]);
+        Debug.Log("인덱스: " + SlimeManager.Instance.index3); // "인덱스: "와 함께 index 값을 출력
+    }
+    public void SpawnSlimePrefab4() // Canvas - Spwan Button
+    {
+        SlimesSpawn(slimePrefab[SlimeManager.Instance.index4]);
+        Debug.Log("인덱스: " + SlimeManager.Instance.index4); // "인덱스: "와 함께 index 값을 출력
+    }
+    
+    /*
+    public void SpawnSlimePrefab(int index) // Canvas - Spawn Button
+    {
+        SlimesSpawn(slimePrefab[index]);
+        Debug.Log("인덱스: " + index); // "인덱스: "와 함께 index 값을 출력
+    }*/
     public void SlimesSpawn(GameObject slimePrefab) // Canvas - Spawn Button 
     {
         if (jellyPower >= slimeCost)

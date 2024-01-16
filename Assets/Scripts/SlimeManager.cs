@@ -39,6 +39,12 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeSlots;
     public GameObject[] SlimeButtons;
 
+    public int index0;
+    public int index1;
+    public int index2;
+    public int index3;
+    public int index4;
+
     private void Start()
     {
         InitializeDefaultSlimes();
@@ -103,6 +109,30 @@ public class SlimeManager : MonoBehaviour
             //Cost Search using Linq
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);
             SlimeButtons[i].transform.Find("CostText").GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
+
+            if (i == 0)
+            {
+                index0 = slimeData.Index - 1;
+            }
+            if (i == 1)
+            {
+                index1 = slimeData.Index - 1;
+            }
+            if (i == 2)
+            {
+                index2 = slimeData.Index - 1;
+            }
+            if (i == 3)
+            {
+                index3 = slimeData.Index - 1;
+            }
+            if (i == 4)
+            {
+                index4 = slimeData.Index - 1;
+            }
+
+
+
         }
     }
 }
