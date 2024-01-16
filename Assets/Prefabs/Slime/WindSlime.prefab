@@ -319,6 +319,7 @@ GameObject:
   - component: {fileID: 8683777047420863782}
   - component: {fileID: 5491213408592089596}
   - component: {fileID: 917695773893453897}
+  - component: {fileID: 4782867505155741330}
   m_Layer: 0
   m_Name: WindSlime
   m_TagString: Untagged
@@ -400,13 +401,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
   damageInterval: 1
   detectionRadius: 10
   enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
     type: 3}
   attackDistance: 3
   attackInterval: 1
+  slimeData:
+    Index: 0
+    Name: 
+    Grade: 0
+    Type: 0
+    HP: 0
+    Attack: 0
+    Defense: 0
+    AttackSpeed: 0
+    Speed: 0
+    Range: 
+    Cost: 0
+    Target: 0
+  HP: 10
+  slimeAttack: 0
+  slimeDefense: 0
+  slimeAttackSpeed: 0
+--- !u!136 &4782867505155741330
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047353778485532264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.88
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0.63, y: 0.5, z: 0}
 --- !u!1 &8190978313250362499
 GameObject:
   m_ObjectHideFlags: 0
