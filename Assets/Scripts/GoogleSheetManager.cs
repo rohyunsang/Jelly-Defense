@@ -6,13 +6,30 @@ using UnityEngine.TextCore.Text;
 
 public class GoogleSheetManager : MonoBehaviour
 {
+#region SingleTon Pattern
+    public static GoogleSheetManager Instance { get; private set; }
+    private void Awake()
+    {
+        // If an instance already exists and it's not this one, destroy this one
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        // Set this as the instance and ensure it persists across scenes
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
+        // Initialize other components or variables if needed
+    }
+#endregion  
+
     // 링크 뒤 export ~ 부분을 빼고 export?format=tsv 추가하기
     const string URL = "https://docs.google.com/spreadsheets/d/1ThIRLXCaoj25XtKjm6mFWOKnF3pqoViRYx8E-IXKGBM/export?format=tsv";
     
     [SerializeField]
-    public List<Character> characters = new List<Character>();
-
-
+    public List<Slime> slimes = new List<Slime>();
     IEnumerator Start()
     {
         UnityWebRequest www = UnityWebRequest.Get(URL);
@@ -30,7 +47,7 @@ public class GoogleSheetManager : MonoBehaviour
             string[] fields = lines[i].Split('\t');
             if (fields.Length >= 12) // 필드가 충분한지 확인
             {
-                Character character = new Character()
+                Slime slime = new Slime()
                 {
                     Index = int.Parse(fields[0]),
                     Name = fields[1],
@@ -45,13 +62,13 @@ public class GoogleSheetManager : MonoBehaviour
                     Cost = int.Parse(fields[10]),
                     Target = int.Parse(fields[11])
                 };
-                characters.Add(character);
+                slimes.Add(slime);
             }
         }
     }
 }
 [System.Serializable]
-public class Character
+public class Slime
 {
     public int Index;
     public string Name;

@@ -11,7 +11,6 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler,IDragHandler, IEndDr
     private RectTransform rect; //UI위치 제어를 위한 렉트트랜스폼
     private CanvasGroup canvasGroup;//UI알파값, 상호작용 제어를 위한 캔버스 그룹
 
-
     private void Awake()
     {
         canvas = FindObjectOfType<Canvas>().transform;

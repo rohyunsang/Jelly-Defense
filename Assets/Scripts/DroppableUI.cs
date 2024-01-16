@@ -39,10 +39,16 @@ public class DroppableUI : MonoBehaviour, IPointerEnterHandler, IDropHandler, IP
         /// 마우스 포인터가 현재 아이템 슬롯 영역 내부에서 드롭했을 때 1회 호출
         /// </summary>
     public void OnDrop(PointerEventData eventData)
-{
-    // Check if this object already has any children
-    if (transform.childCount == 0 && eventData.pointerDrag != null)
     {
+        // 예외 처리 
+        GameObject draggedObject = eventData.pointerDrag;
+        if (draggedObject != null && draggedObject.tag != "Icon") return;
+
+
+
+        // Check if this object already has any children
+        if (transform.childCount == 0 && eventData.pointerDrag != null)
+        {
         eventData.pointerDrag.transform.SetParent(transform);
 
         RectTransform droppedRectTransform = eventData.pointerDrag.GetComponent<RectTransform>();
@@ -57,8 +63,8 @@ public class DroppableUI : MonoBehaviour, IPointerEnterHandler, IDropHandler, IP
 
         // Optionally, you can also reset the localScale if needed
         droppedRectTransform.localScale = Vector3.one;  // Resetting scale to default (1,1,1)
+        }
     }
-}
 
 
 }
