@@ -95,7 +95,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e9a26127a143ead48b36232fc8f89663, type: 2}
+      objectReference: {fileID: 2100000, guid: 11ae5fb0c59cd504095fac902da6976c, type: 2}
     - target: {fileID: 3649748197133664990, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_IsActive
@@ -221,25 +221,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5012492783278255559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010575189096524394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 10
-  damageInterval: 1
-  detectionRadius: 10
-  enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
-    type: 3}
-  attackDistance: 3
-  attackInterval: 1
 --- !u!195 &-4232087669487641536
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -262,3 +243,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5012492783278255559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010575189096524394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 10
+  damageInterval: 1
+  detectionRadius: 10
+  enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
+    type: 3}
+  attackDistance: 3
+  attackInterval: 1

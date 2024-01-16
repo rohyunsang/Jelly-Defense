@@ -10,18 +10,18 @@ using TMPro;
 public class SlimeManager : MonoBehaviour
 {
     #region SingleTon Pattern
-    public static SlimeManager Instance { get; private set; }
+    public static SlimeManager instance { get; private set; }
     private void Awake()
     {
         // If an instance already exists and it's not this one, destroy this one
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
             return;
         }
 
         // Set this as the instance and ensure it persists across scenes
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(this.gameObject);
 
         // Initialize other components or variables if needed
@@ -39,11 +39,6 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeSlots;
     public GameObject[] SlimeButtons;
 
-    public int index0;
-    public int index1;
-    public int index2;
-    public int index3;
-    public int index4;
 
     private void Start()
     {
@@ -61,7 +56,10 @@ public class SlimeManager : MonoBehaviour
             // For example, setting up UI elements or adding event listeners
         }
     }
-
+    public GameObject GetSlimePrefabByName(string name)
+    {
+        return slimePrefabs.FirstOrDefault(slime => slime.name == name);
+    }
     public void UpdateSlime()
     {
         // Add Slime ICon Prefab
@@ -110,29 +108,7 @@ public class SlimeManager : MonoBehaviour
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);
             SlimeButtons[i].transform.Find("CostText").GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
 
-            if (i == 0)
-            {
-                index0 = slimeData.Index - 1;
-            }
-            if (i == 1)
-            {
-                index1 = slimeData.Index - 1;
-            }
-            if (i == 2)
-            {
-                index2 = slimeData.Index - 1;
-            }
-            if (i == 3)
-            {
-                index3 = slimeData.Index - 1;
-            }
-            if (i == 4)
-            {
-                index4 = slimeData.Index - 1;
-            }
-
-
-
+            
         }
     }
 }
