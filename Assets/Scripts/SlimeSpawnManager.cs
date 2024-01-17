@@ -22,6 +22,7 @@ public class SlimeSpawnManager : MonoBehaviour
 
     void Awake()
     {
+        jellyPower = 0;//젤리력 초기화
 
         // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
         if (instance != null && instance != this)

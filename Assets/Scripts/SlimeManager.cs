@@ -23,8 +23,6 @@ public class SlimeManager : MonoBehaviour
         // Set this as the instance and ensure it persists across scenes
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-
-        // Initialize other components or variables if needed
     }
     #endregion
 
@@ -39,11 +37,15 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeSlots;
     public GameObject[] SlimeButtons;
 
+//슬라임 슬롯 이름을 저장하고 나중에 다시 연결시키기 위함
+  //  private string[] SlimeSlotNames; 
+    //private string[] SlimeButtonNames;
 
     private void Start()
     {
         InitializeDefaultSlimes();
         SpawnSlimeIcon();
+    //    ReconnectPrefabs(); //빈 프리팹 부분 다시 연결해주기
     }
     public void SpawnSlimeIcon()
     {
@@ -111,4 +113,54 @@ public class SlimeManager : MonoBehaviour
 
         }
     }
+
+    /*
+    public void SavePrefabNames() //스테이지 - 설정 - 홈버튼을 누르면 실행
+    {
+        SlimeSlotNames = new string[SlimeSlots.Length];
+        SlimeButtonNames = new string[SlimeButtons.Length];
+
+        for (int i = 0; i < SlimeSlots.Length; i++)
+        {
+            SlimeSlotNames[i] = SlimeSlots[i].name;
+        }
+
+        for (int i = 0; i < SlimeButtons.Length; i++)
+        {
+            SlimeButtonNames[i] = SlimeButtons[i].name;
+        }
+    }
+
+    void ReconnectPrefabs()// 다시 프리팹을 연결하는 함수
+    {
+        SlimeSlots = new GameObject[SlimeSlotNames.Length];
+        SlimeButtons = new GameObject[SlimeButtonNames.Length];
+
+        for (int i = 0; i < SlimeSlotNames.Length; i++)
+        {
+            GameObject foundSlot = GameObject.Find(SlimeSlotNames[i]);
+            if (foundSlot != null)
+            {
+                SlimeSlots[i] = foundSlot;
+            }
+            else
+            {
+                Debug.LogError("Slot not found: " + SlimeSlotNames[i]);
+            }
+        }
+
+        for (int i = 0; i < SlimeButtonNames.Length; i++)
+        {
+            GameObject foundButton = GameObject.Find(SlimeButtonNames[i]);
+            if (foundButton != null)
+            {
+                SlimeButtons[i] = foundButton;
+            }
+            else
+            {
+                Debug.LogError("Button not found: " + SlimeButtonNames[i]);
+            }
+        }
+    }*/
+
 }
