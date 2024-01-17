@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,10 +19,11 @@ public class UIManager : MonoBehaviour
         // Set the instance to this object and make sure it persists between scene loads
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        slimeSpawnManager.SetActive(false);  
+        // ResizeUI();//기기마다 사이즈 설정 바꿔줌//StageScreen 등
     }
-#endregion
-    //DontdisrtoyObject //게임중 Home버튼을 눌러서 메인 씬으로 넘어올때는 파괴해야 함
-    // public GameObject dontDestroyObject;
+    #endregion
 
 
     //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
@@ -49,9 +52,12 @@ public class UIManager : MonoBehaviour
     public GameObject slimeSpawnManager;
     public GameObject mainUI; //메인씬용 스크린
     public GameObject battleHUDScreen;  //HUD 스크린
+    public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
+    public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
 
+    //캔버스 사이즈가 달라질 때 마다 크기 조정. StageScreen 등
+    //public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
 
-    
 
     //메인 스크린
     #region MainScreen 
@@ -116,7 +122,29 @@ public class UIManager : MonoBehaviour
     {
         slimePickUpScreen.SetActive(true); //픽업화면 열기
     }
+    /* //TestResizeUI 스크립트를 UIManager에 합치기만 하면 문제가 발생해서 꺼둠
+    void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
+    {
 
+        // mainUI 게임 오브젝트의 RectTransform 컴포넌트를 가져옵니다.
+        RectTransform canvasRectTransform = mainUI.GetComponent<RectTransform>();
+        // 캔버스의 현재 크기를 가져옵니다.
+        Vector2 canvasSize = canvasRectTransform.sizeDelta;
+
+        // stagePages 배열의 각 UI 요소의 크기를 캔버스 크기에 맞춥니다.
+        foreach (RectTransform page in stagePages)
+        {
+            if (page != null)
+            {
+                page.sizeDelta = new Vector2(canvasSize.x, canvasSize.y);
+            }
+            else
+            {
+                Debug.LogError("RectTransform is null in stagePages array");
+            }
+        }
+    }
+    */
     #endregion
 
 
@@ -131,9 +159,10 @@ public class UIManager : MonoBehaviour
     public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
     {
         settingScreen2.SetActive(false);
+        slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
         mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        GameManager.Instance.ChangeScene("Stage1"); // 이거 나중에 변수로 #####################
+        GameManager.Instance.ChangeScene("Stage1"); // 이거 나중에 변수로 ##################### 씬 체인지
         GameManager.Instance.ResumeGame();
     }
 
@@ -186,22 +215,25 @@ public class UIManager : MonoBehaviour
     public void OnClickHomeButton()
     {
         mainUI.SetActive(true); //메인씬 최상위 캔버스 켜주기
+     //   SlimeManager.instance.SavePrefabNames();
         OnDestroyObjects();
         SceneManager.LoadScene("MainScreen");
-        GameManager.Instance.ResumeGame();
+        GameManager.Instance.ResumeGame(); //시간 흐름 되돌리기
+        SlimeSpawnManager.instance.jellyPower = 0; //젤리력 초기화
+
+        //SlimeManager.instance.selectedSlimeName.Clear(); //데려갔던 슬라임 리스트 초기화
     }
 
     #endregion
 
     void OnDestroyObjects()
     {
-        // Destroy(dontDestroyObject);//메인씬 중복방지용 파괴
+        //스스로를 파괴하지 않으면 UI연결이 끊기는 문제 발생
         Destroy(mainUI);//메인씬 중복방지용 파괴
         Destroy(slimeSpawnManager);//메인씬 중복방지용 파괴
         Destroy(battleHUDScreen);//메인씬 중복방지용 파괴
+        Destroy(uIManager); //전체연결 없어짐 방지
+        Destroy(slimeManager);//슬라임 컨텐트 ~ 버튼 연결 없어짐 방지
+
     }
-
-
-    // 게임 일시정지 함수
-    
 }
