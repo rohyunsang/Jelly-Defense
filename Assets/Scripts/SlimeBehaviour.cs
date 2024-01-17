@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class SlimeBehaviour : MonoBehaviour
 {
-    //체력, 피격,방어력(예정)
+    //피격(아직 테스팅용)
     public float damageInterval = 1f; // 데미지를 받을 주기
     private float nextDamageTime; //다음 데미지를 받을 타이밍
     bool isDead = false;
@@ -31,8 +31,7 @@ public class SlimeBehaviour : MonoBehaviour
     // Slime 정보를 저장할 변수들
     public Slime slimeData; // Slime 스크립트를 연결할 변수
     //public int slimeCost; // Slime의 코스트
-   // public int slimeHP; // Slime의 HP
-    public int HP = 10; //유닛 체력
+    public int slimeHP = 10; //유닛 체력
     public int slimeAttack; // Slime의 공격력
     public int slimeDefense; // Slime의 방어력
     public float slimeAttackSpeed; // Slime의 공격 속도
@@ -52,7 +51,7 @@ public class SlimeBehaviour : MonoBehaviour
         if (slimeData != null)
         {
             //slimeCost = slimeData.Cost;
-            HP = slimeData.HP;
+            slimeHP = slimeData.HP;
             slimeAttack = slimeData.Attack;
             slimeDefense = slimeData.Defense;
             slimeAttackSpeed = slimeData.AttackSpeed;
@@ -128,10 +127,6 @@ public class SlimeBehaviour : MonoBehaviour
                 animator.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
             }
         }
-    }
-
-    private void FixedUpdate()
-    {
     }
 
     void SearchEnemyInDetection() //범위 스캔
@@ -213,10 +208,10 @@ public class SlimeBehaviour : MonoBehaviour
     }
     void GetHit(int damage) //데미지를 받음
     {
-        HP -= damage; //받을 데미지량만큼 감소
-        Debug.Log("Slime HP : " + HP); //콘솔창에 출력
+        slimeHP -= damage; //받을 데미지량만큼 감소
+        Debug.Log("Slime HP : " + slimeHP); //콘솔창에 출력
 
-        if (HP <= 0)
+        if (slimeHP <= 0)
         {
             isDead = true; //슬라임은 죽음
             StopNavAgent();  //네비 멈추기
