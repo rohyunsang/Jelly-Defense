@@ -16,15 +16,33 @@ public class SwipeController : MonoBehaviour
     [SerializeField] float tweenTime; // 애니메이션 시간 (초)
     [SerializeField] AnimationCurve tweenCurve; // 애니메이션 곡선 (옵션)
 
+
     private void Awake()
     {
-        currentPage = 1; 
+        currentPage = 1;
         targetPos = levelPageRect.localPosition;
     }
 
+    private void Start()
+    {
+    }
+
+    void Pagestep()
+    {
+        // 자신의 RectTransform 컴포넌트를 가져옵니다.
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
+        // 가로값을 가져옵니다.
+        float width = rectTransform.rect.width;
+        // Debug.Log("Width: " + width); // 가로값을 로그에 출력합니다.
+
+        pagestep.x = -width;
+
+    }
+
     public void OnClickNextButton() // 버튼을 통한 우측으로 스와이프 애니메이션 실행
-    {// ImpleementMainScreen씬 > Canvas_1 > StageScreen/_Chaos > Scroll View > Button_Next
-       
+    {
+        Pagestep();
         if (currentPage < maxPage)
         {
             currentPage++;
@@ -34,7 +52,10 @@ public class SwipeController : MonoBehaviour
     }
 
     public void OnClickPreviousButton() //버튼을 통한 좌측으로 스와이프 애니메이션 실행
-    {// ImpleementMainScreen씬 > Canvas_1 > StageScreen/_Chaos > Scroll View > Button_Prev
+    {
+        Pagestep();
+
+        // ImpleementMainScreen씬 > Canvas_1 > StageScreen/_Chaos > Scroll View > Button_Prev
         if (currentPage > 1)
         {
             currentPage--;
@@ -49,7 +70,7 @@ public class SwipeController : MonoBehaviour
         StartCoroutine(MovePageCoroutine());
     }
 
-    IEnumerator MovePageCoroutine() 
+    IEnumerator MovePageCoroutine()
     {
         Vector3 startPos = levelPageRect.localPosition;
         float elapsedTime = 0f;

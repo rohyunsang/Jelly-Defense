@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         slimeSpawnManager.SetActive(false);  
-        // ResizeUI();//기기마다 사이즈 설정 바꿔줌//StageScreen 등
     }
     #endregion
 
@@ -56,9 +55,13 @@ public class UIManager : MonoBehaviour
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
 
     //캔버스 사이즈가 달라질 때 마다 크기 조정. StageScreen 등
-    //public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
+    public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
 
+    private void Start()
+    {
 
+           ResizeUI();//기기마다 사이즈 설정 바꿔줌//StageScreen 등
+    }
     //메인 스크린
     #region MainScreen 
     public void OnClickBattleButton() //배틀 버튼 누르면
@@ -122,14 +125,12 @@ public class UIManager : MonoBehaviour
     {
         slimePickUpScreen.SetActive(true); //픽업화면 열기
     }
-    /* //TestResizeUI 스크립트를 UIManager에 합치기만 하면 문제가 발생해서 꺼둠
-    void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
-    {
 
-        // mainUI 게임 오브젝트의 RectTransform 컴포넌트를 가져옵니다.
-        RectTransform canvasRectTransform = mainUI.GetComponent<RectTransform>();
-        // 캔버스의 현재 크기를 가져옵니다.
-        Vector2 canvasSize = canvasRectTransform.sizeDelta;
+    public void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
+    {
+        // mainUI 게임 오브젝트의 RectTransform 컴포넌트의 현재 크기를 가져옵니다.
+        RectTransform mainUIRectTransform = mainUI.GetComponent<RectTransform>();
+        Vector2 canvasSize = mainUIRectTransform.sizeDelta;
 
         // stagePages 배열의 각 UI 요소의 크기를 캔버스 크기에 맞춥니다.
         foreach (RectTransform page in stagePages)
@@ -144,7 +145,8 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    */
+
+    
     #endregion
 
 
