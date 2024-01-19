@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    //사용중인 게임오브젝트들
+    #region GameObject
 
     //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
     public GameObject shopScreen; //상점스크린
@@ -60,14 +62,16 @@ public class UIManager : MonoBehaviour
     public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
 
+    #endregion
+
     //캔버스 사이즈가 달라질 때 마다 크기 조정. StageScreen 등
     public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
 
     private void Start()
     {
-
            ResizeUI();//기기마다 사이즈 설정 바꿔줌//StageScreen 등
     }
+
     //메인 스크린
     #region MainScreen 
 
@@ -82,7 +86,6 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
-
 
     //상점 스크린
     #region ShopScreen 
@@ -170,12 +173,6 @@ public class UIManager : MonoBehaviour
     
     #endregion
 
-    //Almost Screens Back_Btn
-    public void OnClickBackButton() //뒤로가기 버튼을 누르면
-    {
-        shopScreen.SetActive(false);//샵화면 닫기
-        stageScreen.SetActive(false); //스테이지 화면 닫기
-    }
     //픽업 스크린
     #region PickUpScreen
 
@@ -270,6 +267,9 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+
+    //여러 버튼에서 사용되는 경우
+    #region Used in multiple buttons
     void OnDestroyObjects()
     {
         //스스로를 파괴하지 않으면 UI연결이 끊기는 문제 발생
@@ -280,6 +280,14 @@ public class UIManager : MonoBehaviour
         Destroy(slimeManager);//슬라임 컨텐트 ~ 버튼 연결 없어짐 방지
 
     }
+
+    //Almost Screens Back_Btn
+    public void OnClickBackButton() //뒤로가기 버튼을 누르면
+    {
+        shopScreen.SetActive(false);//샵화면 닫기
+        stageScreen.SetActive(false); //스테이지 화면 닫기
+    }
+
     public void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
     {
         // mainUI 게임 오브젝트의 RectTransform 컴포넌트의 현재 크기를 가져옵니다.
@@ -299,4 +307,5 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    #endregion
 }

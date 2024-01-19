@@ -47,6 +47,7 @@ public class SlimeManager : MonoBehaviour
         SpawnSlimeIcon();
         ReconnectPrefabs(); //빈 프리팹 부분 다시 연결해주기
     }
+
     public void SpawnSlimeIcon()
     {
         foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
