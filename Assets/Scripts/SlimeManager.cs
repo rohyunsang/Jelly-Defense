@@ -38,14 +38,14 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeButtons;
 
 //슬라임 슬롯 이름을 저장하고 나중에 다시 연결시키기 위함
-  //  private string[] SlimeSlotNames; 
-    //private string[] SlimeButtonNames;
+    private string[] SlimeSlotNames; 
+    private string[] SlimeButtonNames;
 
     private void Start()
     {
         InitializeDefaultSlimes();
         SpawnSlimeIcon();
-    //    ReconnectPrefabs(); //빈 프리팹 부분 다시 연결해주기
+        ReconnectPrefabs(); //빈 프리팹 부분 다시 연결해주기
     }
     public void SpawnSlimeIcon()
     {
@@ -93,7 +93,9 @@ public class SlimeManager : MonoBehaviour
             // 자식 오브젝트가 있고, 아직 selectedSlimeName 리스트에 추가되지 않았다면 추가
             if (child != null && !selectedSlimeName.Contains(child.name))
             {
-                selectedSlimeName.Add(child.name);
+                //selectedSlimeName.Add(child.name);
+                selectedSlimeName.Add(child.name.Replace("(Clone)", "")); //프리팹 수정 후 추가되는 이름 Clone 삭제
+
             }
         }
     }
@@ -102,10 +104,19 @@ public class SlimeManager : MonoBehaviour
     {
         
         for (int i = 0; i < SlimeButtons.Length; i++)
-        {
-            // 선택된 슬라임 이름에 해당하는 아이콘 프리팹 찾기
+        {/*
+            // 선택된 슬라임 이름에 해당하는 아이콘 프리팹 찾기 
             Image iconImage = slimeIconPrefabs.FirstOrDefault(prefab => prefab.name == selectedSlimeName[i]).transform.Find(selectedSlimeName[i]).GetComponent<Image>();
-            SlimeButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = iconImage.sprite;
+            SlimeButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = iconImage.sprite;*/
+
+            // 선택된 슬라임 이름에 해당하는 아이콘 프리팹 찾기>>프리팹 수정으로 인하여 자식오브젝트의 이미지컴포넌트 이미지를 가져와야 함
+            Image iconImage = slimeIconPrefabs.FirstOrDefault(prefab => prefab.name == selectedSlimeName[i]).transform.Find(selectedSlimeName[i]).GetComponent <Image>();
+
+            // SlimeButtons[i]의 자식 오브젝트 "Icon"의 이미지 컴포넌트 가져오기
+            Image slimeButtonIconImage = SlimeButtons[i].transform.Find("Icon").GetComponent<Image>();
+
+            // SlimeButtons[i]의 "Icon" 이미지 컴포넌트에 아이콘 이미지 설정
+            slimeButtonIconImage.sprite = iconImage.sprite;
 
             //Cost Search using Linq
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);
@@ -114,7 +125,7 @@ public class SlimeManager : MonoBehaviour
         }
     }
 
-    /*
+    
     public void SavePrefabNames() //스테이지 - 설정 - 홈버튼을 누르면 실행
     {
         SlimeSlotNames = new string[SlimeSlots.Length];
@@ -161,6 +172,6 @@ public class SlimeManager : MonoBehaviour
                 Debug.LogError("Button not found: " + SlimeButtonNames[i]);
             }
         }
-    }*/
+    }
 
 }

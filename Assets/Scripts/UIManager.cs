@@ -26,11 +26,16 @@ public class UIManager : MonoBehaviour
 
 
     //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
+    public GameObject shopScreen; //상점스크린
+    public GameObject limitedSalePanel; //한정판매
+    public GameObject adsshopPanel; //광고상점
+    public GameObject wealthStorePanel; //재화상점
 
     //메인화면>StageScreen
     public GameObject stageScreen;  
     public GameObject imageEnemyExplain;  // 적군 설명
     public GameObject imageStageStory;  // 스테이지 번호마다 스토리가 바뀌도록 만들어야 함
+    public GameObject storyClose_Btn;  // 스테이지 스토리를 끄기 위한 패널버튼
     public GameObject buttonChaosClosed;  // 특정 조건을 완료하면 오브젝트 끄기
     public GameObject buttonChaos;  // 카오스 버튼을 누르면 5~8스테이지가 카오스모드로 변해야함
                                     //>2페이지에만 버튼이 있어야할거같음. 나중에 말하기                                
@@ -50,6 +55,7 @@ public class UIManager : MonoBehaviour
     [Header("DontDestroy")]
     public GameObject slimeSpawnManager;
     public GameObject mainUI; //메인씬용 스크린
+   // public GameObject currencyIndicator; //메인씬 재화표시. 상점에서도 동일한 사용
     public GameObject battleHUDScreen;  //HUD 스크린
     public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
@@ -64,6 +70,11 @@ public class UIManager : MonoBehaviour
     }
     //메인 스크린
     #region MainScreen 
+
+    public void OnClickShopButton() //ShopScreen Open
+    {
+        shopScreen.SetActive(true); //
+    }
     public void OnClickBattleButton() //배틀 버튼 누르면
     {
         stageScreen.SetActive(true); //스테이지 화면 열기
@@ -72,12 +83,38 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+
+    //상점 스크린
+    #region ShopScreen 
+    public void OnClickLimitedSaleButton()
+    {
+        limitedSalePanel.SetActive(true);
+        adsshopPanel.SetActive(false);
+        wealthStorePanel.SetActive(false);
+    }
+    public void OnClickAdsshopButton()
+    {
+        limitedSalePanel.SetActive(false);
+        adsshopPanel.SetActive(true);
+        wealthStorePanel.SetActive(false);
+    }
+    public void OnClickWealthStoreButton()
+    {
+        limitedSalePanel.SetActive(false);
+        adsshopPanel.SetActive(false);
+        wealthStorePanel.SetActive(true);
+    }
+
+
+
+    #endregion
+
     //스테이지 스크린
     #region StageScreen 
+    /*
     public void OnClickStageScreenExitButton() //스테이지 나가기 버튼 누르면
     {
-        stageScreen.SetActive(false); //스테이지 화면 닫기
-    }
+    }*/
 
     private void ButtonChaosButton() //조건성립시
     {
@@ -104,13 +141,16 @@ public class UIManager : MonoBehaviour
         stageScreenChaos.SetActive(false);//스테이지 화면 닫기
     }
 
-    public void OnClickStageButton() //스테이지를 터치하면 
-    {
+    public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
+    { //시간을 멈춰도 배경이 스크롤링되어서 해당 문제를 없앨방법 찾아보기
         imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
+        storyClose_Btn.SetActive(true);
     }
-    public void OnClickImageStageStoryButton() //스테이지를 터치하면 
+    public void OnClickStoryCloseButton() //스테이지를 터치하면 
     {
         imageStageStory.SetActive(false); //해당 스테이지의 스토리가 사라짐
+        storyClose_Btn.SetActive(false);
+        imageEnemyExplain.SetActive(false); //적군설명 닫기
     }
     public void OnClickButtonEnemy() //적군을 터치하면
     {
@@ -126,48 +166,50 @@ public class UIManager : MonoBehaviour
         slimePickUpScreen.SetActive(true); //픽업화면 열기
     }
 
-    public void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
-    {
-        // mainUI 게임 오브젝트의 RectTransform 컴포넌트의 현재 크기를 가져옵니다.
-        RectTransform mainUIRectTransform = mainUI.GetComponent<RectTransform>();
-        Vector2 canvasSize = mainUIRectTransform.sizeDelta;
-
-        // stagePages 배열의 각 UI 요소의 크기를 캔버스 크기에 맞춥니다.
-        foreach (RectTransform page in stagePages)
-        {
-            if (page != null)
-            {
-                page.sizeDelta = new Vector2(canvasSize.x, canvasSize.y);
-            }
-            else
-            {
-                Debug.LogError("RectTransform is null in stagePages array");
-            }
-        }
-    }
 
     
     #endregion
 
-
+    //Almost Screens Back_Btn
+    public void OnClickBackButton() //뒤로가기 버튼을 누르면
+    {
+        shopScreen.SetActive(false);//샵화면 닫기
+        stageScreen.SetActive(false); //스테이지 화면 닫기
+    }
     //픽업 스크린
     #region PickUpScreen
 
-    public void OnClickSlimeBackButton() //슬라임픽업창에서 뒤로가기 버튼을 누르면
+    public void OnClickSlimePickUpBackButton() //슬라임픽업창에서 뒤로가기 버튼을 누르면
     {
         slimePickUpScreen.SetActive(false); //픽업화면 닫기
     }
-    #endregion
-    public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
+    public void OnClickStartButton() //스타트 버튼을 누르면. PickUpScreen>Start_Btn , HUD Setting2> Restart
     {
-        settingScreen2.SetActive(false);
-        slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
-        battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
-        mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        GameManager.Instance.ChangeScene("Stage1"); // 이거 나중에 변수로 ##################### 씬 체인지
-        GameManager.Instance.ResumeGame();
+        bool allSlotsHaveChildren = true; // 모든 슬롯이 자식 오브젝트를 가지고 있는지 여부를 나타내는 플래그 변수
+
+        for (int i = 0; i < SlimeManager.instance.SlimeSlots.Length; i++)
+        {
+            Transform slimeSlotTransform = SlimeManager.instance.SlimeSlots[i].transform;
+
+            if (slimeSlotTransform.childCount == 0)
+            {
+                allSlotsHaveChildren = false; // 하나의 슬롯이라도 자식 오브젝트를 가지고 있지 않으면 플래그를 false로 설정
+                break; // 하나라도 없으면 반복문을 빠져나옴
+            }
+        }
+
+        if (allSlotsHaveChildren) // 모든 슬롯이 자식 오브젝트를 가지고 있을 때만 내용을 실행
+        {
+            settingScreen2.SetActive(false);
+            slimeSpawnManager.SetActive(true);
+            battleHUDScreen.gameObject.SetActive(true);
+            mainUI.gameObject.SetActive(false);
+            GameManager.Instance.ChangeScene("Stage1");
+            GameManager.Instance.ResumeGame();
+        }
     }
 
+    #endregion
 
     //HUD 안의 버튼 이벤트들 
     #region HUDScreen
@@ -237,5 +279,24 @@ public class UIManager : MonoBehaviour
         Destroy(uIManager); //전체연결 없어짐 방지
         Destroy(slimeManager);//슬라임 컨텐트 ~ 버튼 연결 없어짐 방지
 
+    }
+    public void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
+    {
+        // mainUI 게임 오브젝트의 RectTransform 컴포넌트의 현재 크기를 가져옵니다.
+        RectTransform mainUIRectTransform = mainUI.GetComponent<RectTransform>();
+        Vector2 canvasSize = mainUIRectTransform.sizeDelta;
+
+        // stagePages 배열의 각 UI 요소의 크기를 캔버스 크기에 맞춥니다.
+        foreach (RectTransform page in stagePages)
+        {
+            if (page != null)
+            {
+                page.sizeDelta = new Vector2(canvasSize.x, canvasSize.y);
+            }
+            else
+            {
+                Debug.LogError("RectTransform is null in stagePages array");
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8502738152086951986}
   - component: {fileID: 8502738152086951987}
   m_Layer: 5
-  m_Name: NormalSlime
+  m_Name: FlySlime
   m_TagString: Icon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 8502738152973546912}
   - component: {fileID: 8502738152973546913}
   m_Layer: 5
-  m_Name: NormalSlime
+  m_Name: FlySlime
   m_TagString: Icon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ba0a2b1e517a4c349b4fc5c0a000ba42, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7867213c9929e4246aa6a11bb1843e85, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

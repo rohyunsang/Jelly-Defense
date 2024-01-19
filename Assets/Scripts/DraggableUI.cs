@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DraggableUI : MonoBehaviour, IBeginDragHandler,IDragHandler, IEndDragHandler
 {
@@ -17,6 +18,20 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler,IDragHandler, IEndDr
         rect = GetComponent<RectTransform>();  
         canvasGroup = GetComponent<CanvasGroup>();
     }
+
+    private void FixedUpdate()
+    {
+        Transform parent = transform.parent;// 부모 오브젝트 찾기
+
+        //Scroll View일때 처리
+        if (parent != null && parent.name == "SlimeIconContent")
+        {
+            Image image = GetComponent<Image>();
+            image.SetNativeSize();
+            Debug.Log("SetNativeSize");
+        }
+    }
+
     /// <summary>
     /// 현재 오브젝트를 드래그하기 시작할 때 1회 호출
     /// </summary>
