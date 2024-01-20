@@ -58,6 +58,7 @@ public class UIManager : MonoBehaviour
     //캔버스 사이즈가 달라질 때 마다 크기 조정. StageScreen 등
     //public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
 
+    public string selectedStageName = null;
 
     //메인 스크린
     #region MainScreen 
@@ -101,10 +102,7 @@ public class UIManager : MonoBehaviour
         stageScreenChaos.SetActive(false);//스테이지 화면 닫기
     }
 
-    public void OnClickStageButton() //스테이지를 터치하면 
-    {
-        imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
-    }
+    
     public void OnClickImageStageStoryButton() //스테이지를 터치하면 
     {
         imageStageStory.SetActive(false); //해당 스테이지의 스토리가 사라짐
@@ -151,6 +149,12 @@ public class UIManager : MonoBehaviour
     //픽업 스크린
     #region PickUpScreen
 
+
+    public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
+    {
+        selectedStageName = button.name;
+        imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
+    }
     public void OnClickSlimeBackButton() //슬라임픽업창에서 뒤로가기 버튼을 누르면
     {
         slimePickUpScreen.SetActive(false); //픽업화면 닫기
@@ -162,7 +166,7 @@ public class UIManager : MonoBehaviour
         slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
         mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        GameManager.Instance.ChangeScene("Stage1"); // 이거 나중에 변수로 ##################### 씬 체인지
+        GameManager.Instance.ChangeScene(selectedStageName); // 이거 나중에 변수로 ##################### 씬 체인지
         GameManager.Instance.ResumeGame();
     }
 

@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 4782867505155741330}
   m_Layer: 0
   m_Name: WindSlime
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
     Range: 
     Cost: 0
     Target: 0
-  HP: 10
+  slimeHP: 10
   slimeAttack: 0
   slimeDefense: 0
   slimeAttackSpeed: 0
