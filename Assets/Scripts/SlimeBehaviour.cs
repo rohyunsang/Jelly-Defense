@@ -190,8 +190,7 @@ public class SlimeBehaviour : MonoBehaviour
     }
     void Attack()//공격
     {
-        animator.SetTrigger("Attack02"); 
-        StopNavAgent(); //공격애니메이션
+        animator.SetTrigger("Attack02"); StopNavAgent(); //공격애니메이션
         StartCoroutine(ResumeMovementAfterAttack()); // 일정 시간 후 이동 다시 시작
     }
     IEnumerator ResumeMovementAfterAttack()

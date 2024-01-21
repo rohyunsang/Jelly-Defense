@@ -67,6 +67,10 @@ public class UIManager : MonoBehaviour
     //캔버스 사이즈가 달라질 때 마다 크기 조정. StageScreen 등
     public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
 
+    private void Start()
+    {
+           ResizeUI();//기기마다 사이즈 설정 바꿔줌//StageScreen 등
+    }
 
     //메인 스크린
     #region MainScreen 
@@ -140,11 +144,12 @@ public class UIManager : MonoBehaviour
         stageScreenChaos.SetActive(false);//스테이지 화면 닫기
     }
 
-    public void OnClickStageButton() //스테이지를 터치하면 
-    {
+    public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
+    { //시간을 멈춰도 배경이 스크롤링되어서 해당 문제를 없앨방법 찾아보기
         imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
+        storyClose_Btn.SetActive(true);
     }
-    public void OnClickImageStageStoryButton() //스테이지를 터치하면 
+    public void OnClickStoryCloseButton() //스테이지를 터치하면 
     {
         imageStageStory.SetActive(false); //해당 스테이지의 스토리가 사라짐
         storyClose_Btn.SetActive(false);
@@ -171,19 +176,34 @@ public class UIManager : MonoBehaviour
     //픽업 스크린
     #region PickUpScreen
 
-    public void OnClickSlimeBackButton() //슬라임픽업창에서 뒤로가기 버튼을 누르면
+    public void OnClickSlimePickUpBackButton() //슬라임픽업창에서 뒤로가기 버튼을 누르면
     {
         slimePickUpScreen.SetActive(false); //픽업화면 닫기
     }
-    #endregion
-    public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
+    public void OnClickStartButton() //스타트 버튼을 누르면. PickUpScreen>Start_Btn , HUD Setting2> Restart
     {
-        settingScreen2.SetActive(false);
-        slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
-        battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
-        mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        GameManager.Instance.ChangeScene("Stage1"); // 이거 나중에 변수로 ##################### 씬 체인지
-        GameManager.Instance.ResumeGame();
+        bool allSlotsHaveChildren = true; // 모든 슬롯이 자식 오브젝트를 가지고 있는지 여부를 나타내는 플래그 변수
+
+        for (int i = 0; i < SlimeManager.instance.SlimeSlots.Length; i++)
+        {
+            Transform slimeSlotTransform = SlimeManager.instance.SlimeSlots[i].transform;
+
+            if (slimeSlotTransform.childCount == 0)
+            {
+                allSlotsHaveChildren = false; // 하나의 슬롯이라도 자식 오브젝트를 가지고 있지 않으면 플래그를 false로 설정
+                break; // 하나라도 없으면 반복문을 빠져나옴
+            }
+        }
+
+        if (allSlotsHaveChildren) // 모든 슬롯이 자식 오브젝트를 가지고 있을 때만 내용을 실행
+        {
+            settingScreen2.SetActive(false);
+            slimeSpawnManager.SetActive(true);
+            battleHUDScreen.gameObject.SetActive(true);
+            mainUI.gameObject.SetActive(false);
+            GameManager.Instance.ChangeScene("Stage1");
+            GameManager.Instance.ResumeGame();
+        }
     }
 
     #endregion

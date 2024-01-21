@@ -36,7 +36,7 @@ public class SlimeSpawnManager : MonoBehaviour
     }
     void Update()
     {
-        jellyPower += Time.deltaTime * 10f; //시간 증가시 젤리력 증가
+        jellyPower += Time.deltaTime; //시간 증가시 젤리력 증가
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
         int jellyPowerInt = Mathf.FloorToInt(jellyPower);
@@ -47,9 +47,13 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public void OnClickSlimeIcon(Button button)
     {
+        // Debug.Log(button.name);
 
         //슬라임 스폰(슬라임매니저 스크립트의 함수를 통해(버튼에 따른 슬라임 이름 리스트의 이름들 가져오기)
         SlimeSpawn(SlimeManager.instance.GetSlimePrefabByName(SlimeManager.instance.selectedSlimeName[int.Parse(button.name)]));
+        
+        // slimeManager.selectedSlimeName 에 접근하여 이름 목록을 가져올 수 있음
+        //List<string> slimeNames = SlimeManager.instance.selectedSlimeName;
     }
 
     public void SlimeSpawn(GameObject slimePrefab) // Canvas - Spawn Button 

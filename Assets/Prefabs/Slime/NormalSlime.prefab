@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 1928707285037531593}
   m_Layer: 0
   m_Name: NormalSlime
-  m_TagString: Slime
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,29 +255,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 10
   damageInterval: 1
   detectionRadius: 10
   enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
     type: 3}
   attackDistance: 3
   attackInterval: 1
-  slimeData:
-    Index: 0
-    Name: 
-    Grade: 0
-    Type: 0
-    HP: 0
-    Attack: 0
-    Defense: 0
-    AttackSpeed: 0
-    Speed: 0
-    Range: 
-    Cost: 0
-    Target: 0
-  slimeHP: 10
-  slimeAttack: 0
-  slimeDefense: 0
-  slimeAttackSpeed: 0
 --- !u!195 &9180176953063321710
 NavMeshAgent:
   m_ObjectHideFlags: 0
