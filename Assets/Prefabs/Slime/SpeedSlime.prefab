@@ -116,11 +116,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeedSlime
       objectReference: {fileID: 0}
-    - target: {fileID: 6308154112910199505, guid: 941dc3b27dbb9384e8afe524e9151b93,
-        type: 3}
-      propertyPath: m_TagString
-      value: Slime
-      objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_RootOrder
@@ -205,20 +200,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9100832090519068859}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &-8912106238995440996
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010575189096524394}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.88
-  m_Height: 1.5
-  m_Direction: 1
-  m_Center: {x: 0.63, y: 0.5, z: 0}
 --- !u!95 &2091301329
 Animator:
   serializedVersion: 5
@@ -293,7 +274,21 @@ MonoBehaviour:
     Range: 
     Cost: 0
     Target: 0
-  slimeHP: 10
+  HP: 10
   slimeAttack: 0
   slimeDefense: 0
   slimeAttackSpeed: 0
+--- !u!136 &-8912106238995440996
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010575189096524394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.88
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0.63, y: 0.5, z: 0}
