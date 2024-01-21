@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;  // Singleton instance
     void Awake() // SingleTon
     {
-
         // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
         if (instance != null && instance != this)
         {
@@ -19,9 +18,6 @@ public class UIManager : MonoBehaviour
         // Set the instance to this object and make sure it persists between scene loads
         instance = this;
         DontDestroyOnLoad(gameObject);
-
-        slimeSpawnManager.SetActive(false);  
-        // ResizeUI();//기기마다 사이즈 설정 바꿔줌//StageScreen 등
     }
     #endregion
 
@@ -40,7 +36,6 @@ public class UIManager : MonoBehaviour
 
     //HUD > 환경설정
     public GameObject settingScreen2;  //HUD 세팅
-
 
     // public GameObject soundScreen;  // 만들어야 함
     public GameObject timeStopPanel;   //시간멈춤확인가능 색 패널
