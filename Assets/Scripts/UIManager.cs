@@ -80,11 +80,7 @@ public class UIManager : MonoBehaviour
         UIBackGround.SetActive(false);
     }
 
-    
-    public void OnClickImageStageStoryButton() //스테이지를 터치하면 
-    {
-        imageStageStory.SetActive(false); //해당 스테이지의 스토리가 사라짐
-    }
+   
     public void OnClickButtonEnemy() //적군을 터치하면
     {
         imageEnemyExplain.SetActive(true); //해당 적군의 설명이 보임
@@ -97,44 +93,36 @@ public class UIManager : MonoBehaviour
     public void OnClickStageScreenStartButton() //스테이지 시작하기 버튼 누르면
     {
         pickUpScreen.SetActive(true); //픽업화면 열기
+        OffImageStageStory();
     }
-    /* //TestResizeUI 스크립트를 UIManager에 합치기만 하면 문제가 발생해서 꺼둠
-    void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
-    {
-
-        // mainUI 게임 오브젝트의 RectTransform 컴포넌트를 가져옵니다.
-        RectTransform canvasRectTransform = mainUI.GetComponent<RectTransform>();
-        // 캔버스의 현재 크기를 가져옵니다.
-        Vector2 canvasSize = canvasRectTransform.sizeDelta;
-
-        // stagePages 배열의 각 UI 요소의 크기를 캔버스 크기에 맞춥니다.
-        foreach (RectTransform page in stagePages)
-        {
-            if (page != null)
-            {
-                page.sizeDelta = new Vector2(canvasSize.x, canvasSize.y);
-            }
-            else
-            {
-                Debug.LogError("RectTransform is null in stagePages array");
-            }
-        }
-    }
-    */
-    #endregion
-
-    //픽업 스크린
-    #region PickUpScreen
-
 
     public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
     {
         selectedStageName = button.name;
         imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
     }
+    public void OffImageStageStory()
+    {
+        imageStageStory.SetActive(false);
+    }
+
+    #endregion
+
+    //픽업 스크린
+    #region PickUpScreen
+
+
+
     public void OffPickUpScreen() 
     {
         pickUpScreen.SetActive(false); //픽업화면 닫기
+        InitSlimePickUp();
+    }
+
+    private void InitSlimePickUp()
+    {
+        SlimeManager.instance.InitSlimeSlot();
+        SlimeManager.instance.InitSlimeIconCheckImageSetActiveFalse();
     }
 
     public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
@@ -213,6 +201,7 @@ public class UIManager : MonoBehaviour
         UIBackGround.SetActive(true);
         shopScreen.SetActive(true);
         shopScreenBackButton.SetActive(true);
+        OnClickLimitSaleButton(); // Init Shop Store
     }
     public void OffShopScreen()
     {

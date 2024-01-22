@@ -144,6 +144,35 @@ public class SlimeManager : MonoBehaviour
         }
     }
 
+    public void InitSlimeSlot()
+    {
+        // 모든 슬라임 슬롯에 대해 반복
+        foreach (GameObject slot in SlimeSlots)
+        {
+            // 각 슬롯의 자식 오브젝트들을 순회하면서 삭제
+            foreach (Transform child in slot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+    public void InitSlimeIconCheckImageSetActiveFalse()
+    {
+        // SlimeIconContent의 모든 자식 오브젝트에 대해 반복
+        foreach (Transform child in SlimeIconContent.transform)
+        {
+            // 각 자식 오브젝트에서 PickUpSlime 컴포넌트를 찾음
+            PickUpSlime pickUpSlime = child.GetComponent<PickUpSlime>();
+
+            // PickUpSlime 컴포넌트가 있고, checkImage 게임 오브젝트가 설정되어 있다면
+            if (pickUpSlime != null && pickUpSlime.checkImage != null)
+            {
+                // checkImage 게임 오브젝트를 비활성화
+                pickUpSlime.checkImage.SetActive(false);
+            }
+        }
+    }
+
     
 
 }
