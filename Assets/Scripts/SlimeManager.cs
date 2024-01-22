@@ -35,6 +35,8 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeSlots;
     public GameObject[] SlimeButtons;
 
+    public GameObject slimeInfo;
+
     private void Start()
     {
         InitializeDefaultSlimes();
@@ -43,6 +45,10 @@ public class SlimeManager : MonoBehaviour
 
     #region SlimePickUp
 
+    public void ActivateSlimeInfo()
+    {
+        slimeInfo.SetActive(true);
+    }
 
     public void SpawnSlimeIcon() // pickUp Screen
     {
