@@ -6,9 +6,9 @@ TagManager:
   tags:
   - EnemyCastle
   - Enemy
-  - Icon
   - SlimeCastle
   - Slime
+  - SlimeIcon
   layers:
   - Default
   - TransparentFX

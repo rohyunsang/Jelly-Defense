@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 using TMPro;
+using Button = UnityEngine.UI.Button;
 
 public class SlimeManager : MonoBehaviour
 {
@@ -39,14 +40,48 @@ public class SlimeManager : MonoBehaviour
         InitializeDefaultSlimes();
         SpawnSlimeIcon();
     }
+
+    #region SlimePickUp
+
+
     public void SpawnSlimeIcon() // pickUp Screen
     {
         foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
         {
             GameObject slimeIcon = Instantiate(slimeIconPrefab, SlimeIconContent.transform);
-
+            slimeIcon.name = slimeIconPrefab.name;
         }
     }
+
+    // Checks if a specific slot is empty
+    public bool IsSlotEmpty(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= SlimeSlots.Length)
+        {
+            Debug.LogError("Slot index out of range.");
+            return false; // Or handle this case differently
+        }
+
+        return SlimeSlots[slotIndex].transform.childCount == 0;
+    }
+
+    // Find the first empty slot and return its index, or -1 if all slots are full
+    public int FindFirstEmptySlot()
+    {
+        for (int i = 0; i < SlimeSlots.Length; i++)
+        {
+            if (IsSlotEmpty(i))
+            {
+                return i;
+            }
+        }
+        return -1; // Indicates all slots are full
+    }
+
+    
+    #endregion
+
+
     public GameObject GetSlimePrefabByName(string name)
     {
         //반환하라 슬라임 프리팹의 이름이 같은

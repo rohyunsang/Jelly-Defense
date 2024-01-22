@@ -89,4 +89,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1; // 시간을 다시 시작
     }
+
+    public void OffCamera()
+    {
+
+    }
 }
