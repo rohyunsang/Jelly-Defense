@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
                                     //>2페이지에만 버튼이 있어야할거같음. 나중에 말하기                                
     public GameObject stageScreenChaos;  //카오스 스크린
     public GameObject settingScreen;  //메인화면 세팅
-
+    public GameObject shopScreen;
     //HUD > 환경설정
     public GameObject settingScreen2;  //HUD 세팅
 
@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     public GameObject timeStopPanel;   //시간멈춤확인가능 색 패널
 
     //SlimePickUpScreen
-    public GameObject slimePickUpScreen;  //슬라임 선택창
+    public GameObject pickUpScreen;  //슬라임 선택창
 
     [Header("DontDestroy")]
     public GameObject slimeSpawnManager;
@@ -49,9 +49,17 @@ public class UIManager : MonoBehaviour
     public GameObject battleHUDScreen;  //HUD 스크린
     public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
+    
 
     public string selectedStageName = null;
     public GameObject UIBackGround;
+    public GameObject stageScreenBackButton;
+    public GameObject shopScreenBackButton;
+
+    public GameObject LimitedSalePanel;
+    public GameObject AdsShopPanel;
+    public GameObject CashShopPanel;
+
 
     //메인 스크린
     #region MainScreen 
@@ -59,40 +67,17 @@ public class UIManager : MonoBehaviour
     {
         UIBackGround.SetActive(true);
         stageScreen.SetActive(true); //스테이지 화면 열기
+        stageScreenBackButton.SetActive(true);
     }
 
     #endregion
 
     //스테이지 스크린
     #region StageScreen 
-    public void OnClickStageScreenExitButton() //스테이지 나가기 버튼 누르면
+    public void OffStageScreen() //스테이지 나가기 버튼 누르면
     {
         stageScreen.SetActive(false); //스테이지 화면 닫기
-    }
-
-    private void ButtonChaosButton() //조건성립시
-    {
-        //카오스 버튼 해금
-    }
-
-    private void RemoveButtonChaosClosed() //특정 스테이지까지 클리어 하면 해금되도록
-    {
-        buttonChaosClosed.SetActive(false);
-    }
-    public void OnClickChaosButton() //카오스 버튼 누르면
-    {
-
-        stageScreen.SetActive(false); //스테이지 화면 닫기
-        stageScreenChaos.SetActive(true);
-    }
-    public void OnClickChaosModeExitButton() //카오스에서 뒤로가기 누르면 
-    {
-        stageScreenChaos.SetActive(false);//스테이지 화면 닫기
-    }
-    public void OnClickNormalButton() //노말모드 버튼 누르면 
-    {
-        stageScreen.SetActive(true);
-        stageScreenChaos.SetActive(false);//스테이지 화면 닫기
+        UIBackGround.SetActive(false);
     }
 
     
@@ -111,7 +96,7 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickStageScreenStartButton() //스테이지 시작하기 버튼 누르면
     {
-        slimePickUpScreen.SetActive(true); //픽업화면 열기
+        pickUpScreen.SetActive(true); //픽업화면 열기
     }
     /* //TestResizeUI 스크립트를 UIManager에 합치기만 하면 문제가 발생해서 꺼둠
     void ResizeUI() //폰에 따른 LevelPages 사이즈 조정용
@@ -138,7 +123,6 @@ public class UIManager : MonoBehaviour
     */
     #endregion
 
-
     //픽업 스크린
     #region PickUpScreen
 
@@ -148,11 +132,11 @@ public class UIManager : MonoBehaviour
         selectedStageName = button.name;
         imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
     }
-    public void OnClickSlimeBackButton() //슬라임픽업창에서 뒤로가기 버튼을 누르면
+    public void OffPickUpScreen() 
     {
-        slimePickUpScreen.SetActive(false); //픽업화면 닫기
+        pickUpScreen.SetActive(false); //픽업화면 닫기
     }
-    #endregion
+
     public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
     {
         settingScreen2.SetActive(false);
@@ -162,7 +146,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.ChangeScene(selectedStageName); // 이거 나중에 변수로 ##################### 씬 체인지
         GameManager.Instance.ResumeGame();
     }
-
+    #endregion
 
     //HUD 안의 버튼 이벤트들 
     #region HUDScreen
@@ -219,6 +203,41 @@ public class UIManager : MonoBehaviour
         SlimeSpawnManager.instance.jellyPower = 0; //젤리력 초기화
 
         //SlimeManager.instance.selectedSlimeName.Clear(); //데려갔던 슬라임 리스트 초기화
+    }
+
+    #endregion
+
+    #region ShopScreen
+    public void OnShopScreen()
+    {
+        UIBackGround.SetActive(true);
+        shopScreen.SetActive(true);
+        shopScreenBackButton.SetActive(true);
+    }
+    public void OffShopScreen()
+    {
+        UIBackGround.SetActive(false);
+        shopScreen.SetActive(false);
+        shopScreenBackButton.SetActive(false);
+    }
+
+    public void OnClickLimitSaleButton()
+    {
+        LimitedSalePanel.SetActive(true);
+        AdsShopPanel.SetActive(false);
+        CashShopPanel.SetActive(false);
+    }
+    public void OnClickAddShopButton()
+    {
+        LimitedSalePanel.SetActive(false);
+        AdsShopPanel.SetActive(true);
+        CashShopPanel.SetActive(false);
+    }
+    public void OnClickCashStoreButton()
+    {
+        LimitedSalePanel.SetActive(false);
+        AdsShopPanel.SetActive(false);
+        CashShopPanel.SetActive(true);
     }
 
     #endregion
