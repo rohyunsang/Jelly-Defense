@@ -50,17 +50,15 @@ public class UIManager : MonoBehaviour
     public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
 
-    //캔버스 사이즈가 달라질 때 마다 크기 조정. StageScreen 등
-    //public RectTransform[] stagePages; // 크기를 조정할 UI 요소들
-
     public string selectedStageName = null;
+    public GameObject UIBackGround;
 
     //메인 스크린
     #region MainScreen 
     public void OnClickBattleButton() //배틀 버튼 누르면
     {
+        UIBackGround.SetActive(true);
         stageScreen.SetActive(true); //스테이지 화면 열기
-        GameManager.Instance.ResumeGame();
     }
 
     #endregion

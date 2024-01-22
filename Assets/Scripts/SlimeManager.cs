@@ -134,7 +134,7 @@ public class SlimeManager : MonoBehaviour
         for (int i = 0; i < SlimeButtons.Length; i++)
         {
             // 선택된 슬라임 이름에 해당하는 아이콘 프리팹 찾기
-            Image iconImage = slimeIconPrefabs.FirstOrDefault(prefab => prefab.name == selectedSlimeName[i]).transform.Find(selectedSlimeName[i]).GetComponent<Image>();
+            Image iconImage = slimeIconPrefabs.FirstOrDefault(prefab => prefab.name == selectedSlimeName[i] + "Icon").transform.Find(selectedSlimeName[i]).GetComponent<Image>();
             SlimeButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = iconImage.sprite;
 
             //Cost Search using Linq
