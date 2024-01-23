@@ -9,6 +9,8 @@ TagManager:
   - SlimeCastle
   - Slime
   - SlimeIcon
+  - SlimeWeapon
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -17,9 +19,9 @@ TagManager:
   - Water
   - UI
   - UISafe
-  - 
-  - 
-  - 
+  - Ground
+  - Slime
+  - Enemy
   - 
   - 
   - 

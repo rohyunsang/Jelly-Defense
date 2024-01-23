@@ -5,56 +5,57 @@ using UnityEngine.AI;
 
 public class SlimeBehaviour : MonoBehaviour
 {
-    //피격(아직 테스팅용)
-    public float damageInterval = 1f; // 데미지를 받을 주기
-    private float nextDamageTime; //다음 데미지를 받을 타이밍
-    bool isDead = false;
-
-    //이동용
-    public float detectionRadius = 10f; //적 감지 반경
-    private float detectionInterval = 0.5f;  // 범위 탐지 주기
-    private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
+    //컴포넌트들
+    private Animator anim;
+    private NavMeshAgent navAgent;
+    
     private Transform target; // current target 적
     public Transform enemyCastle; //적 기지 위치. 적 기지> 프리팹>슬라임 프리팹에 연결, Revert>> 스폰 슬라임의 null 오류 해결
 
-    //공격, 공격력(예정)
-    public float attackDistance = 3f; // 공격 가능 거리
-    public float attackInterval = 1f; //다음 공격 주기
-    private float nextAttackTime; //공격주기 누적 초기화용
-
-    //컴포넌트들
-    private Animator animator;
-    private NavMeshAgent navAgent;
-
-
-
     // Slime 정보를 저장할 변수들
     public Slime slimeData; // Slime 스크립트를 연결할 변수
-    //public int slimeCost; // Slime의 코스트
-    public int slimeHP = 10; //유닛 체력
-    public int slimeAttack; // Slime의 공격력
-    public int slimeDefense; // Slime의 방어력
-    public float slimeAttackSpeed; // Slime의 공격 속도
 
+    [Header("Basic Data")]
+    bool isDead = false;
+    public float HP; //유닛 체력
+    public float attackDamage; // Slime의 공격력
+    public float defense; // Slime의 방어력
+    public float attackSpeed; // Slime의 공격 속도
+    public float attackDistance = 3f; // 공격 가능 거리
+    public float attackInterval = 1f; //다음 공격 주기
+    public float currentHP;
+
+    [Header("Addictional Data")]
+    private float nextAttackTime; //공격주기 누적 초기화용
+    public float detectionRadius = 10f; //적 감지 반경
+    private float detectionInterval = 0.5f;  // 범위 탐지 주기
+    private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
+    private bool hasAttacked = false;
+
+    [Header("Weapon")]
+    public Collider weaponCollider;
+    public SlimeWeapon slimeWeapon;
+    
 
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         navAgent.enabled = true;
         navAgent.isStopped = false;
 
         //슬라임 수치 가져오기
-        string slimePrefabName = gameObject.name.Replace("(Clone)", "");
+        string slimePrefabName = gameObject.name.Replace("(Clone)", ""); // 여기는 이름 바꿔서 들어오기가 안된다. 
+        // Instantiate로 생성됐기에 Awake()가 실행된다음에 이름을 바꾸는것은 틀리다.
         Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
 
         if (slimeData != null)
         {
             //slimeCost = slimeData.Cost;
-            slimeHP = slimeData.HP;
-            slimeAttack = slimeData.Attack;
-            slimeDefense = slimeData.Defense;
-            slimeAttackSpeed = slimeData.AttackSpeed;
+            HP = slimeData.HP;
+            attackDamage = slimeData.Attack;
+            defense = slimeData.Defense;
+            attackSpeed = slimeData.AttackSpeed;
         }
         else
         {
@@ -67,7 +68,7 @@ public class SlimeBehaviour : MonoBehaviour
     private void Start()
     {
         //게임오브젝트 중 적군 성 태그를 가진 오브젝트의 트랜스폼을 향해 가도록 함
-        
+        currentHP = HP;
         if (enemyCastle != null)
         {
             target = enemyCastle.transform;  //타겟에 넣기
@@ -89,6 +90,7 @@ public class SlimeBehaviour : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
+        slimeWeapon.weaponDamage = attackDamage;
     }
     void Update()
     {
@@ -112,20 +114,18 @@ public class SlimeBehaviour : MonoBehaviour
                   {
                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
                        nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
-                   }
+                  }
             }
+            
+        }
+        float currentVelocity = navAgent.velocity.magnitude;// 움직임 여부를 판단
+        if (currentVelocity <= 1f)
+        {
+            anim.SetBool("isMove", false); //idle 애니메이션 실행
         }
         else
         {
-            float currentVelocity = navAgent.velocity.magnitude;// 움직임 여부를 판단
-            if (currentVelocity <= 1f)
-            {
-                animator.SetBool("isMove", false); //idle 애니메이션 실행
-            }
-            else
-            {
-                animator.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
-            }
+            anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
         }
     }
 
@@ -170,33 +170,17 @@ public class SlimeBehaviour : MonoBehaviour
     {
         navAgent.SetDestination(target.position); //네비메쉬를 통해 이동 
     }
- 
-    private void OnTriggerEnter(Collider other) //물리 충돌로 인한 밀려남 방지를 위한 트리거
-    {
-        SlimeCollision(other); 
-    }
-    private void OnTriggerStay(Collider other) //지속적인 트리거 감지중일때도 일정하게 발생하기위함
-    {
-        SlimeCollision(other);
-    }
    
-    void SlimeCollision(Collider other)
-    {
-        if ((other.gameObject.CompareTag("Enemy")) && Time.time >= nextDamageTime)//다음 데미지타임일때만
-        {
-            GetHit(10); //체력 감소
-            nextDamageTime = Time.time + damageInterval; //다음데미지 시간 누적초기화
-        }
-    }
     void Attack()//공격
     {
-        animator.SetTrigger("Attack02"); 
-        StopNavAgent(); //공격애니메이션
-        StartCoroutine(ResumeMovementAfterAttack()); // 일정 시간 후 이동 다시 시작
+        anim.SetTrigger("Attack02"); 
+        StopNavAgent(); 
+        StartCoroutine(ResumeMovementAfterAttack());
+        StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작
     }
     IEnumerator ResumeMovementAfterAttack()
     {
-        yield return new WaitForSeconds(1f); // 원하는 대기 시간을 설정
+        yield return new WaitForSeconds(2f); // 원하는 대기 시간을 설정
 
         // 코루틴이 실행되는 동안 navAgent가 비활성화되거나 제거되었는지 확인
         while (navAgent == null || !navAgent.isActiveAndEnabled || !navAgent.isOnNavMesh)
@@ -205,19 +189,26 @@ public class SlimeBehaviour : MonoBehaviour
         }
 
         navAgent.isStopped = false; // 네비 이동 다시 시작
-        animator.SetBool("isMove", true); // isMove를 true로 설정하여 이동 애니메이션 재생
+        anim.SetBool("isMove", true); // isMove를 true로 설정하여 이동 애니메이션 재생
     }
-    void GetHit(int damage) //데미지를 받음
+    IEnumerator ActivateWeaponCollider()
     {
-        slimeHP -= damage; //받을 데미지량만큼 감소
-        Debug.Log("Slime HP : " + slimeHP); //콘솔창에 출력
+        weaponCollider.enabled = true; // weaponCollider를 활성화
+        yield return new WaitForSeconds(0.5f); // 0.5초 대기
+        weaponCollider.enabled = false; // weaponCollider를 다시 비활성화
+    }
+    
+    public void GetHit(float damage) //데미지를 받음
+    {
+        currentHP -= damage; //받을 데미지량만큼 감소
+        Debug.Log("Slime HP : " + currentHP); //콘솔창에 출력
 
-        if (slimeHP <= 0)
+        if (currentHP <= 0)
         {
             isDead = true; //슬라임은 죽음
             StopNavAgent();  //네비 멈추기
             navAgent.enabled = false; // Agent끄기. StopNavAgent()으로 이동시키면 이동하지않는 문제 발생
-            animator.SetTrigger("Death");//사망 애니메이션 재생
+            anim.SetTrigger("Death");//사망 애니메이션 재생
             Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
         }
     }
@@ -227,7 +218,7 @@ public class SlimeBehaviour : MonoBehaviour
         if (navAgent != null && navAgent.isOnNavMesh && navAgent.isActiveAndEnabled)
         {
             navAgent.isStopped = true; //네비 멈추기
-            animator.SetBool("isMove", false); // 이동 애니메이션 멈춤
+            anim.SetBool("isMove", false); // 이동 애니메이션 멈춤
         }
     }
     void Die() //사망
@@ -235,4 +226,15 @@ public class SlimeBehaviour : MonoBehaviour
         Destroy(gameObject); //오브젝트 삭제
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("공격");
+        // 공격
+        if (other.transform.CompareTag("Enemy"))
+        {
+            Debug.Log("진짜 공격");
+            //weaponCollider.enabled = false;
+        }
+
+    }
 }

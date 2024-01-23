@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4049034140856966690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DEF_BOTTOM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9124714013647416195}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DEF_TOP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1327713103671249202}
   - component: {fileID: 7406797519970301204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slime_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1539913479675398289}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SlimeArmature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 4253852072046645496}
   - component: {fileID: 9180176953063321710}
   - component: {fileID: 1928707285037531593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NormalSlime
   m_TagString: Slime
   m_Icon: {fileID: 0}
@@ -255,12 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageInterval: 1
-  detectionRadius: 10
   enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
     type: 3}
-  attackDistance: 3
-  attackInterval: 1
   slimeData:
     Index: 0
     Name: 
@@ -274,10 +270,16 @@ MonoBehaviour:
     Range: 
     Cost: 0
     Target: 0
-  slimeHP: 10
-  slimeAttack: 0
-  slimeDefense: 0
-  slimeAttackSpeed: 0
+  HP: 0
+  attackDamage: 0
+  defense: 0
+  attackSpeed: 0
+  attackDistance: 3
+  attackInterval: 1
+  currentHP: 0
+  detectionRadius: 10
+  weaponCollider: {fileID: 2126590362458358810}
+  slimeWeapon: {fileID: 2493313793941512499}
 --- !u!195 &9180176953063321710
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -308,12 +310,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5607539314862477481}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.88
-  m_Height: 1.5
+  m_Radius: 1.5
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0.63, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &5914846185154948114
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,9 +326,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4502128317453901708}
   - component: {fileID: 7840672496256816663}
-  m_Layer: 0
+  - component: {fileID: 2126590362458358810}
+  - component: {fileID: 2493313793941512499}
+  - component: {fileID: 9214846450432400313}
+  m_Layer: 8
   m_Name: SlimeBase
-  m_TagString: Untagged
+  m_TagString: SlimeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -403,6 +408,48 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00004893914, y: 0, z: 0.00002503465}
     m_Extent: {x: 0.008089589, y: 0.007969051, z: 0.006021416}
   m_DirtyAABB: 0
+--- !u!65 &2126590362458358810
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914846185154948114}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6179187, y: 1.2042837, z: 1.5938113}
+  m_Center: {x: 0.0048939153, y: 0.6022678, z: -2.9843636e-10}
+--- !u!114 &2493313793941512499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914846185154948114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b384c23bb4b5c4e8b8c48b1ed5e24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 0
+--- !u!54 &9214846450432400313
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914846185154948114}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6055098883158574440
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6841270390554967700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ROOT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5813545711444558359}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FACE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 852174528343058235}
   - component: {fileID: 5532737386531779815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slime_Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,43 +1,50 @@
-using UnityEngine;
-using UnityEngine.AI;
 using System.Collections;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public Transform slimeCastle; // 슬라임 성 위치
-    private NavMeshAgent navAgent;
+    //컴포넌트들
     private Animator anim;
+    private NavMeshAgent navAgent;
 
-    //피격(아직 테스팅용)
-    public float damageInterval = 1f; // 데미지를 받을 주기
-    private float nextDamageTime; //다음 데미지를 받을 타이밍
-    
+    private Transform target; // current target 적
+    public Transform slimeCastle; //적 기지 위치. 적 기지> 프리팹>슬라임 프리팹에 연결, Revert>> 스폰 슬라임의 null 오류 해결
 
-    //이동용
+
+    [Header("Basic Data")]
+    bool isDead = false;
+    public float HP = 50f; //유닛 체력
+    public float attackDamage = 10f; 
+    public float defense = 10f; //
+    public float attackSpeed = 1.5f; // 
+    public float attackDistance = 3f; // 공격 가능 거리
+    public float attackInterval = 1f; //다음 공격 주기
+    public float currentHP;
+
+    [Header("Addictional Data")]
+    private float nextAttackTime; //공격주기 누적 초기화용
     public float detectionRadius = 10f; //적 감지 반경
     private float detectionInterval = 0.5f;  // 범위 탐지 주기
     private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
-    private Transform target; // current target 적
 
-    //공격, 공격력(예정)
-    public float attackDistance = 3f; // 공격 가능 거리
-    public float attackInterval = 1f; //다음 공격 주기
-    private float nextAttackTime; //공격주기 누적 초기화용
-
-    public int HP = 100;
-    bool isDead = false;
+    [Header("Weapon")]
+    public Collider weaponCollider;
 
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        navAgent.enabled = true;
+        navAgent.isStopped = false;
+
         slimeCastle = GameObject.FindWithTag("SlimeCastle").transform;
     }
 
-    void Start()
+    private void Start()
     {
-        //게임오브젝트 중 적군 성 태그를 가진 오브젝트의 트랜스폼을 향해 가도록 함
+        currentHP = HP;
 
         if (slimeCastle != null)
         {
@@ -61,16 +68,15 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
     }
-
     void Update()
     {
-        if (isDead) return;
+        if (isDead) return; //죽었으면 아래로는 실행하지 않기
 
-        sinceLastDetectionTime += Time.deltaTime;
-        if (sinceLastDetectionTime >= detectionInterval)
+        sinceLastDetectionTime += Time.deltaTime; //시간흐름 저장으로 최적화
+        if (sinceLastDetectionTime >= detectionInterval) //범위스캔 간격보다 시간 흐름이 크면
         {
-            SearchSlimeInDetection();
-            sinceLastDetectionTime = 0f;
+            SearchSlimeInDetection(); //범위 스캔
+            sinceLastDetectionTime = 0f; //시간 초기화
         }
 
         if (target != null) //타겟이 있으면
@@ -87,51 +93,47 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
         }
+        float currentVelocity = navAgent.velocity.magnitude;// 움직임 여부를 판단
+        if (currentVelocity <= 1f)
+        {
+            anim.SetBool("isMove", false); //idle 애니메이션 실행
+        }
         else
         {
-            float currentVelocity = navAgent.velocity.magnitude;// 움직임 여부를 판단
-            if (currentVelocity <= 1f)
-            {
-                anim.SetBool("isMove", false); //idle 애니메이션 실행
-            }
-            else
-            {
-                anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
-            }
+            anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
         }
     }
 
-    void SearchSlimeInDetection()
+    void SearchSlimeInDetection() //범위 스캔
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지, 배열 저장
-        Transform closestSlime = FindClosestSlime(hitColliders); //가까운 슬라임의 위치 저장
+        Transform closestEnemy = FindClosestSlime(hitColliders); //가까운 적의 위치 저장
 
-        if (closestSlime != null)
+        if (closestEnemy != null)
         {
-            target = closestSlime; //가까운 적의 위치로 이동
+            target = closestEnemy; 
         }
         else
         {
-            target = slimeCastle.transform; //슬라임 성으로 이동
+            target = slimeCastle.transform; 
         }
     }
-
     Transform FindClosestSlime(Collider[] colliders)
     {
-        Transform closestSlime = null; //가장 가까운 슬라임의 위치
-        float closestDistance = Mathf.Infinity; //가장 가까운적의 거리
+        Transform closestSlime = null; 
+        float closestDistance = Mathf.Infinity; 
 
         foreach (Collider col in colliders)
         {
-            if (col.CompareTag("Slime")) //슬라임 태그면
+            if (col.CompareTag("Slime")) 
             {
-                //현재 적과 슬라임의 거리 계산
-                float distanceToEnemy = Vector3.Distance(transform.position, col.transform.position);
 
-                if (distanceToEnemy < closestDistance) //적 거리가 가장 가까운적과의 간격보다 작으면
+                float distanceToSlime = Vector3.Distance(transform.position, col.transform.position);
+
+                if (distanceToSlime < closestDistance) 
                 {
-                    closestDistance = distanceToEnemy; //적 거리를 가장 가까운 적과의 간격에 넣기
-                    closestSlime = col.transform; //콜리더의 위치를 가장 가까운 적의 위치에 넣기
+                    closestDistance = distanceToSlime; 
+                    closestSlime = col.transform; 
                 }
             }
         }
@@ -139,18 +141,17 @@ public class EnemyBehaviour : MonoBehaviour
         return closestSlime; //가장 가까운 적의위치를 반환
     }
 
-    void MoveToTarget(Transform target)
+    private void MoveToTarget(Transform target) //타겟의 위치로 이동
     {
-        navAgent.SetDestination(target.position); // 지정된 타겟으로 이동
+        navAgent.SetDestination(target.position); //네비메쉬를 통해 이동 
     }
 
-    void Attack()
+    void Attack()//공격
     {
-        anim.SetTrigger("Attack02"); 
+        anim.SetTrigger("Attack02");
         StopNavAgent(); //공격애니메이션
         StartCoroutine(ResumeMovementAfterAttack()); // 일정 시간 후 이동 다시 시작
     }
-
     IEnumerator ResumeMovementAfterAttack()
     {
         yield return new WaitForSeconds(1f); // 원하는 대기 시간을 설정
@@ -165,19 +166,31 @@ public class EnemyBehaviour : MonoBehaviour
         anim.SetBool("isMove", true); // isMove를 true로 설정하여 이동 애니메이션 재생
     }
 
-    void Die()
+    public void GetHit(float damage) //데미지를 받음
     {
-        isDead = true;
-        anim.SetTrigger("Die");
-        StopNavAgent();
-        navAgent.enabled = false;
-        Invoke("DestroyEnemy", 1f);
+        currentHP -= damage; //받을 데미지량만큼 감소
+        Debug.Log("Enemy HP : " + currentHP); //콘솔창에 출력
+
+        if (currentHP <= 0)
+        {
+            isDead = true; 
+            StopNavAgent();  //네비 멈추기
+            navAgent.enabled = false; // Agent끄기. StopNavAgent()으로 이동시키면 이동하지않는 문제 발생
+            anim.SetTrigger("Die");//사망 애니메이션 재생
+            Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("피격" + other.gameObject.name);
+        
+        if (other.transform.CompareTag("SlimeWeapon"))
+        {
+            Debug.Log("진짜 피격");
+            GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+        }
     }
 
-    void DestroyEnemy()
-    {
-        Destroy(gameObject); // 적 오브젝트 제거
-    }
     void StopNavAgent() //네비 멈추기
     {
         if (navAgent != null && navAgent.isOnNavMesh && navAgent.isActiveAndEnabled)
@@ -186,19 +199,10 @@ public class EnemyBehaviour : MonoBehaviour
             anim.SetBool("isMove", false); // 이동 애니메이션 멈춤
         }
     }
-
-    public void GetHit(int damage)
+    void Die() //사망
     {
-        HP -= damage;
-        Debug.Log("Enemy HP : " + HP);
-        if (HP <= 0)
-        {
-            Die();
-        }
+        Destroy(gameObject); //오브젝트 삭제
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Slime")) GetHit(other.GetComponent<Slime>().Attack);
-    }
+
 }

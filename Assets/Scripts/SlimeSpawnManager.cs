@@ -74,16 +74,16 @@ public class SlimeSpawnManager : MonoBehaviour
         }
 
         if (jellyPower >= slimeCost)
-            {
+        {
                 // 버튼에 해당하는 슬라임 프리팹을 위치와 회전값을 넣어서 스폰하기
-                Instantiate(slimePrefab, spawnPoint.position, spawnPoint.rotation);
-                jellyPower -= slimeCost;
-                Debug.Log(jellyPower);
-            }
-            else
-            {
-                Debug.Log("jellyPower가 부족합니다");
-            }
+            GameObject spawedSlime = Instantiate(slimePrefab, spawnPoint.position, spawnPoint.rotation);
+            jellyPower -= slimeCost;
+            
+        }
+        else
+        {
+            Debug.Log("jellyPower가 부족합니다");
+        }
         
     }
 
