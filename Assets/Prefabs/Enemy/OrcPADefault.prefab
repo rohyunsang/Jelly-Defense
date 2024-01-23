@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeCastle: {fileID: 0}
-  HP: 50
+  HP: 200
   attackDamage: 10
   defense: 10
   attackSpeed: 1.5

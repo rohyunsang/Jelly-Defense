@@ -200,8 +200,13 @@ public class SlimeBehaviour : MonoBehaviour
     
     public void GetHit(float damage) //데미지를 받음
     {
-        currentHP -= damage; //받을 데미지량만큼 감소
-        Debug.Log("Slime HP : " + currentHP); //콘솔창에 출력
+        // 실제 대미지 계산: 공격력 - (방어력 * 0.5)
+        float actualDamage = damage - (defense * 0.5f);
+        // 실제 대미지가 0보다 작으면, 0으로 처리하여 데미지가 없게 함
+        actualDamage = Mathf.Max(actualDamage, 0);
+        currentHP -= actualDamage; //받을 데미지량만큼 감소
+
+        Debug.Log("Slime HP : " + currentHP); 
 
         if (currentHP <= 0)
         {
@@ -237,4 +242,6 @@ public class SlimeBehaviour : MonoBehaviour
             GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
         }
     }
+
+
 }
