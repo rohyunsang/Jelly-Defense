@@ -20,6 +20,8 @@ public class SlimeSpawnManager : MonoBehaviour
     public TMP_Text jellyPowerText; // TextMeshPro Text 오브젝트를 할당할 변수
     public float jellyPower = 0; // 아군 스폰 코스트 총량
 
+    public bool isStart = false;
+
     void Awake()
     {
         jellyPower = 0;//젤리력 초기화
@@ -34,8 +36,12 @@ public class SlimeSpawnManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+
     void Update()
     {
+        if (!isStart) return;
+
         jellyPower += Time.deltaTime * 10f; //시간 증가시 젤리력 증가
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
@@ -47,8 +53,6 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public void OnClickSlimeIcon(Button button)
     {
-
-        //슬라임 스폰(슬라임매니저 스크립트의 함수를 통해(버튼에 따른 슬라임 이름 리스트의 이름들 가져오기)
         SlimeSpawn(SlimeManager.instance.GetSlimePrefabByName(SlimeManager.instance.selectedSlimeName[int.Parse(button.name)]));
     }
 
@@ -89,7 +93,17 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public void FindSlimeSpawn()
     {
-        Debug.Log(2);
         spawnPoint = GameObject.FindWithTag("SlimeCastle").transform;
+    }
+
+    public void InitSlimeSpawnManager()
+    {
+        isStart = true;
+        jellyPower = 0;
+    }
+
+    public void StopSlimeSpawnManager()
+    {
+        isStart = false;
     }
 }

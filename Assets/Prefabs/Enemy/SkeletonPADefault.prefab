@@ -518,9 +518,12 @@ GameObject:
   - component: {fileID: 2484376644985550848}
   - component: {fileID: 3500292349513000992}
   - component: {fileID: 5691208782938690383}
+  - component: {fileID: 8572369190830513853}
+  - component: {fileID: 5215621359990927206}
+  - component: {fileID: 5211507951313211734}
   m_Layer: 9
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,6 +593,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8572369190830513853
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484376644985578528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.79, z: 1.92}
+  m_Center: {x: 0.008464579, y: -0.0033993933, z: 0.6533625}
+--- !u!54 &5215621359990927206
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484376644985578528}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5211507951313211734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484376644985578528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192d7a67dcac19b498853d4a8005f7c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 0
 --- !u!1 &2484376644985578530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,7 +1547,8 @@ MonoBehaviour:
   attackInterval: 1
   currentHP: 0
   detectionRadius: 10
-  weaponCollider: {fileID: 0}
+  weaponCollider: {fileID: 8572369190830513853}
+  enemyWeapon: {fileID: 5211507951313211734}
 --- !u!1 &2484376644985578604
 GameObject:
   m_ObjectHideFlags: 0

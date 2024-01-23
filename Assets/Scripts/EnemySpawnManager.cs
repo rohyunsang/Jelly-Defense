@@ -46,22 +46,25 @@ public class EnemySpawnManager : MonoBehaviour
     {
         spawnLimits = new int[enemyPrefab.Length];
         spawnLimits[0] = 5;
-        spawnLimits[1] = 7;
-        spawnLimits[2] = 3;
+        spawnLimits[1] = 5;
         ResetSpawnCounts();
         StartCoroutine(SpawnEnemyWithInterval());
     }
 
     public void EnemySpawnStage2()
     {
-        spawnLimits = new int[] { 6, 4, 5 }; // Stage2의 몬스터 소환 제한 설정
+        spawnLimits = new int[enemyPrefab.Length];
+        spawnLimits[2] = 5;
+        spawnLimits[3] = 5;
         ResetSpawnCounts();
         StartCoroutine(SpawnEnemyWithInterval());
     }
 
     public void EnemySpawnStage3()
     {
-        spawnLimits = new int[] { 3, 6, 8 }; // Stage3의 몬스터 소환 제한 설정
+        spawnLimits = new int[enemyPrefab.Length];
+        spawnLimits[4] = 5;
+        spawnLimits[5] = 5;
         ResetSpawnCounts();
         StartCoroutine(SpawnEnemyWithInterval());
     }

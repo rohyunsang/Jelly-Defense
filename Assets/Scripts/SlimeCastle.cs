@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class SlimeCastle : MonoBehaviour
+{
+    public float HP = 1000f;
+    public float currentHP;
+    public TextMeshPro slimeCastleHPTMP;
+    
+
+    void Start()
+    {
+        currentHP = HP;
+        slimeCastleHPTMP.text = currentHP.ToString("F0");
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("EnemyWeapon"))
+        {
+            GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+        }
+    }
+
+    public void GetHit(float damage) //데미지를 받음
+    {
+        currentHP -= damage; //받을 데미지량만큼 감소
+        Debug.Log("Slime Castle HP : " + currentHP); //콘솔창에 출력
+        slimeCastleHPTMP.text = currentHP.ToString("F0");
+
+        if (currentHP <= 0)
+        {
+            UIManager.instance.OnStageFailScreen();
+        }
+    }
+}

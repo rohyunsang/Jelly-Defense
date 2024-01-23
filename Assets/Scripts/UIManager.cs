@@ -20,28 +20,36 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     #endregion
+    [Header("TopBar")]
+    public GameObject stageScreenBackButton;
 
 
-    //메인화면. 행동력, 골드, 젤리력이 쌓이고 재화 값이 보이도록 만들어야 함
+    [Header("MainScreen")]
 
-    //메인화면>StageScreen
+    [Header("StageScreen")]
     public GameObject stageScreen;  
     public GameObject imageEnemyExplain;  // 적군 설명
     public GameObject imageStageStory;  // 스테이지 번호마다 스토리가 바뀌도록 만들어야 함
-    public GameObject buttonChaosClosed;  // 특정 조건을 완료하면 오브젝트 끄기
-    public GameObject buttonChaos;  // 카오스 버튼을 누르면 5~8스테이지가 카오스모드로 변해야함
-                                    //>2페이지에만 버튼이 있어야할거같음. 나중에 말하기                                
-    public GameObject stageScreenChaos;  //카오스 스크린
-    public GameObject settingScreen;  //메인화면 세팅
-    public GameObject shopScreen;
-    //HUD > 환경설정
-    public GameObject settingScreen2;  //HUD 세팅
+    public GameObject settingScreenMain;
+    public string selectedStageName = null;
 
-    // public GameObject soundScreen;  // 만들어야 함
-    public GameObject timeStopPanel;   //시간멈춤확인가능 색 패널
+    [Header("HUDScreen")]
+    public GameObject HUDsettingScreen;
+    public GameObject stageFailScreen;
+    public GameObject stageClearScreen;
 
-    //SlimePickUpScreen
+    [Header("PickUpScreen")]
     public GameObject pickUpScreen;  //슬라임 선택창
+
+    [Header("Shop")]
+    public GameObject shopScreen;
+    public GameObject shopScreenBackButton;
+    public GameObject LimitedSalePanel;
+    public GameObject AdsShopPanel;
+    public GameObject CashShopPanel;
+
+    [Header("Etc")]
+    public GameObject UIBackGround;
 
     [Header("DontDestroy")]
     public GameObject slimeSpawnManager;
@@ -51,14 +59,8 @@ public class UIManager : MonoBehaviour
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
     
 
-    public string selectedStageName = null;
-    public GameObject UIBackGround;
-    public GameObject stageScreenBackButton;
-    public GameObject shopScreenBackButton;
 
-    public GameObject LimitedSalePanel;
-    public GameObject AdsShopPanel;
-    public GameObject CashShopPanel;
+    
 
 
     //메인 스크린
@@ -127,7 +129,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
     {
-        settingScreen2.SetActive(false);
+        HUDsettingScreen.SetActive(false);
         slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
         mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
@@ -136,20 +138,38 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    //HUD 안의 버튼 이벤트들 
     #region HUDScreen
-    public void OnClickSettingButton2() //설정창 들어가기 버튼
+    public void HUDSettingButton() //설정창 들어가기 버튼
     {
         GameManager.Instance.PauseGame();
-        timeStopPanel.SetActive(true);
-        settingScreen2.SetActive(true);
+        HUDsettingScreen.SetActive(true);
     }
-    public void OnClilckResumeButton2()  //이어서 하기 버튼
+    public void HUDResumeButton()  //이어서 하기 버튼
     {
-        timeStopPanel.SetActive(false);
-        settingScreen2.SetActive(false);
+        HUDsettingScreen.SetActive(false);
         GameManager.Instance.ResumeGame();
     }
+    public void OnStageClearScreen()
+    {
+        stageClearScreen.SetActive(true);
+    }
+    public void OnClickHomeButtonStageClearScreen()
+    {
+        stageClearScreen.SetActive(false);
+        GameManager.Instance.ChangeSceneToMain();
+        OnDestroyObjects();
+    }
+    public void OnStageFailScreen()
+    {
+        stageFailScreen.SetActive(true);
+    }
+    public void OnClickHomeButtonStageFailScreen()
+    {
+        stageFailScreen.SetActive(false);
+        GameManager.Instance.ChangeSceneToMain();
+        OnDestroyObjects();
+    }
+
     #endregion
 
     //SettingScreen 안의 버튼 이벤트들 
@@ -157,13 +177,11 @@ public class UIManager : MonoBehaviour
     public void OnClickSettingButton() //설정창 들어가기 버튼
     {
         GameManager.Instance.PauseGame();
-        timeStopPanel.SetActive(true);
-        settingScreen.SetActive(true);
+        settingScreenMain.SetActive(true);
     }
     public void OnClilckResumeButton()  //이어서 하기 버튼
     {
-        timeStopPanel.SetActive(false);
-        settingScreen.SetActive(false);
+        settingScreenMain.SetActive(false);
         GameManager.Instance.ResumeGame();
     }
 
@@ -186,11 +204,6 @@ public class UIManager : MonoBehaviour
         mainUI.SetActive(true); //메인씬 최상위 캔버스 켜주기
      //   SlimeManager.instance.SavePrefabNames();
         OnDestroyObjects();
-        SceneManager.LoadScene("MainScreen");
-        GameManager.Instance.ResumeGame(); //시간 흐름 되돌리기
-        SlimeSpawnManager.instance.jellyPower = 0; //젤리력 초기화
-
-        //SlimeManager.instance.selectedSlimeName.Clear(); //데려갔던 슬라임 리스트 초기화
     }
 
     #endregion

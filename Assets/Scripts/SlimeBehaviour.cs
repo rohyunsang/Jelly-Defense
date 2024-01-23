@@ -228,13 +228,13 @@ public class SlimeBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("공격");
-        // 공격
-        if (other.transform.CompareTag("Enemy"))
+        if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("EnemyCastle"))
         {
-            Debug.Log("진짜 공격");
-            //weaponCollider.enabled = false;
+            weaponCollider.enabled = false;
         }
-
+        if (other.transform.CompareTag("EnemyWeapon"))
+        {
+            GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+        }
     }
 }

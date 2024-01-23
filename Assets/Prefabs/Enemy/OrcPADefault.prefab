@@ -987,7 +987,8 @@ MonoBehaviour:
   attackInterval: 1
   currentHP: 0
   detectionRadius: 10
-  weaponCollider: {fileID: 0}
+  weaponCollider: {fileID: 2996556360849372404}
+  enemyWeapon: {fileID: 2750448129439552790}
 --- !u!1 &4086028221350961432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,9 +2226,12 @@ GameObject:
   - component: {fileID: 4086028221351460126}
   - component: {fileID: 795474847540687638}
   - component: {fileID: 5611503279051214937}
+  - component: {fileID: 2996556360849372404}
+  - component: {fileID: 101638221750828060}
+  - component: {fileID: 2750448129439552790}
   m_Layer: 9
   m_Name: Maul
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2297,3 +2301,45 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2996556360849372404
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086028221350961534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7875252, y: 0.68829316, z: 1.6604398}
+  m_Center: {x: -3.503076, y: -0.14903015, z: 0.08787883}
+--- !u!54 &101638221750828060
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086028221350961534}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2750448129439552790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086028221350961534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192d7a67dcac19b498853d4a8005f7c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 0

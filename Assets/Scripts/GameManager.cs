@@ -58,7 +58,12 @@ public class GameManager : MonoBehaviour
         return stageClearStatus.TryGetValue(stageName, out bool cleared) && cleared;
     }
 
-    public void ChangeScene(string stageName)
+    public void ChangeSceneToMain()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public void ChangeScene(string stageName) // stage이동할때.
     {
         StartCoroutine(LoadSceneAndPerformAction(stageName));
     }
@@ -78,6 +83,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Scene Loaded");
         SlimeSpawnManager.instance.FindSlimeSpawn();
         EnemySpawnManager.instance.EnemySpawnTable(sceneName);
+        SlimeSpawnManager.instance.InitSlimeSpawnManager();
     }
     public void PauseGame()
     {

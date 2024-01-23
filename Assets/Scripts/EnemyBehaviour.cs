@@ -15,7 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Basic Data")]
     bool isDead = false;
-    public float HP = 50f; //유닛 체력
+    public float HP = 200f; //유닛 체력
     public float attackDamage = 10f; 
     public float defense = 10f; //
     public float attackSpeed = 1.5f; // 
@@ -31,6 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Weapon")]
     public Collider weaponCollider;
+    public EnemyWeapon enemyWeapon;
 
     void Awake()
     {
@@ -67,6 +68,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
+
+        enemyWeapon.weaponDamage = attackDamage;
     }
     void Update()
     {
@@ -151,10 +154,11 @@ public class EnemyBehaviour : MonoBehaviour
         anim.SetTrigger("Attack02");
         StopNavAgent(); //공격애니메이션
         StartCoroutine(ResumeMovementAfterAttack()); // 일정 시간 후 이동 다시 시작
+        StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작
     }
     IEnumerator ResumeMovementAfterAttack()
     {
-        yield return new WaitForSeconds(1f); // 원하는 대기 시간을 설정
+        yield return new WaitForSeconds(2f); // 원하는 대기 시간을 설정
 
         // 코루틴이 실행되는 동안 navAgent가 비활성화되거나 제거되었는지 확인
         while (navAgent == null || !navAgent.isActiveAndEnabled || !navAgent.isOnNavMesh)
@@ -164,6 +168,12 @@ public class EnemyBehaviour : MonoBehaviour
 
         navAgent.isStopped = false; // 네비 이동 다시 시작
         anim.SetBool("isMove", true); // isMove를 true로 설정하여 이동 애니메이션 재생
+    }
+    IEnumerator ActivateWeaponCollider()
+    {
+        weaponCollider.enabled = true; // weaponCollider를 활성화
+        yield return new WaitForSeconds(0.5f); // 0.5초 대기
+        weaponCollider.enabled = false; // weaponCollider를 다시 비활성화
     }
 
     public void GetHit(float damage) //데미지를 받음
@@ -180,16 +190,6 @@ public class EnemyBehaviour : MonoBehaviour
             Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
         }
     }
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("피격" + other.gameObject.name);
-        
-        if (other.transform.CompareTag("SlimeWeapon"))
-        {
-            Debug.Log("진짜 피격");
-            GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
-        }
-    }
 
     void StopNavAgent() //네비 멈추기
     {
@@ -203,6 +203,16 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Destroy(gameObject); //오브젝트 삭제
     }
-
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("Slime") || other.transform.CompareTag("SlimeCastle"))
+        {
+            weaponCollider.enabled = false;
+        }
+        if (other.transform.CompareTag("SlimeWeapon"))
+        {
+            GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+        }
+    }
 
 }

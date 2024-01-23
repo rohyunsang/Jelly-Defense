@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 766628619363361800}
   - component: {fileID: 6648351531864227442}
   - component: {fileID: -372860545907069222}
-  - component: {fileID: 6463190826744097982}
   - component: {fileID: 4854988424461715058}
+  - component: {fileID: 6463190826744097982}
   m_Layer: 9
   m_Name: CactusPAMaskTint
   m_TagString: Enemy
@@ -80,6 +80,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &4854988424461715058
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137443379326582450}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &6463190826744097982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,21 +115,8 @@ MonoBehaviour:
   attackInterval: 1
   currentHP: 0
   detectionRadius: 10
-  weaponCollider: {fileID: 0}
---- !u!136 &4854988424461715058
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137443379326582450}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 2
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  weaponCollider: {fileID: 117710776583869410}
+  enemyWeapon: {fileID: 2352220054669553425}
 --- !u!1 &373330196830628222
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,9 +709,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3280928797574597454}
+  - component: {fileID: 117710776583869410}
+  - component: {fileID: 446684051513095657}
+  - component: {fileID: 2352220054669553425}
   m_Layer: 9
   m_Name: cactus_root
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -731,6 +735,48 @@ Transform:
   m_Father: {fileID: 766628619363361800}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &117710776583869410
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8353405005802328388}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.54, y: 1, z: 1}
+  m_Center: {x: -0.45, y: -0.62, z: 0}
+--- !u!54 &446684051513095657
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8353405005802328388}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2352220054669553425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8353405005802328388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192d7a67dcac19b498853d4a8005f7c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 0
 --- !u!1 &8640975116827731452
 GameObject:
   m_ObjectHideFlags: 0

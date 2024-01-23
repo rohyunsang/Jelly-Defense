@@ -11,6 +11,7 @@ TagManager:
   - SlimeIcon
   - SlimeWeapon
   - Ground
+  - EnemyWeapon
   layers:
   - Default
   - TransparentFX
