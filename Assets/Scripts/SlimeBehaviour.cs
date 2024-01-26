@@ -15,6 +15,7 @@ public class SlimeBehaviour : MonoBehaviour
     // Slime 정보를 저장할 변수들
     public Slime slimeData; // Slime 스크립트를 연결할 변수
 
+
     [Header("Basic Data")]
     bool isDead = false;
     public float HP; //유닛 체력

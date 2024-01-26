@@ -15,7 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Basic Data")]
     bool isDead = false;
-    private float HP = 50f; //À¯´Ö Ã¼·Â
+    private float HP = 5000f; //À¯´Ö Ã¼·Â
     public float attackDamage = 10f; 
     public float defense = 10f; //
     public float attackSpeed = 1.5f; // 
