@@ -21,7 +21,7 @@ MonoBehaviour:
   size_Length_Min: 20
   size_Length_Max: 100
   height_HeightRandom: 0
-  height_Height: 20
+  height_Height: 0
   height_Height_Min: 0
   height_Height_Max: 30
   height_ContrastRandom: 0

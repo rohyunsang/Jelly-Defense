@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -22,7 +23,9 @@ public class UIManager : MonoBehaviour
     #endregion
     [Header("TopBar")]
     public GameObject stageScreenBackButton;
-
+    public TextMeshProUGUI actionPointText;
+    public TextMeshProUGUI goldText;
+    public TextMeshProUGUI jellyStoneText;
 
     [Header("MainScreen")]
 
@@ -57,11 +60,20 @@ public class UIManager : MonoBehaviour
     public GameObject battleHUDScreen;  //HUD 스크린
     public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
-    
 
 
-    
 
+
+    #region TapBar
+
+    public void InitCurrenyUI(int actionPoint, int gold, int jellyStone)
+    {
+        actionPointText.text = actionPoint.ToString();
+        goldText.text = gold.ToString();
+        jellyStoneText.text = jellyStone.ToString();
+    }
+
+    #endregion
 
     //메인 스크린
     #region MainScreen 
