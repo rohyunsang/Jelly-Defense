@@ -28,17 +28,17 @@ public class MeleeSlimeBehaviour : MonoBehaviour
 
     [Header("Addictional Data")]
     private float nextAttackTime; //공격주기 누적 초기화용
-    public float detectionRadius = 20f; //적 감지 반경
+    public float detectionRadius = 8f; //적 감지 반경
     private float detectionInterval = 0.5f;  // 범위 탐지 주기
     private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
     private bool hasAttacked = false;
 
     [Header("Weapon")]
-    //public SlimeWeapon slimeWeapon;
+    public Collider weaponCollider;
+    public SlimeWeapon slimeWeapon;
 
     [Header("Melee")]
     public bool isFire = false;
-
 
     void Awake()
     {

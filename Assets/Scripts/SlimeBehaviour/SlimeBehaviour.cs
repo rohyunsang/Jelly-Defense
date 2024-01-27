@@ -174,7 +174,7 @@ public class SlimeBehaviour : MonoBehaviour
    
     void Attack()//공격
     {
-        anim.SetTrigger("Attack02"); 
+        anim.SetTrigger("Attack01"); 
         StopNavAgent(); 
         StartCoroutine(ResumeMovementAfterAttack());
         StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작

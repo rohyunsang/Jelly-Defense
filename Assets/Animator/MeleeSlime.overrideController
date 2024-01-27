@@ -7,5 +7,14 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MeleeSlime
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: 5d37661e42489ba459d9e92808742e41, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -2516013265382948196, guid: 17a650f2b198edd48b1b166b7572dece,
+      type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 13653e916f6ed5442ab3f9ea33d3cfee, type: 2}
+  - m_OriginalClip: {fileID: 989712619511347958, guid: 17a650f2b198edd48b1b166b7572dece,
+      type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 13653e916f6ed5442ab3f9ea33d3cfee, type: 2}
+  - m_OriginalClip: {fileID: 8395649043086323461, guid: 17a650f2b198edd48b1b166b7572dece,
+      type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 13653e916f6ed5442ab3f9ea33d3cfee, type: 2}
