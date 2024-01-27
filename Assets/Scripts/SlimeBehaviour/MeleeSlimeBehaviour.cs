@@ -34,7 +34,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour
     private bool hasAttacked = false;
 
     [Header("Weapon")]
-    public Collider weaponCollider;
+    public Collider[] weaponColliders;
     public SlimeWeapon slimeWeapon;
 
     [Header("Melee")]
@@ -197,7 +197,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour
 
     void Attack()//공격
     {
-        anim.SetTrigger("Attack02");
+        anim.SetTrigger("Attack01");
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
         StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작
@@ -217,9 +217,13 @@ public class MeleeSlimeBehaviour : MonoBehaviour
     }
     IEnumerator ActivateWeaponCollider()
     {
-        //weaponCollider.enabled = true; // weaponCollider를 활성화
+        foreach(Collider weaponCollider in weaponColliders)
+            weaponCollider.enabled = true; // weaponCollider를 활성화
+
         yield return new WaitForSeconds(0.5f); // 0.5초 대기
-        //weaponCollider.enabled = false; // weaponCollider를 다시 비활성화
+
+        foreach (Collider weaponCollider in weaponColliders)
+            weaponCollider.enabled = false; // weaponCollider를 다시 비활성화
     }
 
     public void GetHit(float damage) //데미지를 받음

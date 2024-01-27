@@ -21,6 +21,10 @@ public class EnemyCastle : MonoBehaviour
         {
             GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
         }
+        else
+        {
+            return;
+        }
     }
 
     public void GetHit(float damage) //데미지를 받음
