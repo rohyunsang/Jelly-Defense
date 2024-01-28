@@ -321,6 +321,26 @@ public class MeleeSlimeBehaviour : MonoBehaviour
     }
     public void LegendMeleeSkill()
     {
+        anim.SetTrigger("Skill");
+        if (target != null && isFire) // 타겟이 설정되어 있는 경우에만 실행
+        {
+            // 타겟의 위치에 이펙트 생성
+            GameObject effectInstance = Instantiate(epicStarHit, target.position, Quaternion.identity);
+            // target이 EnemyBehaviour 컴포넌트를 가지고 있는지 확인
+            EnemyBehaviour enemy = target.GetComponent<EnemyBehaviour>();
+            EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
+            if (enemy != null)
+            {
+                enemy.currentHP -= attackDamage * 1.5f; // 대미지 적용
+            }
+            else if (enemyCastle != null)
+            {
+                enemyCastle.currentHP -= attackDamage * 1.5f;
+            }
 
+
+            // 이펙트를 일정 시간 후에 제거
+            Destroy(effectInstance, 2.0f); // 예를 들어, 2초 후에 이펙트 제거
+        }
     }
 }

@@ -39,6 +39,8 @@ public class TankerSlimeBehaviour : MonoBehaviour
 
     [Header("Tanker")]
     public GameObject shiledParticle;
+    public bool isUpDefense;
+    public float damageReduction = 0.3f;
 
 
     void Awake()
@@ -211,7 +213,10 @@ public class TankerSlimeBehaviour : MonoBehaviour
         float actualDamage = damage - (defense * 0.5f);
         // 실제 대미지가 0보다 작으면, 0으로 처리하여 데미지가 없게 함
         actualDamage = Mathf.Max(actualDamage, 0);
-        currentHP -= actualDamage; //받을 데미지량만큼 감소
+        if(isUpDefense)
+            currentHP -= actualDamage * (1 - damageReduction); //받을 데미지량만큼 감소
+        else
+            currentHP -= actualDamage;
 
         Debug.Log("Slime HP : " + currentHP);
 
@@ -253,6 +258,7 @@ public class TankerSlimeBehaviour : MonoBehaviour
     public void TankerSkill()
     {
         shiledParticle.SetActive(true);
+        isUpDefense = true;
         Invoke("ShiledOffInvoked", 4f);
     }
     public void ShiledOffInvoked()

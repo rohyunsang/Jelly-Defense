@@ -198,7 +198,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour
     void ShootArrow(Transform target)
     {
         // 화살 프리팹으로부터 화살 객체 생성
-        GameObject arrow = Instantiate(magicPrefab, firePoint.position, firePoint.rotation);
+        GameObject arrow = Instantiate(magicPrefab, firePoint.position + new Vector3(0f,1f,0f), firePoint.rotation);
         // 화살에 Rigidbody 컴포넌트가 있는지 확인하고, 있으면 발사
         arrow.transform.LookAt(target.position);
 
