@@ -3,13 +3,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum MeleeSlimeType
+{
+    NonSkill,
+    Epic,
+    Legend
+}
+
 public class MeleeSlimeBehaviour : MonoBehaviour
 {
     //컴포넌트들
     private Animator anim;
     private NavMeshAgent navAgent;
 
-    private Transform target; // current target 적
+    public Transform target; // current target 적
     public Transform enemyCastle; //적 기지 위치. 적 기지> 프리팹>슬라임 프리팹에 연결, Revert>> 스폰 슬라임의 null 오류 해결
 
     // Slime 정보를 저장할 변수들
@@ -39,6 +46,10 @@ public class MeleeSlimeBehaviour : MonoBehaviour
 
     [Header("Melee")]
     public bool isFire = false;
+    public bool isSkill = false;
+    public MeleeSlimeType meleeSlimeType;
+    public GameObject epicStarHit; 
+    public GameObject legendStarHit; 
 
     void Awake()
     {
@@ -121,16 +132,13 @@ public class MeleeSlimeBehaviour : MonoBehaviour
                 isFire = true;
                 navAgent.velocity = new Vector3(0, 0, 0);
 
-                /*
-                // 적 바라보게 하는 코드 navAgent.isStopped 하면 바라보는것도 멈춘다.
-                Vector3 direction = (target.position - transform.position).normalized;
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
-                 */
-
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
+                    if (isSkill)
+                    {
+                        isSkill = false;
+                        MeleeSkill();
+                    }
                     Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
                     nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
                 }
@@ -267,5 +275,41 @@ public class MeleeSlimeBehaviour : MonoBehaviour
         }
     }
 
+    public void OnSkill()
+    {
+        isSkill = true;
+    }
 
+    public void MeleeSkill()  //여기가 1번째 
+    {
+        switch(meleeSlimeType)
+        {
+            case MeleeSlimeType.Epic:
+                EpicMeleeSkill();
+                break;
+            case MeleeSlimeType.Legend:
+                LegendMeleeSkill();
+                break;
+            case MeleeSlimeType.NonSkill:
+                break;
+        }
+    }
+
+    public void EpicMeleeSkill()
+    {
+
+        if (target != null && isFire) // 타겟이 설정되어 있는 경우에만 실행
+        {
+            // 타겟의 위치에 이펙트 생성
+            GameObject effectInstance = Instantiate(epicStarHit, target.position, Quaternion.identity);
+            target.gameObject.GetComponent<EnemyBehaviour>().currentHP -= attackDamage * 1.5f;
+
+            // 이펙트를 일정 시간 후에 제거
+            Destroy(effectInstance, 2.0f); // 예를 들어, 2초 후에 이펙트 제거
+        }
+    }
+    public void LegendMeleeSkill()
+    {
+
+    }
 }

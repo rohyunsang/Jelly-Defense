@@ -37,6 +37,9 @@ public class TankerSlimeBehaviour : MonoBehaviour
     public Collider weaponCollider;
     public SlimeWeapon slimeWeapon;
 
+    [Header("Tanker")]
+    public GameObject shiledParticle;
+
 
     void Awake()
     {
@@ -48,9 +51,10 @@ public class TankerSlimeBehaviour : MonoBehaviour
         //슬라임 수치 가져오기
         string slimePrefabName = gameObject.name.Replace("(Clone)", ""); // 여기는 이름 바꿔서 들어오기가 안된다. 
                                                                          // Instantiate로 생성됐기에 Awake()가 실행된다음에 이름을 바꾸는것은 틀리다.
-                                                                         //Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
+                                                                         
+        //Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
         /*
-if (slimeData != null)
+        if (slimeData != null)
         {
             //slimeCost = slimeData.Cost;
             HP = slimeData.HP;
@@ -246,5 +250,14 @@ if (slimeData != null)
         }
     }
 
+    public void TankerSkill()
+    {
+        shiledParticle.SetActive(true);
+        Invoke("ShiledOffInvoked", 4f);
+    }
+    public void ShiledOffInvoked()
+    {
+        shiledParticle.SetActive(false);
+    }
 
 }
