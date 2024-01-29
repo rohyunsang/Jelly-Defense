@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 5521044438660040666}
   - component: {fileID: 1721785472415389081}
   m_Layer: 5
-  m_Name: NormalSlimeIcon
+  m_Name: GreenlSlimeIcon
   m_TagString: SlimeIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

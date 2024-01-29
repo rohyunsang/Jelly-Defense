@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 9180176953063321710}
   - component: {fileID: 1928707285037531593}
   m_Layer: 8
-  m_Name: NormalSlime
+  m_Name: GreenlSlime
   m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
