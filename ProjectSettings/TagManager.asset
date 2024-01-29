@@ -12,6 +12,9 @@ TagManager:
   - SlimeWeapon
   - Ground
   - EnemyWeapon
+  - pyramid
+  - plane
+  - SlimeProjectileWeapon
   layers:
   - Default
   - TransparentFX

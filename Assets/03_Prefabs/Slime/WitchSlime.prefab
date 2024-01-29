@@ -88,7 +88,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923104680137355263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.77, y: 0.8178543, z: 0.476}
+  m_LocalPosition: {x: -0.97, y: 0.8178543, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -547,6 +547,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1520972326823249452}
+  - component: {fileID: 1279078371}
+  - component: {fileID: 1279078370}
+  - component: {fileID: 1279078368}
+  - component: {fileID: 1279078369}
   m_Layer: 0
   m_Name: WitchSlime
   m_TagString: Untagged
@@ -563,7 +567,7 @@ Transform:
   m_GameObject: {fileID: 5689429144550864025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.0000005, y: 2, z: 2.0000005}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7015041242673158774}
@@ -576,6 +580,106 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1279078371
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689429144550864025}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!95 &1279078370
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689429144550864025}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d37661e42489ba459d9e92808742e41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &1279078368
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689429144550864025}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1279078369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689429144550864025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e099383133b591947bad82ee30a37206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCastle: {fileID: 0}
+  slimeData:
+    Index: 0
+    Name: 
+    Grade: 0
+    Type: 0
+    HP: 0
+    Attack: 0
+    Defense: 0
+    AttackSpeed: 0
+    Speed: 0
+    Range: 
+    Cost: 0
+    Target: 0
+  HP: 100
+  attackDamage: 0
+  defense: 0
+  attackSpeed: 0
+  attackDistance: 20
+  attackInterval: 1.8
+  currentHP: 0
+  detectionRadius: 20
+  magicPrefab: {fileID: 426949901636449925, guid: 35d02c0e557f26a47979be73a9cc1298,
+    type: 3}
+  skillPrefab: {fileID: 426949901636449925, guid: d2bbbd7c1c0711e4cb04347720dbda6c,
+    type: 3}
+  magicSpeed: 20
+  firePoint: {fileID: 1295890077742413125}
+  isFire: 0
+  isSkill: 0
+  magicianSlimeType: 1
 --- !u!1 &7594853647456547639
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+public enum MagicianSlimeType
+{
+    NonSkill,
+    Epic,
+    Legend
+}
+
 
 public class MagicianSlimeBehaviour : MonoBehaviour
 {
@@ -38,10 +47,12 @@ public class MagicianSlimeBehaviour : MonoBehaviour
 
     [Header("Magician")]
     public GameObject magicPrefab;
+    public GameObject skillPrefab;
     public float magicSpeed = 20f;
     public Transform firePoint;
     public bool isFire = false;
-
+    public bool isSkill;
+    public MagicianSlimeType magicianSlimeType;
 
     void Awake()
     {
@@ -122,17 +133,18 @@ public class MagicianSlimeBehaviour : MonoBehaviour
                 isFire = true;
                 navAgent.velocity = new Vector3(0, 0, 0);
 
-                /*
-                // 적 바라보게 하는 코드 navAgent.isStopped 하면 바라보는것도 멈춘다.
-                Vector3 direction = (target.position - transform.position).normalized;
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
-                 */
-
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                    if (isSkill)
+                    {
+                        isSkill = false;
+                        MagicianSkill();
+                    }
+                    else
+                    {
+                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                    }
+                    
                     nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
                 }
             }
@@ -152,6 +164,8 @@ public class MagicianSlimeBehaviour : MonoBehaviour
             anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
         }
     }
+
+    
 
     void SearchEnemyInDetection() //범위 스캔
     {
@@ -195,7 +209,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour
         navAgent.SetDestination(target.position); //네비메쉬를 통해 이동 
     }
 
-    void ShootArrow(Transform target)
+    void MagicArrow(Transform target , GameObject magicPrefab)
     {
         // 화살 프리팹으로부터 화살 객체 생성
         GameObject arrow = Instantiate(magicPrefab, firePoint.position + new Vector3(0f,1f,0f), firePoint.rotation);
@@ -216,7 +230,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour
 
     void Attack()//공격
     {
-        ShootArrow(target);
+        MagicArrow(target, magicPrefab);
         //anim.SetTrigger("Attack02");
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
@@ -283,5 +297,34 @@ public class MagicianSlimeBehaviour : MonoBehaviour
         }
     }
 
+    public void OnSkill()  //여기가 1번째 
+    {
+        isSkill = true;
+    }
+
+
+    private void MagicianSkill()
+    {
+        switch (magicianSlimeType)
+        {
+            case MagicianSlimeType.Epic:
+                EpicMagicianSkill();
+                break;
+            case MagicianSlimeType.Legend:
+                EpicMagicianSkill();
+                break;
+            case MagicianSlimeType.NonSkill:
+                break;
+        }
+    }
+
+    public void EpicMagicianSkill()
+    {
+        MagicArrow(target, skillPrefab);
+        StopNavAgent();
+        StartCoroutine(ResumeMovementAfterAttack());
+        StartCoroutine(ActivateWeaponCollider());
+    }
+    
 
 }
