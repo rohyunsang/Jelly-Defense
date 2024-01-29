@@ -251,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2423742372581902777}
   m_Layer: 0
-  m_Name: HarrySlime
+  m_Name: WizardSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

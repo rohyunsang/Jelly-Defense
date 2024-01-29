@@ -437,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6531229185454716329}
   m_Layer: 0
-  m_Name: cowardslime
+  m_Name: Cowardslime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
