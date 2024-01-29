@@ -6,6 +6,7 @@ public class BombArrow : MonoBehaviour
 {
     public GameObject bombArrowEffect;
     private Rigidbody rb; // Rigidbody 컴포넌트 참조
+    public GameObject explosionArea;
 
     void Awake()
     {
@@ -18,6 +19,7 @@ public class BombArrow : MonoBehaviour
         {
             bombArrowEffect.SetActive(true);
             StopMovement(); // 화살의 이동을 멈춤
+            explosionArea.SetActive(true); // 폭발 영역 활성화
         }
     }
 
