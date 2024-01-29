@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum TankerSlimeType
+{
+    NonSkill,
+    Epic,
+    Legend
+}
+
+
 public class TankerSlimeBehaviour : MonoBehaviour
 {
     //컴포넌트들
@@ -38,10 +46,11 @@ public class TankerSlimeBehaviour : MonoBehaviour
     public SlimeWeapon slimeWeapon;
 
     [Header("Tanker")]
-    public GameObject shiledParticle;
-    public bool isUpDefense;
+    public GameObject skillEffect;
+    public bool isUpDefense = false;
     public float damageReduction = 0.3f;
-
+    public bool isSkill = false;
+    public TankerSlimeType tankerSlimeType;
 
     void Awake()
     {
@@ -255,15 +264,41 @@ public class TankerSlimeBehaviour : MonoBehaviour
         }
     }
 
-    public void TankerSkill()
+    public void TankerSkill()  // Skill Button Connect 
     {
-        shiledParticle.SetActive(true);
+        switch (tankerSlimeType)
+        {
+            case TankerSlimeType.Epic:
+                EpicTankerSkill();
+                break;
+            case TankerSlimeType.Legend:
+                LegendTankerSkill();
+                break;
+            case TankerSlimeType.NonSkill:
+                break;
+        }
+    }
+
+    public void EpicTankerSkill()
+    {
+        skillEffect.SetActive(true);
         isUpDefense = true;
         Invoke("ShiledOffInvoked", 4f);
     }
-    public void ShiledOffInvoked()
+    public void EpicTankerSkillOffInvoked()
     {
-        shiledParticle.SetActive(false);
+        isUpDefense = false;
+        skillEffect.SetActive(false);
     }
-
+    public void LegendTankerSkill()
+    {
+        skillEffect.SetActive(true);
+        isUpDefense = true;
+        Invoke("LegendTankerSkillOffInvoked", 10f);
+    }
+    public void LegendTankerSkillOffInvoked()
+    {
+        isUpDefense = false;
+        skillEffect.SetActive(false);
+    }
 }

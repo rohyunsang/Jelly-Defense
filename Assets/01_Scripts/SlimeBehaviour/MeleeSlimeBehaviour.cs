@@ -139,8 +139,12 @@ public class MeleeSlimeBehaviour : MonoBehaviour
                         isSkill = false;
                         MeleeSkill();
                     }
-                    Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
-                    nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                    else
+                    {
+                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                        nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                    }
+                    
                 }
             }
             else

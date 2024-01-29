@@ -3,6 +3,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum ArcherSlimeType
+{
+    NonSkill,
+    Epic,
+    Legend
+}
+
 public class ArcherSlimeBehaviour : MonoBehaviour
 {
     //컴포넌트들
@@ -41,7 +48,8 @@ public class ArcherSlimeBehaviour : MonoBehaviour
     public float arrowSpeed = 20f;
     public Transform firePoint;
     public bool isFire = false;
-
+    public ArcherSlimeType archerSlimeType;
+    public bool isSkill;
 
     void Awake()
     {
@@ -122,18 +130,20 @@ public class ArcherSlimeBehaviour : MonoBehaviour
                 isFire = true;
                 navAgent.velocity = new Vector3(0,0,0);
 
-                /*
-                // 적 바라보게 하는 코드 navAgent.isStopped 하면 바라보는것도 멈춘다.
-                Vector3 direction = (target.position - transform.position).normalized;
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
-                 */
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
-                    nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                    if (isSkill)
+                    {
+                        isSkill = false;
+                        ArcherSkill();
+                    }
+                    else
+                    {
+                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                        nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                    }
+                    
                 }
             }
             else
@@ -283,5 +293,34 @@ public class ArcherSlimeBehaviour : MonoBehaviour
         }
     }
 
+    public void OnSkill()
+    {
+        isSkill = true;
+    }
+
+    public void ArcherSkill()  //여기가 1번째 
+    {
+        switch (archerSlimeType)
+        {
+            case ArcherSlimeType.Epic:
+                EpicArcherSkill();
+                break;
+            case ArcherSlimeType.Legend:
+                LegendArcherSkill();
+                break;
+            case ArcherSlimeType.NonSkill:
+                break;
+        }
+    }
+
+    public void EpicArcherSkill()
+    {
+        anim.SetTrigger("Skill");
+        
+    }
+    public void LegendArcherSkill()
+{
+        
+    }
 
 }
