@@ -15,8 +15,10 @@ public class WitchSlimeSkill : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyCastle"))
         {
+            GetComponent<MeshRenderer>().enabled = false;
             witchSkillEffect.SetActive(true);
             StopMovement(); // 마법의 이동을 멈춤
             explosionArea.SetActive(true); // 폭발 영역 활성화
