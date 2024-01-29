@@ -15,6 +15,7 @@ TagManager:
   - pyramid
   - plane
   - SlimeProjectileWeapon
+  - SlimeBuff
   layers:
   - Default
   - TransparentFX

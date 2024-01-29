@@ -8,7 +8,8 @@ public enum MagicianSlimeType
 {
     NonSkill,
     Epic,
-    Legend
+    Legend,
+    LegendHealer
 }
 
 
@@ -302,23 +303,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour
         isSkill = true;
     }
 
-
-    private void MagicianSkill()
-    {
-        switch (magicianSlimeType)
-        {
-            case MagicianSlimeType.Epic:
-                EpicMagicianSkill();
-                break;
-            case MagicianSlimeType.Legend:
-                EpicMagicianSkill();
-                break;
-            case MagicianSlimeType.NonSkill:
-                break;
-        }
-    }
-
-    public void EpicMagicianSkill()
+    public void MagicianSkill()
     {
         MagicArrow(target, skillPrefab);
         StopNavAgent();

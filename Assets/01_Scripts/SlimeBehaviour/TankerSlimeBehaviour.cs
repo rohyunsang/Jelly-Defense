@@ -264,7 +264,7 @@ public class TankerSlimeBehaviour : MonoBehaviour
         }
     }
 
-    public void TankerSkill()  // Skill Button Connect 
+    public void TankerSkill()  //here
     {
         switch (tankerSlimeType)
         {
