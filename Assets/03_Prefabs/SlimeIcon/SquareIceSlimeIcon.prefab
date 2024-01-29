@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 7562265890623219843}
   - component: {fileID: 7504576834356725538}
   m_Layer: 5
-  m_Name: IceSlime
+  m_Name: SquareIceSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 773d5060ebea2964d84fd94b1149f9f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e70dcf21e1fe8b4b82a85a3cbe6d7a6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
