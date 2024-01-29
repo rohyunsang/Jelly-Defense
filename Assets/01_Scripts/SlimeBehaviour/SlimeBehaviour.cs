@@ -111,6 +111,7 @@ public class SlimeBehaviour : MonoBehaviour
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
             if (distanceToTarget <= attackDistance) //공격범위 이하의 간격이면
             {
+                navAgent.velocity = new Vector3(0, 0, 0);
                   if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                   {
                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함

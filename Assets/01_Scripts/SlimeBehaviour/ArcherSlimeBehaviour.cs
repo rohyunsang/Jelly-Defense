@@ -45,6 +45,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
 
     [Header("Archer")]
     public GameObject arrowPrefab;
+    public GameObject bombArrowPrefab;
     public float arrowSpeed = 20f;
     public Transform firePoint;
     public bool isFire = false;
@@ -205,7 +206,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
         navAgent.SetDestination(target.position); //네비메쉬를 통해 이동 
     }
 
-    void ShootArrow(Transform target)
+    void ShootArrow(Transform target, GameObject arrowPrefab)
     {
         // 화살 프리팹으로부터 화살 객체 생성
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
@@ -226,7 +227,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
 
     void Attack()//공격
     {
-        ShootArrow(target);
+        ShootArrow(target, arrowPrefab);
         //anim.SetTrigger("Attack02");
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
@@ -293,20 +294,17 @@ public class ArcherSlimeBehaviour : MonoBehaviour
         }
     }
 
-    public void OnSkill()
+    public void OnSkill()  //여기가 1번째 
     {
         isSkill = true;
     }
 
-    public void ArcherSkill()  //여기가 1번째 
+    public void ArcherSkill()  
     {
         switch (archerSlimeType)
         {
             case ArcherSlimeType.Epic:
                 EpicArcherSkill();
-                break;
-            case ArcherSlimeType.Legend:
-                LegendArcherSkill();
                 break;
             case ArcherSlimeType.NonSkill:
                 break;
@@ -315,12 +313,10 @@ public class ArcherSlimeBehaviour : MonoBehaviour
 
     public void EpicArcherSkill()
     {
-        anim.SetTrigger("Skill");
-        
-    }
-    public void LegendArcherSkill()
-{
-        
+        ShootArrow(target, bombArrowPrefab);
+        StopNavAgent();
+        StartCoroutine(ResumeMovementAfterAttack());
+        StartCoroutine(ActivateWeaponCollider());
     }
 
 }
