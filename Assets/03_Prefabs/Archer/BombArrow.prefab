@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8b4797931479a4f955ddd284f6c4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombArrowEffect: {fileID: 0}
+  bombArrowEffect: {fileID: 5988441006773031208}
 --- !u!1 &1128723366638027752
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,11 +679,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 120972, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120972, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
+      propertyPath: m_TagString
+      value: SlimeWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
       propertyPath: m_LocalPosition.x
@@ -725,6 +741,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 19936334, guid: dd644fc7a23fddd4a9678aecd32cd056, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -758,6 +778,12 @@ PrefabInstance:
 --- !u!4 &5988441006772676412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 421528, guid: dd644fc7a23fddd4a9678aecd32cd056,
+    type: 3}
+  m_PrefabInstance: {fileID: 5988441006773045668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5988441006773031208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 120972, guid: dd644fc7a23fddd4a9678aecd32cd056,
     type: 3}
   m_PrefabInstance: {fileID: 5988441006773045668}
   m_PrefabAsset: {fileID: 0}
