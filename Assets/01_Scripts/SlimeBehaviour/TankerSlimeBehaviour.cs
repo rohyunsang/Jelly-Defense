@@ -50,9 +50,9 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
     public GameObject skillEffect;
     public bool isUpDefense = false;
     public float damageReduction = 0.3f;
+    public bool isFire = false;
     public bool isSkill = false;
     public TankerSlimeType tankerSlimeType;
-
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -109,7 +109,9 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
-        slimeWeapon.weaponDamage = AttackDamage;
+        AttackDamage = 10;  // @@@@@@@@@@@@@@@Debug
+        slimeWeapon.weaponDamage = AttackDamage; //@@@@@@@@@@@@@@@@@@Debug
+
     }
     void Update()
     {
@@ -129,9 +131,21 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
             if (distanceToTarget <= attackDistance) //공격범위 이하의 간격이면
             {
+                isFire = true;
+                navAgent.velocity = new Vector3(0, 0, 0);
+
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                    if (isSkill && tankerSlimeType != TankerSlimeType.NonSkill)
+                    {
+                        isSkill = false;
+                        TankerSkill();
+                    }
+                    else
+                    {
+                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+
+                    }
                     nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
                 }
             }
@@ -212,6 +226,7 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
     }
     IEnumerator ActivateWeaponCollider()
     {
+        yield return new WaitForSeconds(0.2f);
         weaponCollider.enabled = true; // weaponCollider를 활성화
         yield return new WaitForSeconds(0.5f); // 0.5초 대기
         weaponCollider.enabled = false; // weaponCollider를 다시 비활성화
@@ -265,7 +280,12 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
         }
     }
 
-    public void TankerSkill()  //here
+    public void OnSkill()
+    {
+        isSkill = true;
+    }
+
+    public void TankerSkill()  
     {
         switch (tankerSlimeType)
         {
