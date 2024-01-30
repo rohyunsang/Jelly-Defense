@@ -129,7 +129,7 @@ PrefabInstance:
     - target: {fileID: 3205943200794234256, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_TagString
-      value: SlimeWeapon
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3649748197133664990, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
@@ -160,6 +160,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584765558746017793, guid: 941dc3b27dbb9384e8afe524e9151b93,
+        type: 3}
+      propertyPath: m_TagString
+      value: SlimeWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 6308154112910199505, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
@@ -199,22 +204,22 @@ PrefabInstance:
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -52.06
+      value: 58.840004
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.0500007
+      value: 9.18
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 31.2
+      value: 8.64
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.2546863
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
@@ -224,7 +229,7 @@ PrefabInstance:
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.96702373
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
@@ -239,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 150.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
@@ -317,7 +322,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5012492783278255559
+--- !u!136 &1558067490
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010575189096524394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &1558067489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,47 +345,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 3010575189096524394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
+  m_Script: {fileID: 11500000, guid: 0afbc0173b2d9f041a402e9079f473c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
-    type: 3}
+  target: {fileID: 0}
+  enemyCastle: {fileID: 0}
   slimeData:
     Index: 0
     Name: 
     Grade: 0
-    Type: 0
     HP: 0
     Attack: 0
     Defense: 0
     AttackSpeed: 0
-    Speed: 0
-    Range: 
+    MoveSpeed: 0
+    Class: 0
+    AttackRange: 0
+    SkillRange: 0
     Cost: 0
-    Target: 0
-  HP: 0
-  attackDamage: 0
   defense: 0
   attackSpeed: 0
-  attackDistance: 3
-  attackInterval: 1
-  currentHP: 0
-  detectionRadius: 10
-  weaponCollider: {fileID: 6141916444720727418}
-  slimeWeapon: {fileID: 5606295230002860884}
---- !u!1 &5922632407742557483 stripped
+  attackDistance: 6
+  attackInterval: 1.8
+  detectionRadius: 4
+  weaponColliders:
+  - {fileID: 325381729}
+  slimeWeapon: {fileID: 325381728}
+  isFire: 0
+  isSkill: 0
+  meleeSlimeType: 0
+  epicStarHit: {fileID: 4535006216103734310, guid: 64fe9a5f77443aa4a87ba2a3c8bd7a41,
+    type: 3}
+  legendStarHit: {fileID: 4535006216103734310, guid: 1f2fbea8552e27842b748f7a29d3c433,
+    type: 3}
+--- !u!1 &3732837848185376954 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3205943200794234256, guid: 941dc3b27dbb9384e8afe524e9151b93,
+  m_CorrespondingSourceObject: {fileID: 5584765558746017793, guid: 941dc3b27dbb9384e8afe524e9151b93,
     type: 3}
   m_PrefabInstance: {fileID: 9100832090519068859}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &483277691254176652
+--- !u!54 &325381730
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922632407742557483}
+  m_GameObject: {fileID: 3732837848185376954}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -376,29 +400,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6141916444720727418
+--- !u!65 &325381729
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922632407742557483}
+  m_GameObject: {fileID: 3732837848185376954}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6179178, y: 1.2042834, z: 1.5938106}
-  m_Center: {x: 0.0048939143, y: 0.60226804, z: -3.3927428e-10}
---- !u!114 &5606295230002860884
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &325381728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922632407742557483}
+  m_GameObject: {fileID: 3732837848185376954}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91b384c23bb4b5c4e8b8c48b1ed5e24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamage: 0
+  weaponDamage: 10

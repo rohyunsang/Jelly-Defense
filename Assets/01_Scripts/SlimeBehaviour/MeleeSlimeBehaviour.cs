@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public enum MeleeSlimeType
 {
-    NonSkill,
+    NoneWeapon,
+    NoneSkill,
     Epic,
     Legend
 }
@@ -136,7 +137,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    if (isSkill)
+                    if (isSkill && meleeSlimeType != MeleeSlimeType.NoneSkill && meleeSlimeType != MeleeSlimeType.NoneWeapon)
                     {
                         isSkill = false;
                         MeleeSkill();
@@ -211,7 +212,14 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
     void Attack()//공격
     {
-        anim.SetTrigger("Attack01");
+        if(MeleeSlimeType.NoneWeapon == meleeSlimeType)
+        {
+            anim.SetTrigger("Attack03");
+        }
+        else
+        {
+            anim.SetTrigger("Attack01");
+        }
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
         StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작
@@ -296,7 +304,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             case MeleeSlimeType.Legend:
                 LegendMeleeSkill();
                 break;
-            case MeleeSlimeType.NonSkill:
+            case MeleeSlimeType.NoneSkill:
                 break;
         }
     }
@@ -331,17 +339,17 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
         if (target != null && isFire) // 타겟이 설정되어 있는 경우에만 실행
         {
             // 타겟의 위치에 이펙트 생성
-            GameObject effectInstance = Instantiate(epicStarHit, target.position, Quaternion.identity);
+            GameObject effectInstance = Instantiate(legendStarHit, target.position, Quaternion.identity);
             // target이 EnemyBehaviour 컴포넌트를 가지고 있는지 확인
             EnemyBehaviour enemy = target.GetComponent<EnemyBehaviour>();
             EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
             if (enemy != null)
             {
-                enemy.currentHP -= AttackDamage * 1.5f; // 대미지 적용
+                enemy.currentHP -= AttackDamage * 4.0f; // 대미지 적용
             }
             else if (enemyCastle != null)
             {
-                enemyCastle.currentHP -= AttackDamage * 1.5f;
+                enemyCastle.currentHP -= AttackDamage * 4.0f;
             }
 
 

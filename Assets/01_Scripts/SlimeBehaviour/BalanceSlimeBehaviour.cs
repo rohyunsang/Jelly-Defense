@@ -37,7 +37,7 @@ public class BalanceSlimeBehaviour : MonoBehaviour, ISlime
     [Header("Weapon")]
     public Collider weaponCollider;
     public SlimeWeapon slimeWeapon;
-    
+    public bool isFire;
 
     void Awake()
     {
@@ -114,11 +114,14 @@ if (slimeData != null)
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
             if (distanceToTarget <= attackDistance) //공격범위 이하의 간격이면
             {
-                  if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
-                  {
-                       Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
-                       nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
-                  }
+                isFire = true;
+                navAgent.velocity = new Vector3(0, 0, 0);
+
+                if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
+                {
+                    Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+                    nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                }
             }
             
         }
@@ -197,6 +200,7 @@ if (slimeData != null)
     }
     IEnumerator ActivateWeaponCollider()
     {
+        yield return new WaitForSeconds(0.5f);
         weaponCollider.enabled = true; // weaponCollider를 활성화
         yield return new WaitForSeconds(0.5f); // 0.5초 대기
         weaponCollider.enabled = false; // weaponCollider를 다시 비활성화

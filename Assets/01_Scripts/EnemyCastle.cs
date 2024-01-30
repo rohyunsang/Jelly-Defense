@@ -17,8 +17,10 @@ public class EnemyCastle : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("d");
         if (other.transform.CompareTag("SlimeWeapon"))
         {
+            Debug.Log("DD");
             GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
 
         }
