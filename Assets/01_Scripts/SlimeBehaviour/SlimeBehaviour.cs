@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SlimeBehaviour : MonoBehaviour
+public class SlimeBehaviour : MonoBehaviour, ISlime
 {
     //컴포넌트들
     private Animator anim;
@@ -18,13 +18,15 @@ public class SlimeBehaviour : MonoBehaviour
 
     [Header("Basic Data")]
     bool isDead = false;
-    public float HP; //유닛 체력
-    public float attackDamage; // Slime의 공격력
+    public float MaxHP { get ; set; }
+    public float AttackDamage { get; set; }
+    public float CurrentHP { get; set; }
+
     public float defense; // Slime의 방어력
     public float attackSpeed; // Slime의 공격 속도
     public float attackDistance = 3f; // 공격 가능 거리
     public float attackInterval = 1f; //다음 공격 주기
-    public float currentHP;
+
 
     [Header("Addictional Data")]
     private float nextAttackTime; //공격주기 누적 초기화용
@@ -36,7 +38,7 @@ public class SlimeBehaviour : MonoBehaviour
     [Header("Weapon")]
     public Collider weaponCollider;
     public SlimeWeapon slimeWeapon;
-    
+
 
     void Awake()
     {
@@ -53,8 +55,8 @@ public class SlimeBehaviour : MonoBehaviour
         if (slimeData != null)
         {
             //slimeCost = slimeData.Cost;
-            HP = slimeData.HP;
-            attackDamage = slimeData.Attack;
+            MaxHP = slimeData.HP;
+            AttackDamage = slimeData.Attack;
             defense = slimeData.Defense;
             attackSpeed = slimeData.AttackSpeed;
         }
@@ -69,7 +71,7 @@ public class SlimeBehaviour : MonoBehaviour
     private void Start()
     {
         //게임오브젝트 중 적군 성 태그를 가진 오브젝트의 트랜스폼을 향해 가도록 함
-        currentHP = HP;
+        CurrentHP = MaxHP;
         if (enemyCastle != null)
         {
             target = enemyCastle.transform;  //타겟에 넣기
@@ -91,7 +93,7 @@ public class SlimeBehaviour : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
-        slimeWeapon.weaponDamage = attackDamage;
+        slimeWeapon.weaponDamage = AttackDamage;
     }
     void Update()
     {
@@ -206,11 +208,11 @@ public class SlimeBehaviour : MonoBehaviour
         float actualDamage = damage - (defense * 0.5f);
         // 실제 대미지가 0보다 작으면, 0으로 처리하여 데미지가 없게 함
         actualDamage = Mathf.Max(actualDamage, 0);
-        currentHP -= actualDamage; //받을 데미지량만큼 감소
+        CurrentHP -= actualDamage; //받을 데미지량만큼 감소
 
-        Debug.Log("Slime HP : " + currentHP); 
+        Debug.Log("Slime HP : " + CurrentHP); 
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0)
         {
             isDead = true; //슬라임은 죽음
             StopNavAgent();  //네비 멈추기
