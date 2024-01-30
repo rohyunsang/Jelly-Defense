@@ -46,22 +46,22 @@ public class GoogleSheetManager : MonoBehaviour
         for (int i = 1; i < lines.Length; i++) // 첫 번째 줄은 헤더이므로 건너뜁니다.
         {
             string[] fields = lines[i].Split('\t');
-            if (fields.Length >= 12) // 필드가 충분한지 확인
+            if (fields.Length >= 11) // 필드가 충분한지 확인
             {
                 Slime slime = new Slime()
                 {
                     Index = int.Parse(fields[0]),
                     Name = fields[1],
                     Grade = int.Parse(fields[2]),
-                    Type = int.Parse(fields[3]),
-                    HP = int.Parse(fields[4]),
-                    Attack = int.Parse(fields[5]),
-                    Defense = int.Parse(fields[6]),
-                    AttackSpeed = float.Parse(fields[7]),
-                    Speed = int.Parse(fields[8]),
-                    Range = fields[9],
-                    Cost = int.Parse(fields[10]),
-                    Target = int.Parse(fields[11])
+                    HP = int.Parse(fields[3]),
+                    Attack = int.Parse(fields[4]),
+                    Defense = int.Parse(fields[5]),
+                    AttackSpeed = float.Parse(fields[6]),
+                    MoveSpeed = float.Parse(fields[7]),
+                    Class = int.Parse(fields[8]),
+                    AttackRange = float.Parse(fields[9]),
+                    SkillRange = float.Parse(fields[10]),
+                    Cost = int.Parse(fields[11]),
                 };
                 slimes.Add(slime);
             }
@@ -75,13 +75,13 @@ public class Slime
     public int Index;
     public string Name;
     public int Grade;
-    public int Type;
     public int HP;
     public int Attack;
     public int Defense;
     public float AttackSpeed;
-    public int Speed;
-    public string Range;
+    public float MoveSpeed;
+    public int Class;
+    public float AttackRange;
+    public float SkillRange;
     public int Cost;
-    public int Target;
 }
