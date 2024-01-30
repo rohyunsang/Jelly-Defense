@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2023422033}
   m_Layer: 0
   m_Name: GrassSlime
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,9 @@ MonoBehaviour:
     AttackRange: 0
     SkillRange: 0
     Cost: 0
+  <MaxHP>k__BackingField: 50
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
   defense: 0
   attackSpeed: 0
   attackDistance: 20
@@ -241,7 +244,7 @@ MonoBehaviour:
   skillPrefab: {fileID: 7986504087968017091, guid: 47280086fa6f6c84697d31a91dc27313,
     type: 3}
   magicSpeed: 20
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 1594866394181467876}
   isFire: 0
   isSkill: 0
   magicianSlimeType: 2
@@ -579,6 +582,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1594866395349980853, guid: e9ce5b76e608dcb44ab4fec4973b6d24,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594866395349980853, guid: e9ce5b76e608dcb44ab4fec4973b6d24,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594866395349980853, guid: e9ce5b76e608dcb44ab4fec4973b6d24,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594866395349980853, guid: e9ce5b76e608dcb44ab4fec4973b6d24,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.193
       objectReference: {fileID: 0}
@@ -626,6 +644,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594866395349980853, guid: e9ce5b76e608dcb44ab4fec4973b6d24,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2119447363234515983, guid: e9ce5b76e608dcb44ab4fec4973b6d24,
         type: 3}

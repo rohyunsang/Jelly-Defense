@@ -28,9 +28,11 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
     [Header("Basic Data")]
     bool isDead = false;
-    [SerializeField]
+    [field: SerializeField]
     public float MaxHP { get; set; }
+    [field: SerializeField]
     public float AttackDamage { get; set; }
+    [field: SerializeField]
     public float CurrentHP { get; set; }
 
     public float defense; // Slime의 방어력
@@ -229,7 +231,6 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
             // 화살에 힘을 가하여 발사합니다.
             arrowRigid.velocity = direction * magicSpeed;
         }
-
     }
 
     void Attack()//공격
@@ -308,11 +309,33 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
     public void MagicianSkill()
     {
+        switch (magicianSlimeType)
+        {
+            case MagicianSlimeType.Epic:
+                EpicMagicianSkill();
+                break;
+            case MagicianSlimeType.Legend:
+                LegendMagicianSkill();
+                break;
+            case MagicianSlimeType.NonSkill:
+                break;
+        }
+    }
+
+    public void EpicMagicianSkill()
+    {
         MagicArrow(target, skillPrefab);
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
         StartCoroutine(ActivateWeaponCollider());
     }
-    
+    public void LegendMagicianSkill()
+    {
+        Instantiate(skillPrefab, transform.position, transform.rotation);
+        StopNavAgent();
+        StartCoroutine(ResumeMovementAfterAttack());
+        StartCoroutine(ActivateWeaponCollider());
+    }
+
 
 }

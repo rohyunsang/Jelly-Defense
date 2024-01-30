@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8672489574266946271}
-  - component: {fileID: 3123558516746813327}
-  - component: {fileID: -7111156208438508740}
-  - component: {fileID: -4407678419217864653}
-  - component: {fileID: -2621578413888740371}
+  - component: {fileID: 1076715619}
+  - component: {fileID: 1076715618}
+  - component: {fileID: 1076715616}
+  - component: {fileID: 1076715617}
   m_Layer: 8
   m_Name: BlockSlime
   m_TagString: Slime
@@ -39,7 +39,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &3123558516746813327
+--- !u!136 &1076715619
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190606646632493150}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!95 &1076715618
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190606646632493150}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d37661e42489ba459d9e92808742e41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1076715616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190606646632493150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ea238a69946854e9a1ed038ec13817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCastle: {fileID: 0}
+  slimeData:
+    Index: 0
+    Name: 
+    Grade: 0
+    HP: 0
+    Attack: 0
+    Defense: 0
+    AttackSpeed: 0
+    MoveSpeed: 0
+    Class: 0
+    AttackRange: 0
+    SkillRange: 0
+    Cost: 0
+  defense: 0
+  attackSpeed: 0
+  attackDistance: 6
+  attackInterval: 1
+  detectionRadius: 10
+  weaponCollider: {fileID: 1523227231}
+  slimeWeapon: {fileID: 1523227229}
+  skillEffect: {fileID: 0}
+  isUpDefense: 0
+  damageReduction: 0.3
+  isFire: 0
+  isSkill: 0
+  tankerSlimeType: 0
+--- !u!195 &1076715617
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,78 +135,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &-7111156208438508740
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190606646632493150}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0}
---- !u!95 &-4407678419217864653
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190606646632493150}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d37661e42489ba459d9e92808742e41, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-2621578413888740371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190606646632493150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d4ff2a50ac8844f85be284004d6253, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyCastle: {fileID: 8132977820771452350, guid: a5a553628048a0c448ef3e919f042d35,
-    type: 3}
-  slimeData:
-    Index: 0
-    Name: 
-    Grade: 0
-    Type: 0
-    HP: 0
-    Attack: 0
-    Defense: 0
-    AttackSpeed: 0
-    Speed: 0
-    Range: 
-    Cost: 0
-    Target: 0
-  HP: 0
-  attackDamage: 0
-  defense: 0
-  attackSpeed: 0
-  attackDistance: 3
-  attackInterval: 1
-  currentHP: 0
-  detectionRadius: 10
-  weaponCollider: {fileID: 285021012676103287}
-  slimeWeapon: {fileID: 3983432167587526873}
 --- !u!1 &227120236704988636
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,12 +386,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7462871315734420365}
   - component: {fileID: 433318033233440417}
-  - component: {fileID: 285021012676103287}
-  - component: {fileID: 3983432167587526873}
-  - component: {fileID: 6926710745223759005}
   m_Layer: 8
   m_Name: SlimeBase
-  m_TagString: SlimeWeapon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,48 +465,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0.00038500177}
     m_Extent: {x: 0.008688954, y: 0.008688953, z: 0.006042616}
   m_DirtyAABB: 0
---- !u!65 &285021012676103287
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5667590650713334841}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.7377907, y: 1.2085234, z: 1.7377907}
-  m_Center: {x: 0, y: 0.60827637, z: -0.0000000725122}
---- !u!114 &3983432167587526873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5667590650713334841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b384c23bb4b5c4e8b8c48b1ed5e24c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDamage: 0
---- !u!54 &6926710745223759005
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5667590650713334841}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6438022003099827160
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,9 +474,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8231523395029377062}
+  - component: {fileID: 1523227230}
+  - component: {fileID: 1523227231}
+  - component: {fileID: 1523227229}
   m_Layer: 8
   m_Name: ROOT
-  m_TagString: Untagged
+  m_TagString: SlimeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -542,6 +502,48 @@ Transform:
   m_Father: {fileID: 4126324484404706447}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1523227230
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6438022003099827160}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1523227231
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6438022003099827160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1523227229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6438022003099827160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b384c23bb4b5c4e8b8c48b1ed5e24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 10
 --- !u!1 &8152486286032579770
 GameObject:
   m_ObjectHideFlags: 0
