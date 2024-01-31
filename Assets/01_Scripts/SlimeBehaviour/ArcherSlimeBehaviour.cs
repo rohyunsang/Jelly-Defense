@@ -25,18 +25,25 @@ public class ArcherSlimeBehaviour : MonoBehaviour
 
     [Header("Basic Data")]
     bool isDead = false;
+    [field: SerializeField]
     public float MaxHP { get; set; }
+    [field: SerializeField]
     public float AttackDamage { get; set; }
+    [field: SerializeField]
     public float CurrentHP { get; set; }
+    [field: SerializeField]
+    public float Defense { get; set; }
+    [field: SerializeField]
+    public float AttackSpeed { get; set; }
+    [field: SerializeField]
+    public float MoveSpeed { get; set; }
+    [field: SerializeField]
+    public float AttackRange { get; set; }
 
-    public float defense; // Slime의 방어력
-    public float attackSpeed; // Slime의 공격 속도
-    public float attackDistance = 8f; // 공격 가능 거리
-    public float attackInterval = 1.8f; //다음 공격 주기
 
     [Header("Addictional Data")]
     private float nextAttackTime; //공격주기 누적 초기화용
-    public float detectionRadius = 20f; //적 감지 반경
+    private float detectionRadius = 20f; //적 감지 반경
     private float detectionInterval = 0.5f;  // 범위 탐지 주기
     private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
     private bool hasAttacked = false;
@@ -63,24 +70,25 @@ public class ArcherSlimeBehaviour : MonoBehaviour
         //슬라임 수치 가져오기
         string slimePrefabName = gameObject.name.Replace("(Clone)", ""); // 여기는 이름 바꿔서 들어오기가 안된다. 
                                                                          // Instantiate로 생성됐기에 Awake()가 실행된다음에 이름을 바꾸는것은 틀리다.
-                                                                         //Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
-        /*
+        Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
+        
          if (slimeData != null)
-        {
+         {
             //slimeCost = slimeData.Cost;
-            HP = slimeData.HP;
-            attackDamage = slimeData.Attack;
-            defense = slimeData.Defense;
-            attackSpeed = slimeData.AttackSpeed;
-        }
-        else
-        {
+            MaxHP = slimeData.HP;
+            AttackDamage = slimeData.AttackDamage;
+            Defense = slimeData.Defense;
+            AttackSpeed = slimeData.AttackSpeed;
+            AttackRange = slimeData.AttackRange;
+         }
+         else
+         {
             Debug.LogError("Slime data not found for " + slimePrefabName);
-        }
-         */
+         }
+         
 
 
-        //enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
+        enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
 
         arrowPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
     }
@@ -129,7 +137,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
             if(!isFire) MoveToTarget(target); //타겟을향해 네비메쉬 이동
 
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
-            if (distanceToTarget <= attackDistance) //공격범위 이하의 간격이면
+            if (distanceToTarget <= AttackRange) //공격범위 이하의 간격이면
             {
                 isFire = true;
                 navAgent.velocity = new Vector3(0,0,0);
@@ -146,7 +154,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
                     {
                         Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
                     }
-                    nextAttackTime = Time.time + attackInterval;
+                    nextAttackTime = Time.time + AttackSpeed;
                 }
             }
             else
@@ -258,7 +266,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
     public void GetHit(float damage) //데미지를 받음
     {
         // 실제 대미지 계산: 공격력 - (방어력 * 0.5)
-        float actualDamage = damage - (defense * 0.5f);
+        float actualDamage = damage - (Defense * 0.5f);
         // 실제 대미지가 0보다 작으면, 0으로 처리하여 데미지가 없게 함
         actualDamage = Mathf.Max(actualDamage, 0);
         CurrentHP -= actualDamage; //받을 데미지량만큼 감소

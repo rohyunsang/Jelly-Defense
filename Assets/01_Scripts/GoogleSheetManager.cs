@@ -53,15 +53,14 @@ public class GoogleSheetManager : MonoBehaviour
                     Index = int.Parse(fields[0]),
                     Name = fields[1],
                     Grade = int.Parse(fields[2]),
-                    HP = int.Parse(fields[3]),
-                    Attack = int.Parse(fields[4]),
-                    Defense = int.Parse(fields[5]),
+                    HP = float.Parse(fields[3]),
+                    AttackDamage = float.Parse(fields[4]),
+                    Defense = float.Parse(fields[5]),
                     AttackSpeed = float.Parse(fields[6]),
                     MoveSpeed = float.Parse(fields[7]),
                     Class = int.Parse(fields[8]),
                     AttackRange = float.Parse(fields[9]),
-                    SkillRange = float.Parse(fields[10]),
-                    Cost = int.Parse(fields[11]),
+                    Cost = int.Parse(fields[10]),
                 };
                 slimes.Add(slime);
             }
@@ -75,13 +74,12 @@ public class Slime
     public int Index;
     public string Name;
     public int Grade;
-    public int HP;
-    public int Attack;
-    public int Defense;
+    public float HP;
+    public float AttackDamage;
+    public float Defense;
     public float AttackSpeed;
     public float MoveSpeed;
     public int Class;
     public float AttackRange;
-    public float SkillRange;
     public int Cost;
 }
