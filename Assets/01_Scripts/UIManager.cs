@@ -256,6 +256,21 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+    // shop 안의 버튼 이벤트들 
+    #region shop purchase
+    public void OnClickFreeGoldButton()
+    {
+        // 광고 리미트 확인 -> 0이 아니면 
+        // 광고 띄우기
+        // 재화 추가하기
+        // json 저장
+        // 광고 리미트 --
+        Debug.Log("광고 버튼 눌림 ");
+    }
+
+
+    #endregion
+
     void OnDestroyObjects()
     {
         //스스로를 파괴하지 않으면 UI연결이 끊기는 문제 발생
