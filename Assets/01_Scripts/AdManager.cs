@@ -77,11 +77,16 @@ public class AdManager : MonoBehaviour
     }
 
     //±§∞Ì ∫∏ø©¡÷¥¬ «‘ºˆ
-    public void ShowAds()
+    public void ShowAds(int rewardType)
     {
-        if (rewardedAd.CanShowAd())
+        if (rewardedAd.CanShowAd() && rewardType == 0 && CurrenyManager.Instance.goldAd > 0)
         {
-            rewardedAd.Show(GetReward);
+            rewardedAd.Show(GetGoldReward);
+            Debug.Log("±§∞Ì ∫∏ø©¡‹ ");
+        }
+        else if (rewardedAd.CanShowAd() && rewardType == 1 && CurrenyManager.Instance.jellyStoneAd > 0)
+        {
+            rewardedAd.Show(GetJellyReward);
             Debug.Log("±§∞Ì ∫∏ø©¡‹ ");
         }
         else
@@ -91,17 +96,28 @@ public class AdManager : MonoBehaviour
     }
 
     //∫∏ªÛ «‘ºˆ
-    public void GetReward(Reward reward)
+    public void GetGoldReward(Reward reward)
     {
         Debug.Log("∞ÒµÂ »πµÊ«‘");
 
         
         CurrenyManager.Instance.gold += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
         CurrenyManager.Instance.goldAd--; // «—∞≥ ±Ô¿Ω
-        if(CurrenyManager.Instance.goldAd==0)
-        {
-            RewardAdsBtn.interactable = false; // πˆ∆∞ ≤ˆ¥Ÿ! 
-        }
+
+        DataManager.Instance.JsonSave(); // πŸæ∆∑Œ ¿˙¿Â 
+        DataManager.Instance.JsonLoad(); // ø©±‚ UI init ¿÷¿∏π«∑Œ 
+
+        InitAds();
+    }
+
+    //∫∏ªÛ «‘ºˆ
+    public void GetJellyReward(Reward reward)
+    {
+        Debug.Log("¡©∏Æ »πµÊ«‘");
+
+
+        CurrenyManager.Instance.jellyStone += 100; // ¿œ¥‹ 100¡©∏Æ ¡‡ ∫Ω 
+        CurrenyManager.Instance.jellyStoneAd--; // «—∞≥ ±Ô¿Ω
 
         DataManager.Instance.JsonSave(); // πŸæ∆∑Œ ¿˙¿Â 
         DataManager.Instance.JsonLoad(); // ø©±‚ UI init ¿÷¿∏π«∑Œ 

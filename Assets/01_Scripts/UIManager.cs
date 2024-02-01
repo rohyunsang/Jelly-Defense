@@ -276,8 +276,14 @@ public class UIManager : MonoBehaviour
         // json 저장
         // 광고 리미트 --
         Debug.Log("광고 버튼 눌림 ");
-        AdManager.instance.ShowAds();
+        AdManager.instance.ShowAds(0); // 임시로 골드는 0, 젤리는 1 
         
+    }
+    public void OnClickFreeJellyButton()
+    {
+        Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
+
     }
 
     #endregion
