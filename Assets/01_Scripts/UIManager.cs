@@ -40,6 +40,14 @@ public class UIManager : MonoBehaviour
     public GameObject HUDsettingScreen;
     public GameObject stageFailScreen;
     public GameObject stageClearScreen;
+    public GameObject[] epicSlimeSkillIcons;
+    public GameObject[] addImages;
+    public GameObject[] epicSlimeSkillTextures;
+
+    public Texture2D AngelSlimeSkillIcon;
+    public Texture2D DevilSlimeSkillIcon;
+    public Texture2D WitchSlimeSkillIcon;
+    public Texture2D SkullSlimeSkillIcon;
 
     [Header("PickUpScreen")]
     public GameObject pickUpScreen;  //슬라임 선택창
