@@ -266,6 +266,7 @@ public class UIManager : MonoBehaviour
         // json 저장
         // 광고 리미트 --
         Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds();
     }
 
 
