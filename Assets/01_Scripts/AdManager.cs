@@ -28,7 +28,7 @@ public class AdManager : MonoBehaviour
 
     //public bool isTestMode;
     //public Text LogText;
-    public Button RewardAdsBtn; // 광고 보기 버튼 
+    public Button RewardAdsBtn; // 광고 보기 버튼. UI쪽으로 옮겨야 할 듯 
 
     const string adUnitId = "ca-app-pub-3940256099942544/5224354917"; // 테스트 광고 ID
 
@@ -93,13 +93,19 @@ public class AdManager : MonoBehaviour
     //보상 함수
     public void GetReward(Reward reward)
     {
-        //messageBox.SetActive(true);
-        Debug.Log("골드 획득함"); 
+        Debug.Log("골드 획득함");
+
         
-        //gold += (int)reward.Amount;
-        //gold_txt.text = "골드 : " + gold.ToString();
+        CurrenyManager.Instance.gold += 100; // 일단 100골드 줘 봄 
+        CurrenyManager.Instance.goldAd--; // 한개 깍음
+        if(CurrenyManager.Instance.goldAd==0)
+        {
+            RewardAdsBtn.interactable = false; // 버튼 끈다! 
+        }
+
+        DataManager.Instance.JsonSave(); // 바아로 저장 
+        DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
+
         InitAds();
     }
-
-    
 }

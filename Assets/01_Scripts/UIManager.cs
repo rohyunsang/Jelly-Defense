@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
     public GameObject AdsShopPanel;
     public GameObject CashShopPanel;
 
+    public TextMeshProUGUI goldAdText; // 광고 개수
+    public TextMeshProUGUI jellyStoneAdText; // 광고 개수 
+
     [Header("Etc")]
     public GameObject UIBackGround;
 
@@ -74,6 +77,13 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+
+    // 광고 갯수 표시.. 
+    public void InitAdUI(int goldAd, int jellyStoneAd)
+    {
+        goldAdText.text = goldAd.ToString() + " / 5";
+        jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
+    }
 
     //메인 스크린
     #region MainScreen 
@@ -267,8 +277,8 @@ public class UIManager : MonoBehaviour
         // 광고 리미트 --
         Debug.Log("광고 버튼 눌림 ");
         AdManager.instance.ShowAds();
+        
     }
-
 
     #endregion
 
