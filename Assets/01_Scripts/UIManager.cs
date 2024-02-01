@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
 
     [Header("PickUpScreen")]
     public GameObject pickUpScreen;  //슬라임 선택창
+    public GameObject notFullSlimeInfo;
 
     [Header("Shop")]
     public GameObject shopScreen;
@@ -139,14 +140,29 @@ public class UIManager : MonoBehaviour
         SlimeManager.instance.InitSlimeIconCheckImageSetActiveFalse();
     }
 
-    public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
+    public void OnClickStartButtonPickUpScreen()
+    {
+        if(SlimeManager.instance.FindFirstEmptySlot() == -1)
+        {
+            ChangeCanvasToHUD();
+            SlimeManager.instance.SelectedSlimes();
+            SlimeManager.instance.InitHUDSlimeButton();
+            GameManager.Instance.ChangeScene(selectedStageName);
+            GameManager.Instance.ResumeGame();
+            notFullSlimeInfo.SetActive(false);
+        }
+        else
+        {
+            notFullSlimeInfo.SetActive(true);
+        }
+    }
+
+    public void ChangeCanvasToHUD() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
     {
         HUDsettingScreen.SetActive(false);
         slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
         mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        GameManager.Instance.ChangeScene(selectedStageName); // 이거 나중에 변수로 ##################### 씬 체인지
-        GameManager.Instance.ResumeGame();
     }
     #endregion
 
