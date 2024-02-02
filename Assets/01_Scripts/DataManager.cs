@@ -8,9 +8,6 @@ public class SaveData
     public int actionPoint;
     public int gold;
     public int jellyStone;
-
-    public int goldAd;
-    public int jellyStoneAd;
 }
 
 public class DataManager : MonoBehaviour
@@ -49,8 +46,6 @@ public class DataManager : MonoBehaviour
             CurrenyManager.Instance.actionPoint = 150; // 예시 초기값
             CurrenyManager.Instance.gold = 1000; // 예시 초기값
             CurrenyManager.Instance.jellyStone = 1000; // 예시 초기값
-            CurrenyManager.Instance.goldAd = 5 ;
-            CurrenyManager.Instance.jellyStoneAd = 5;
             JsonSave(); // 초기 데이터를 파일에 저장
         }
         else
@@ -64,15 +59,11 @@ public class DataManager : MonoBehaviour
                 CurrenyManager.Instance.actionPoint = saveData.actionPoint;
                 CurrenyManager.Instance.gold = saveData.gold;
                 CurrenyManager.Instance.jellyStone = saveData.jellyStone;
-
-                CurrenyManager.Instance.goldAd = saveData.goldAd;
-                CurrenyManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
             }
         }
         
         // UI 연결 
         UIManager.instance.InitCurrenyUI(CurrenyManager.Instance.actionPoint, CurrenyManager.Instance.gold, CurrenyManager.Instance.jellyStone);
-        UIManager.instance.InitAdUI(CurrenyManager.Instance.goldAd, CurrenyManager.Instance.jellyStoneAd); // 광고 갯수도 업댓 
     }
 
     public void JsonSave()
@@ -81,13 +72,11 @@ public class DataManager : MonoBehaviour
         {
             actionPoint = CurrenyManager.Instance.actionPoint,
             gold = CurrenyManager.Instance.gold,
-            jellyStone = CurrenyManager.Instance.jellyStone,
-
-            goldAd = CurrenyManager.Instance.goldAd,
-            jellyStoneAd = CurrenyManager.Instance.jellyStoneAd
+            jellyStone = CurrenyManager.Instance.jellyStone
         };
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
     }
 }
+
