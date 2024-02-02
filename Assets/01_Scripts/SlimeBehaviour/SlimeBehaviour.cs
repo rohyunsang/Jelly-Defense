@@ -21,6 +21,10 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
     public float MaxHP { get ; set; }
     public float AttackDamage { get; set; }
     public float CurrentHP { get; set; }
+    public float Defense { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float AttackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float MoveSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float AttackRange { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public float defense; // Slime의 방어력
     public float attackSpeed; // Slime의 공격 속도
@@ -56,7 +60,7 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
         {
             //slimeCost = slimeData.Cost;
             MaxHP = slimeData.HP;
-            AttackDamage = slimeData.Attack;
+            AttackDamage = slimeData.AttackDamage;
             defense = slimeData.Defense;
             attackSpeed = slimeData.AttackSpeed;
         }

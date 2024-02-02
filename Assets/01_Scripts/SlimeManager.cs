@@ -130,6 +130,7 @@ public class SlimeManager : MonoBehaviour
 
     public void InitHUDSlimeButton()
     {
+        int skillIdx = 0;
         
         for (int i = 0; i < SlimeButtons.Length; i++)
         {
@@ -141,6 +142,58 @@ public class SlimeManager : MonoBehaviour
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);
             SlimeButtons[i].transform.Find("CostText").GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
 
+            if(selectedSlimeName[i] == "AngelSlime")
+            {
+                Debug.Log("AngelSlime");
+                UIManager.instance.addImages[skillIdx].SetActive(false);
+
+                Texture2D texture = UIManager.instance.AngelSlimeSkillIcon;
+                // Convert Texture2D to Sprite
+                Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+                skillIdx++;
+            }
+            else if (selectedSlimeName[i] == "DevilSlime")
+            {
+                UIManager.instance.addImages[skillIdx].SetActive(false);
+
+                Texture2D texture = UIManager.instance.DevilSlimeSkillIcon;
+                // Convert Texture2D to Sprite
+                Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+
+                skillIdx++;
+            }
+            else if (selectedSlimeName[i] == "WitchSlime")
+            {
+                UIManager.instance.addImages[skillIdx].SetActive(false);
+
+                Texture2D texture = UIManager.instance.WitchSlimeSkillIcon;
+                // Convert Texture2D to Sprite
+                Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+
+                skillIdx++;
+            }
+            else if (selectedSlimeName[i] == "SkullSlime")
+            {
+                UIManager.instance.addImages[skillIdx].SetActive(false);
+
+                Texture2D texture = UIManager.instance.SkullSlimeSkillIcon;
+                // Convert Texture2D to Sprite
+                Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
+                UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+
+                skillIdx++;
+            }
         }
     }
 

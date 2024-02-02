@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 96665939}
   - component: {fileID: 96665940}
   m_Layer: 0
-  m_Name: SkulSlime
+  m_Name: SkullSlime
   m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
