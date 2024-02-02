@@ -60,8 +60,9 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
     public float magicSpeed = 20f;
     public Transform firePoint;
     public bool isFire = false;
-    public bool isSkill;
     public MagicianSlimeType magicianSlimeType;
+    public bool IsSkill { get; set; }
+
 
     void Awake()
     {
@@ -146,9 +147,9 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    if (isSkill)
+                    if (IsSkill)
                     {
-                        isSkill = false;
+                        IsSkill = false;
                         MagicianSkill();
                     }
                     else
@@ -309,7 +310,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
     public void OnSkill()  //여기가 1번째 
     {
-        isSkill = true;
+        IsSkill = true;
     }
 
     public void MagicianSkill()

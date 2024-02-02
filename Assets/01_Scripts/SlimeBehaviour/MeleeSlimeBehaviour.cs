@@ -55,11 +55,10 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
     [Header("Melee")]
     public bool isFire = false;
-    public bool isSkill = false;
     public MeleeSlimeType meleeSlimeType;
     public GameObject epicStarHit; 
-    public GameObject legendStarHit; 
-
+    public GameObject legendStarHit;
+    public bool IsSkill { get; set; }
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -143,9 +142,9 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    if (isSkill && meleeSlimeType != MeleeSlimeType.NoneSkill && meleeSlimeType != MeleeSlimeType.NoneWeapon)
+                    if (IsSkill && meleeSlimeType != MeleeSlimeType.NoneSkill && meleeSlimeType != MeleeSlimeType.NoneWeapon)
                     {
-                        isSkill = false;
+                        IsSkill = false;
                         MeleeSkill();
                     }
                     else
@@ -297,7 +296,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
     public void OnSkill()
     {
-        isSkill = true;
+        IsSkill = true;
     }
 
     public void MeleeSkill()  //여기가 1번째 

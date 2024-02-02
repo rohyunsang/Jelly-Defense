@@ -10,7 +10,7 @@ public enum ArcherSlimeType
     Legend
 }
 
-public class ArcherSlimeBehaviour : MonoBehaviour
+public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
 {
     //컴포넌트들
     private Animator anim;
@@ -58,7 +58,8 @@ public class ArcherSlimeBehaviour : MonoBehaviour
     public Transform firePoint;
     public bool isFire = false;
     public ArcherSlimeType archerSlimeType;
-    public bool isSkill = false;
+    public bool IsSkill { get; set; }
+    
 
     void Awake()
     {
@@ -145,9 +146,9 @@ public class ArcherSlimeBehaviour : MonoBehaviour
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    if (isSkill)
+                    if (IsSkill)
                     {
-                        isSkill = false;
+                        IsSkill = false;
                         ArcherSkill();
                     }
                     else
@@ -306,7 +307,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour
 
     public void OnSkill()  //여기가 1번째 
     {
-        isSkill = true;
+        IsSkill = true;
     }
 
     public void ArcherSkill()  

@@ -608,6 +608,9 @@ namespace Unity.VisualScripting.Generated.Aot
 	// DontDestroyCanvas.op_Implicit
 	// DontDestroyCanvas.op_Equality
 	// DontDestroyCanvas.op_Inequality
+	// DontDestroyObject.op_Implicit
+	// DontDestroyObject.op_Equality
+	// DontDestroyObject.op_Inequality
 	// EnemyBehaviour.op_Implicit
 	// EnemyBehaviour.op_Equality
 	// EnemyBehaviour.op_Inequality
@@ -7993,6 +7996,41 @@ namespace Unity.VisualScripting.Generated.Aot
 		// DontDestroyCanvas.op_Inequality
 		[global::UnityEngine.Scripting.PreserveAttribute()]
 		public static void DontDestroyCanvas_op_Inequality()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
+			bool @operator = (arg0 != arg1);
+			global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// DontDestroyObject.op_Implicit
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void DontDestroyObject_op_Implicit()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			bool conversion = ((bool)(arg0));
+			global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, bool> optimized = new global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// DontDestroyObject.op_Equality
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void DontDestroyObject_op_Equality()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
+			bool @operator = (arg0 == arg1);
+			global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// DontDestroyObject.op_Inequality
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void DontDestroyObject_op_Inequality()
 		{
 			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
 			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);

@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     public GameObject HUDsettingScreen;
     public GameObject stageFailScreen;
     public GameObject stageClearScreen;
-    public GameObject[] epicSlimeSkillIcons;
+    public GameObject epicSlimeSkillIcons;
     public GameObject[] addImages;
     public GameObject[] epicSlimeSkillTextures;
 
@@ -185,6 +185,12 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region HUDScreen
+
+    public void OnOffEpicSlimeSkill()
+    {
+        epicSlimeSkillIcons.SetActive(!epicSlimeSkillIcons.activeSelf);
+    }
+
     public void HUDSettingButton() //설정창 들어가기 버튼
     {
         GameManager.Instance.PauseGame();

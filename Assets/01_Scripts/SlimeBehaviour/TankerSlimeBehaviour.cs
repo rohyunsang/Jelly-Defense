@@ -58,8 +58,8 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
     public bool isUpDefense = false;
     public float damageReduction = 0.3f;
     public bool isFire = false;
-    public bool isSkill = false;
     public TankerSlimeType tankerSlimeType;
+    public bool IsSkill { get; set; }
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -144,9 +144,9 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    if (isSkill && tankerSlimeType != TankerSlimeType.NonSkill)
+                    if (IsSkill && tankerSlimeType != TankerSlimeType.NonSkill)
                     {
-                        isSkill = false;
+                        IsSkill = false;
                         TankerSkill();
                     }
                     else
@@ -290,7 +290,7 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
 
     public void OnSkill()
     {
-        isSkill = true;
+        IsSkill = true;
     }
 
     public void TankerSkill()  

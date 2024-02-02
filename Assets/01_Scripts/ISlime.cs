@@ -12,5 +12,8 @@ public interface ISlime
     float AttackSpeed { get; set; }
     float MoveSpeed { get; set; }
     float AttackRange { get; set; }
-    
+
+    bool IsSkill { get; set; }
+
+    void OnSkill();
 }

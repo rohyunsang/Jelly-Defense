@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 using TMPro;
 using Button = UnityEngine.UI.Button;
+using Unity.VisualScripting;
 
 public class SlimeManager : MonoBehaviour
 {
@@ -36,6 +37,9 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeButtons;
 
     public GameObject slimeInfo;
+
+    public List<int> epicSlimeSkillIconIdx;
+    public List<string> epicSLimeSkillIconName;
 
     private void Start()
     {
@@ -153,6 +157,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+                epicSlimeSkillIconIdx.Add(skillIdx);
+                epicSLimeSkillIconName.Add("AngelSlime");
                 skillIdx++;
             }
             else if (selectedSlimeName[i] == "DevilSlime")
@@ -165,7 +171,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
-
+                epicSlimeSkillIconIdx.Add(skillIdx);
+                epicSLimeSkillIconName.Add("DevilSlime");
                 skillIdx++;
             }
             else if (selectedSlimeName[i] == "WitchSlime")
@@ -178,7 +185,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
-
+                epicSlimeSkillIconIdx.Add(skillIdx);
+                epicSLimeSkillIconName.Add("WitchSlime");
                 skillIdx++;
             }
             else if (selectedSlimeName[i] == "SkullSlime")
@@ -191,7 +199,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
-
+                epicSlimeSkillIconIdx.Add(skillIdx);
+                epicSLimeSkillIconName.Add("SkullSlime");
                 skillIdx++;
             }
         }
@@ -226,6 +235,35 @@ public class SlimeManager : MonoBehaviour
         }
     }
 
+    public void EpicSlimeSkillController(Button button)
+    {
+        if (int.Parse(button.name) >= epicSLimeSkillIconName.Count)
+        {
+            return;
+        }
+        Debug.Log("button Click");
+        Debug.Log(button.name);
+
+        // 부모 GameObject인 slimeParent의 Transform 컴포넌트를 통해 자식들에 접근
+        Transform slimeParentTransform = SlimeSpawnManager.instance.slimeParent.transform;
+
+        // 모든 자식 GameObject에 대해 순회
+        for (int i = 0; i < slimeParentTransform.childCount; i++)
+        {
+            // 현재 인덱스의 자식 GameObject를 가져옴
+            GameObject childSlime = slimeParentTransform.GetChild(i).gameObject;
+
+            Debug.Log(childSlime.name);
+            Debug.Log(int.Parse(button.name));
+            Debug.Log(epicSLimeSkillIconName[int.Parse(button.name)]);
+
+            if (childSlime.name.Contains(epicSLimeSkillIconName[int.Parse(button.name)]))
+            {
+                childSlime.GetComponent<ISlime>().IsSkill = true;
+            }
+        }
+    }
+}
     
 
-}
+

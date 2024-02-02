@@ -44,6 +44,7 @@ public class BalanceSlimeBehaviour : MonoBehaviour, ISlime
     public Collider weaponCollider;
     public SlimeWeapon slimeWeapon;
     public bool isFire;
+    public bool IsSkill { get; set; }
 
     void Awake()
     {
@@ -258,5 +259,8 @@ public class BalanceSlimeBehaviour : MonoBehaviour, ISlime
         }
     }
 
-
+    void ISlime.OnSkill()
+    {
+        throw new System.NotImplementedException();
+    }
 }

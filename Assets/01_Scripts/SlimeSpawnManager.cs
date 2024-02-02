@@ -18,9 +18,12 @@ public class SlimeSpawnManager : MonoBehaviour
     public int maxJellyPower = 500; //아군 유닛 스폰 코스트
 
     public TMP_Text jellyPowerText; // TextMeshPro Text 오브젝트를 할당할 변수
-    public float jellyPower = 0; // 아군 스폰 코스트 총량
+    public float jellyPower = 300; // 아군 스폰 코스트 총량
 
     public bool isStart = false;
+
+    public GameObject slimeParent;
+
 
     void Awake()
     {
@@ -62,12 +65,12 @@ public class SlimeSpawnManager : MonoBehaviour
         string spawnedSlimeName = slimePrefab.name;
 
         // slimes 리스트에서 Name이 일치하는 Slime 항목을 찾음
-        Slime spawnedSlime = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == spawnedSlimeName);
+        Slime spawnedSlimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == spawnedSlimeName);
 
-        if (spawnedSlime != null)
+        if (spawnedSlimeData != null)
         {
             // 원하는 Slime을 찾았을 때, 해당 Slime의 정보에 접근할 수 있음
-            slimeCost = spawnedSlime.Cost;
+            slimeCost = spawnedSlimeData.Cost;
 
             Debug.Log("슬라임 코스트:" + slimeCost);
         }
@@ -80,9 +83,10 @@ public class SlimeSpawnManager : MonoBehaviour
         if (jellyPower >= slimeCost)
         {
                 // 버튼에 해당하는 슬라임 프리팹을 위치와 회전값을 넣어서 스폰하기
-            GameObject spawedSlime = Instantiate(slimePrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject spawnedSlime = Instantiate(slimePrefab, spawnPoint.position, spawnPoint.rotation);
             jellyPower -= slimeCost;
-            
+            spawnedSlime.transform.parent = slimeParent.transform;
+
         }
         else
         {

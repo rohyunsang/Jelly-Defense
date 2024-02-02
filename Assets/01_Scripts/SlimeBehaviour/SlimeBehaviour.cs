@@ -25,6 +25,7 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
     public float AttackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public float MoveSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public float AttackRange { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public bool IsSkill { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public float defense; // Slime의 방어력
     public float attackSpeed; // Slime의 공격 속도
@@ -178,7 +179,7 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
     {
         navAgent.SetDestination(target.position); //네비메쉬를 통해 이동 
     }
-   
+
     void Attack()//공격
     {
         anim.SetTrigger("Attack01"); 
@@ -251,5 +252,8 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
         }
     }
 
-
+    void ISlime.OnSkill()
+    {
+        throw new System.NotImplementedException();
+    }
 }
