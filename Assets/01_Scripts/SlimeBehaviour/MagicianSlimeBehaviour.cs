@@ -140,7 +140,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
             if (!isFire) MoveToTarget(target); //타겟을향해 네비메쉬 이동
 
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
-            if (distanceToTarget <= AttackRange) //공격범위 이하의 간격이면
+            if (distanceToTarget <= AttackSpeed) //공격범위 이하의 간격이면
             {
                 isFire = true;
                 navAgent.velocity = new Vector3(0, 0, 0);
@@ -157,7 +157,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
                         Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
                     }
                     
-                    nextAttackTime = Time.time + AttackRange; //공격 쿨타임 누적 초기화용
+                    nextAttackTime = Time.time + AttackSpeed; //공격 쿨타임 누적 초기화용
                 }
             }
             else
