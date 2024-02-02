@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 1469014388}
   - component: {fileID: 1469014389}
   m_Layer: 0
-  m_Name: Cowardslime
+  m_Name: CowardSlime 1
   m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
