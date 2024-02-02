@@ -60,6 +60,9 @@ public class UIManager : MonoBehaviour
     public GameObject AdsShopPanel;
     public GameObject CashShopPanel;
 
+    public TextMeshProUGUI goldAdText; // 광고 개수
+    public TextMeshProUGUI jellyStoneAdText; // 광고 개수 
+
     [Header("Etc")]
     public GameObject UIBackGround;
 
@@ -77,12 +80,19 @@ public class UIManager : MonoBehaviour
 
     public void InitCurrenyUI(int actionPoint, int gold, int jellyStone)
     {
-        actionPointText.text = actionPoint.ToString();
-        goldText.text = gold.ToString();
-        jellyStoneText.text = jellyStone.ToString();
+        actionPointText.text = actionPoint.ToString("N0");
+        goldText.text = gold.ToString("N0");
+        jellyStoneText.text = jellyStone.ToString("N0");
     }
 
     #endregion
+
+    // 광고 갯수 표시.. 
+    public void InitAdUI(int goldAd, int jellyStoneAd)
+    {
+        goldAdText.text = goldAd.ToString() + " / 5";
+        jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
+    }
 
     //메인 스크린
     #region MainScreen 
@@ -276,6 +286,28 @@ public class UIManager : MonoBehaviour
         LimitedSalePanel.SetActive(false);
         AdsShopPanel.SetActive(false);
         CashShopPanel.SetActive(true);
+    }
+
+    #endregion
+
+    // shop 안의 버튼 이벤트들 
+    #region shop purchase
+    public void OnClickFreeGoldButton()
+    {
+        // 광고 리미트 확인 -> 0이 아니면 
+        // 광고 띄우기
+        // 재화 추가하기
+        // json 저장
+        // 광고 리미트 --
+        Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds(0); // 임시로 골드는 0, 젤리는 1 
+
+    }
+    public void OnClickFreeJellyButton()
+    {
+        Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
+
     }
 
     #endregion
