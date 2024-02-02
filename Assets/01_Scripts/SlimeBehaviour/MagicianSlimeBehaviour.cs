@@ -121,7 +121,6 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
-        //slimeWeapon.weaponDamage = attackDamage;
     }
     void Update()
     {
@@ -140,7 +139,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
             if (!isFire) MoveToTarget(target); //타겟을향해 네비메쉬 이동
 
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
-            if (distanceToTarget <= AttackSpeed) //공격범위 이하의 간격이면
+            if (distanceToTarget <= AttackRange) //공격범위 이하의 간격이면
             {
                 isFire = true;
                 navAgent.velocity = new Vector3(0, 0, 0);
@@ -223,9 +222,9 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
     void MagicArrow(Transform target , GameObject magicPrefab)
     {
-        // 화살 프리팹으로부터 화살 객체 생성
-        GameObject arrow = Instantiate(magicPrefab, firePoint.position + new Vector3(0f,1f,0f), firePoint.rotation);
-        // 화살에 Rigidbody 컴포넌트가 있는지 확인하고, 있으면 발사
+        // 
+        GameObject arrow = Instantiate(magicPrefab, firePoint.position, firePoint.rotation);
+      
         arrow.transform.LookAt(target.position);
 
         // 화살에 Rigidbody 컴포넌트가 있는지 확인하고, 있으면 발사

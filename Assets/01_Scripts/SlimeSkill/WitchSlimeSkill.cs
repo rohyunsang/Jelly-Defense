@@ -18,6 +18,7 @@ public class WitchSlimeSkill : MonoBehaviour
         
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyCastle"))
         {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             GetComponent<MeshRenderer>().enabled = false;
             witchSkillEffect.SetActive(true);
             StopMovement(); // ∏∂π˝¿« ¿Ãµø¿ª ∏ÿ√„
