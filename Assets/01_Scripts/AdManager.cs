@@ -26,11 +26,8 @@ public class AdManager : MonoBehaviour
 
     RewardedAd rewardedAd;
 
-    //public bool isTestMode;
-    //public Text LogText;
-    //public Button RewardAdsBtn; // 광고 보기 버튼. UI쪽으로 옮겨야 할 듯 
-
-    const string adUnitId = "ca-app-pub-3940256099942544/5224354917"; // 테스트 광고 ID
+    const string goldAdId = "ca-app-pub-9333309559865878/2838210859"; // 테스트 광고 ID
+    //const string jellyAdId = "ca-app-pub-9333309559865878/3299614974"; // 테스트 광고 ID
 
 
     void Start()
@@ -45,14 +42,15 @@ public class AdManager : MonoBehaviour
         MobileAds.SetRequestConfiguration(requestConfiguration);
 
         Debug.Log("광고 준비 ");
-        InitAds();
+        LoadAds();
+
     }
 
 
     //광고 초기화 함수
-    public void InitAds()
+    public void LoadAds()
     {
-        RewardedAd.Load(adUnitId, new AdRequest.Builder().Build(), LoadCallback);
+        RewardedAd.Load(goldAdId, new AdRequest.Builder().Build(), LoadCallback);
         Debug.Log("광고 init 됨 "); 
     }
 
@@ -95,7 +93,6 @@ public class AdManager : MonoBehaviour
     public void GetGoldReward(Reward reward)
     {
         Debug.Log("골드 획득함");
-
         
         CurrenyManager.Instance.gold += 100; // 일단 100골드 줘 봄 
         CurrenyManager.Instance.goldAd--; // 한개 깍음
@@ -103,7 +100,7 @@ public class AdManager : MonoBehaviour
         DataManager.Instance.JsonSave(); // 바아로 저장 
         DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
 
-        InitAds();
+        LoadAds();
     }
 
     //보상 함수
@@ -118,6 +115,6 @@ public class AdManager : MonoBehaviour
         DataManager.Instance.JsonSave(); // 바아로 저장 
         DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
 
-        InitAds();
+        LoadAds();
     }
 }
