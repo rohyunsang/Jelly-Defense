@@ -14,8 +14,7 @@ public class DeleteIconPickUp : MonoBehaviour
             Transform firstChild = button.transform.GetChild(0);
 
             // 해당 자식 오브젝트(슬라임 아이콘)를 삭제
-            slimeIconContent.transform.Find(firstChild.name+"Icon").GetComponent<PickUpSlime>().checkImage.SetActive(false);
-
+            slimeIconContent.transform.Find(firstChild.name).GetComponent<PickUpSlime>().checkImage.SetActive(false);
 
             Destroy(firstChild.gameObject);
         }

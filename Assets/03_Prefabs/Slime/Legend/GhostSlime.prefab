@@ -54173,26 +54173,26 @@ MonoBehaviour:
     Name: 
     Grade: 0
     HP: 0
-    Attack: 0
+    AttackDamage: 0
     Defense: 0
     AttackSpeed: 0
     MoveSpeed: 0
     Class: 0
     AttackRange: 0
-    SkillRange: 0
     Cost: 0
-  defense: 0
-  attackSpeed: 0
-  attackDistance: 4
-  attackInterval: 1
-  detectionRadius: 10
+  <MaxHP>k__BackingField: 0
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <AttackRange>k__BackingField: 0
   weaponCollider: {fileID: 587487087}
   slimeWeapon: {fileID: 587487086}
   skillEffect: {fileID: 420985660}
   isUpDefense: 0
   damageReduction: 1
   isFire: 0
-  isSkill: 0
   tankerSlimeType: 2
 --- !u!195 &1406724189
 NavMeshAgent:

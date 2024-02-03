@@ -427,7 +427,9 @@ MonoBehaviour:
   weaponColliders:
   - {fileID: 1135001058}
   - {fileID: 881624833}
-  slimeWeapon: {fileID: 1135001053}
+  slimeWeapon:
+  - {fileID: 1135001053}
+  - {fileID: 881624834}
   isFire: 0
   meleeSlimeType: 0
   epicStarHit: {fileID: 4535006216103734310, guid: 64fe9a5f77443aa4a87ba2a3c8bd7a41,

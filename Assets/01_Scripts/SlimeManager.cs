@@ -127,7 +127,7 @@ public class SlimeManager : MonoBehaviour
             // 자식 오브젝트가 있고, 아직 selectedSlimeName 리스트에 추가되지 않았다면 추가
             if (child != null && !selectedSlimeName.Contains(child.name))
             {
-                selectedSlimeName.Add(child.name);
+                selectedSlimeName.Add(child.name.Replace("Icon",""));
             }
         }
     }
@@ -139,8 +139,16 @@ public class SlimeManager : MonoBehaviour
         for (int i = 0; i < SlimeButtons.Length; i++)
         {
             // 선택된 슬라임 이름에 해당하는 아이콘 프리팹 찾기
-            Image iconImage = slimeIconPrefabs.FirstOrDefault(prefab => prefab.name == selectedSlimeName[i] + "Icon").transform.Find(selectedSlimeName[i]).GetComponent<Image>();
-            SlimeButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = iconImage.sprite;
+            GameObject iconImage = slimeIconPrefabs.FirstOrDefault(prefab => prefab.name == selectedSlimeName[i] + "Icon");
+            GameObject iconImageInstance =  Instantiate(iconImage, SlimeButtons[i].transform.position, Quaternion.identity, SlimeButtons[i].transform);
+            
+            // size
+            iconImageInstance.transform.SetSiblingIndex(0);
+            RectTransform rectTrans = iconImageInstance.GetComponent<RectTransform>();
+            rectTrans.sizeDelta = new Vector2(140, 140);
+
+            // delete pickup 
+            iconImageInstance.GetComponent<PickUpSlime>().enabled = false;
 
             //Cost Search using Linq
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);

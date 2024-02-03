@@ -51,7 +51,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
     [Header("Weapon")]
     public Collider[] weaponColliders;
-    public SlimeWeapon slimeWeapon;
+    public SlimeWeapon[] slimeWeapon;
 
     [Header("Melee")]
     public bool isFire = false;
@@ -116,7 +116,17 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
-        //slimeWeapon.weaponDamage = attackDamage;
+        if(slimeWeapon.Length == 2)
+        {
+            slimeWeapon[0].weaponDamage = AttackDamage;
+            slimeWeapon[1].weaponDamage = AttackDamage;
+        }
+        else
+        {
+            slimeWeapon[0].weaponDamage = AttackDamage;
+        }
+        
+        
     }
     void Update()
     {
@@ -142,7 +152,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
 
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    if (IsSkill && meleeSlimeType != MeleeSlimeType.NoneSkill && meleeSlimeType != MeleeSlimeType.NoneWeapon)
+                    if (IsSkill)
                     {
                         IsSkill = false;
                         MeleeSkill();
@@ -326,11 +336,11 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
             if (enemy != null)
             {
-                enemy.currentHP -= AttackDamage * 1.5f; // 대미지 적용
+                enemy.currentHP -= AttackDamage * 3.0f; // 대미지 적용
             }
             else if(enemyCastle != null)
             {
-                enemyCastle.currentHP -= AttackDamage * 1.5f;
+                enemyCastle.currentHP -= AttackDamage * 3.0f;
             }
             
 
@@ -350,11 +360,11 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
             if (enemy != null)
             {
-                enemy.currentHP -= AttackDamage * 4.0f; // 대미지 적용
+                enemy.currentHP -= AttackDamage * 8.0f; // 대미지 적용
             }
             else if (enemyCastle != null)
             {
-                enemyCastle.currentHP -= AttackDamage * 4.0f;
+                enemyCastle.currentHP -= AttackDamage * 8.0f;
             }
 
 

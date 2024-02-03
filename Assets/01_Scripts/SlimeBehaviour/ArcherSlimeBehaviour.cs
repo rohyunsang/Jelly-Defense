@@ -85,12 +85,12 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
          {
             Debug.LogError("Slime data not found for " + slimePrefabName);
          }
-         
+
+
 
 
         enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
-
-        arrowPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
+        
     }
 
     private void Start()
@@ -118,8 +118,9 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
-        //slimeWeapon.weaponDamage = attackDamage;
+        arrowPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
     }
+
     void Update()
     {
         if (isDead) return; //죽었으면 아래로는 실행하지 않기
