@@ -1,4 +1,5 @@
-using System.Collections;
+/*
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // text 테스트 위함 
@@ -118,3 +119,6 @@ public class AdManager : MonoBehaviour
         LoadAds();
     }
 }
+
+ */
+
