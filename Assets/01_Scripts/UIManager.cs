@@ -40,9 +40,18 @@ public class UIManager : MonoBehaviour
     public GameObject HUDsettingScreen;
     public GameObject stageFailScreen;
     public GameObject stageClearScreen;
+    public GameObject epicSlimeSkillIcons;
+    public GameObject[] addImages;
+    public GameObject[] epicSlimeSkillTextures;
+
+    public Texture2D AngelSlimeSkillIcon;
+    public Texture2D DevilSlimeSkillIcon;
+    public Texture2D WitchSlimeSkillIcon;
+    public Texture2D SkullSlimeSkillIcon;
 
     [Header("PickUpScreen")]
     public GameObject pickUpScreen;  //슬라임 선택창
+    public GameObject notFullSlimeInfo;
 
     [Header("Shop")]
     public GameObject shopScreen;
@@ -50,6 +59,9 @@ public class UIManager : MonoBehaviour
     public GameObject LimitedSalePanel;
     public GameObject AdsShopPanel;
     public GameObject CashShopPanel;
+
+    public TextMeshProUGUI goldAdText; // 광고 개수
+    public TextMeshProUGUI jellyStoneAdText; // 광고 개수 
 
     [Header("Etc")]
     public GameObject UIBackGround;
@@ -68,12 +80,19 @@ public class UIManager : MonoBehaviour
 
     public void InitCurrenyUI(int actionPoint, int gold, int jellyStone)
     {
-        actionPointText.text = actionPoint.ToString();
-        goldText.text = gold.ToString();
-        jellyStoneText.text = jellyStone.ToString();
+        actionPointText.text = actionPoint.ToString("N0");
+        goldText.text = gold.ToString("N0");
+        jellyStoneText.text = jellyStone.ToString("N0");
     }
 
     #endregion
+
+    // 광고 갯수 표시.. 
+    public void InitAdUI(int goldAd, int jellyStoneAd)
+    {
+        goldAdText.text = goldAd.ToString() + " / 5";
+        jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
+    }
 
     //메인 스크린
     #region MainScreen 
@@ -139,18 +158,39 @@ public class UIManager : MonoBehaviour
         SlimeManager.instance.InitSlimeIconCheckImageSetActiveFalse();
     }
 
-    public void OnClickStartButton() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
+    public void OnClickStartButtonPickUpScreen()
+    {
+        if(SlimeManager.instance.FindFirstEmptySlot() == -1)
+        {
+            ChangeCanvasToHUD();
+            SlimeManager.instance.SelectedSlimes();
+            SlimeManager.instance.InitHUDSlimeButton();
+            GameManager.Instance.ChangeScene(selectedStageName);
+            GameManager.Instance.ResumeGame();
+            notFullSlimeInfo.SetActive(false);
+        }
+        else
+        {
+            notFullSlimeInfo.SetActive(true);
+        }
+    }
+
+    public void ChangeCanvasToHUD() //스타트 버튼을 누르면. 픽업씬 스타트 , HUD 설정>리스타트에서도 사용
     {
         HUDsettingScreen.SetActive(false);
         slimeSpawnManager.SetActive(true);//스폰 매니저 켜주기 (젤리력을 위함)
         battleHUDScreen.gameObject.SetActive(true); //HUD화면 캔버스 켜주기
         mainUI.gameObject.SetActive(false); //메인화면 캔버스 켜주기
-        GameManager.Instance.ChangeScene(selectedStageName); // 이거 나중에 변수로 ##################### 씬 체인지
-        GameManager.Instance.ResumeGame();
     }
     #endregion
 
     #region HUDScreen
+
+    public void OnOffEpicSlimeSkill()
+    {
+        epicSlimeSkillIcons.SetActive(!epicSlimeSkillIcons.activeSelf);
+    }
+
     public void HUDSettingButton() //설정창 들어가기 버튼
     {
         GameManager.Instance.PauseGame();
@@ -252,6 +292,28 @@ public class UIManager : MonoBehaviour
         LimitedSalePanel.SetActive(false);
         AdsShopPanel.SetActive(false);
         CashShopPanel.SetActive(true);
+    }
+
+    #endregion
+
+    // shop 안의 버튼 이벤트들 
+    #region shop purchase
+    public void OnClickFreeGoldButton()
+    {
+        // 광고 리미트 확인 -> 0이 아니면 
+        // 광고 띄우기
+        // 재화 추가하기
+        // json 저장
+        // 광고 리미트 --
+        Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds(0); // 임시로 골드는 0, 젤리는 1 
+
+    }
+    public void OnClickFreeJellyButton()
+    {
+        Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
+
     }
 
     #endregion

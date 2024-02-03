@@ -20,7 +20,17 @@ public class EnemyCastle : MonoBehaviour
         if (other.transform.CompareTag("SlimeWeapon"))
         {
             GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
-            //Destroy(other.gameObject);
+
+        }
+        else if (other.transform.CompareTag("SlimeProjectileWeapon"))
+        {
+            SlimeWeapon slimeWeapon = other.gameObject.GetComponent<SlimeWeapon>();
+            if (slimeWeapon != null)
+            {
+                GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+                Destroy(other.gameObject);
+            }
+            
         }
         else
         {

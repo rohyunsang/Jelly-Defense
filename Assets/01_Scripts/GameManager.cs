@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
         // 씬 로딩 완료 후 실행할 코드
         Debug.Log("Scene Loaded");
         SlimeSpawnManager.instance.FindSlimeSpawn();
+        Debug.Log(sceneName);
         EnemySpawnManager.instance.EnemySpawnTable(sceneName);
         SlimeSpawnManager.instance.InitSlimeSpawnManager();
     }

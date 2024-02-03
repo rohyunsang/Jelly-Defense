@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TankerSlimeBehaviour : MonoBehaviour
+public enum TankerSlimeType
+{
+    NonSkill,
+    Epic,
+    Legend
+}
+
+
+public class TankerSlimeBehaviour : MonoBehaviour, ISlime
 {
     //컴포넌트들
     private Animator anim;
@@ -18,17 +27,24 @@ public class TankerSlimeBehaviour : MonoBehaviour
 
     [Header("Basic Data")]
     bool isDead = false;
-    public float HP; //유닛 체력
-    public float attackDamage; // Slime의 공격력
-    public float defense; // Slime의 방어력
-    public float attackSpeed; // Slime의 공격 속도
-    public float attackDistance = 3f; // 공격 가능 거리
-    public float attackInterval = 1f; //다음 공격 주기
-    public float currentHP;
+    [field: SerializeField]
+    public float MaxHP { get; set; }
+    [field: SerializeField]
+    public float AttackDamage { get; set; }
+    [field: SerializeField]
+    public float CurrentHP { get; set; }
+    [field: SerializeField]
+    public float Defense { get; set; }
+    [field: SerializeField]
+    public float AttackSpeed { get; set; }
+    [field: SerializeField]
+    public float MoveSpeed { get; set; }
+    [field: SerializeField]
+    public float AttackRange { get; set; }
 
     [Header("Addictional Data")]
     private float nextAttackTime; //공격주기 누적 초기화용
-    public float detectionRadius = 10f; //적 감지 반경
+    private float detectionRadius = 20f; //적 감지 반경
     private float detectionInterval = 0.5f;  // 범위 탐지 주기
     private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
     private bool hasAttacked = false;
@@ -38,11 +54,12 @@ public class TankerSlimeBehaviour : MonoBehaviour
     public SlimeWeapon slimeWeapon;
 
     [Header("Tanker")]
-    public GameObject shiledParticle;
-    public bool isUpDefense;
+    public GameObject skillEffect;
+    public bool isUpDefense = false;
     public float damageReduction = 0.3f;
-
-
+    public bool isFire = false;
+    public TankerSlimeType tankerSlimeType;
+    public bool IsSkill { get; set; }
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -53,22 +70,23 @@ public class TankerSlimeBehaviour : MonoBehaviour
         //슬라임 수치 가져오기
         string slimePrefabName = gameObject.name.Replace("(Clone)", ""); // 여기는 이름 바꿔서 들어오기가 안된다. 
                                                                          // Instantiate로 생성됐기에 Awake()가 실행된다음에 이름을 바꾸는것은 틀리다.
-                                                                         
-        //Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
-        /*
+
+        Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimePrefabName);
+
         if (slimeData != null)
         {
             //slimeCost = slimeData.Cost;
-            HP = slimeData.HP;
-            attackDamage = slimeData.Attack;
-            defense = slimeData.Defense;
-            attackSpeed = slimeData.AttackSpeed;
+            MaxHP = slimeData.HP;
+            AttackDamage = slimeData.AttackDamage;
+            Defense = slimeData.Defense;
+            AttackSpeed = slimeData.AttackSpeed;
+            AttackRange = slimeData.AttackRange;
         }
         else
         {
             Debug.LogError("Slime data not found for " + slimePrefabName);
         }
-         */
+
 
 
         enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
@@ -77,7 +95,7 @@ public class TankerSlimeBehaviour : MonoBehaviour
     private void Start()
     {
         //게임오브젝트 중 적군 성 태그를 가진 오브젝트의 트랜스폼을 향해 가도록 함
-        currentHP = HP;
+        CurrentHP = MaxHP;
         if (enemyCastle != null)
         {
             target = enemyCastle.transform;  //타겟에 넣기
@@ -99,7 +117,9 @@ public class TankerSlimeBehaviour : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
-        slimeWeapon.weaponDamage = attackDamage;
+        AttackDamage = 10;  // @@@@@@@@@@@@@@@Debug
+        slimeWeapon.weaponDamage = AttackDamage; //@@@@@@@@@@@@@@@@@@Debug
+
     }
     void Update()
     {
@@ -117,12 +137,24 @@ public class TankerSlimeBehaviour : MonoBehaviour
             MoveToTarget(target); //타겟을향해 네비메쉬 이동
 
             float distanceToTarget = Vector3.Distance(transform.position, target.position); //타겟과의 간격계산
-            if (distanceToTarget <= attackDistance) //공격범위 이하의 간격이면
+            if (distanceToTarget <= AttackRange) //공격범위 이하의 간격이면
             {
+                isFire = true;
+                navAgent.velocity = new Vector3(0, 0, 0);
+
                 if (Time.time >= nextAttackTime)//공격 쿨타임에 맞춰서 
                 {
-                    Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
-                    nextAttackTime = Time.time + attackInterval; //공격 쿨타임 누적 초기화용
+                    if (IsSkill && tankerSlimeType != TankerSlimeType.NonSkill)
+                    {
+                        IsSkill = false;
+                        TankerSkill();
+                    }
+                    else
+                    {
+                        Attack(); //공격, 애니메이션이 주기적으로 나오게 하기 위함
+
+                    }
+                    nextAttackTime = Time.time + AttackSpeed; //공격 쿨타임 누적 초기화용
                 }
             }
 
@@ -202,6 +234,7 @@ public class TankerSlimeBehaviour : MonoBehaviour
     }
     IEnumerator ActivateWeaponCollider()
     {
+        yield return new WaitForSeconds(0.2f);
         weaponCollider.enabled = true; // weaponCollider를 활성화
         yield return new WaitForSeconds(0.5f); // 0.5초 대기
         weaponCollider.enabled = false; // weaponCollider를 다시 비활성화
@@ -210,17 +243,17 @@ public class TankerSlimeBehaviour : MonoBehaviour
     public void GetHit(float damage) //데미지를 받음
     {
         // 실제 대미지 계산: 공격력 - (방어력 * 0.5)
-        float actualDamage = damage - (defense * 0.5f);
+        float actualDamage = damage - (Defense * 0.5f);
         // 실제 대미지가 0보다 작으면, 0으로 처리하여 데미지가 없게 함
         actualDamage = Mathf.Max(actualDamage, 0);
         if(isUpDefense)
-            currentHP -= actualDamage * (1 - damageReduction); //받을 데미지량만큼 감소
+            CurrentHP -= actualDamage * (1 - damageReduction); //받을 데미지량만큼 감소
         else
-            currentHP -= actualDamage;
+            CurrentHP -= actualDamage;
 
-        Debug.Log("Slime HP : " + currentHP);
+        Debug.Log("Slime HP : " + CurrentHP);
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0)
         {
             isDead = true; //슬라임은 죽음
             StopNavAgent();  //네비 멈추기
@@ -255,15 +288,46 @@ public class TankerSlimeBehaviour : MonoBehaviour
         }
     }
 
-    public void TankerSkill()
+    public void OnSkill()
     {
-        shiledParticle.SetActive(true);
+        IsSkill = true;
+    }
+
+    public void TankerSkill()  
+    {
+        switch (tankerSlimeType)
+        {
+            case TankerSlimeType.Epic:
+                EpicTankerSkill();
+                break;
+            case TankerSlimeType.Legend:
+                LegendTankerSkill();
+                break;
+            case TankerSlimeType.NonSkill:
+                break;
+        }
+    }
+
+    public void EpicTankerSkill()
+    {
+        skillEffect.SetActive(true);
         isUpDefense = true;
         Invoke("ShiledOffInvoked", 4f);
     }
-    public void ShiledOffInvoked()
+    public void EpicTankerSkillOffInvoked()
     {
-        shiledParticle.SetActive(false);
+        isUpDefense = false;
+        skillEffect.SetActive(false);
     }
-
+    public void LegendTankerSkill()
+    {
+        skillEffect.SetActive(true);
+        isUpDefense = true;
+        Invoke("LegendTankerSkillOffInvoked", 10f);
+    }
+    public void LegendTankerSkillOffInvoked()
+    {
+        isUpDefense = false;
+        skillEffect.SetActive(false);
+    }
 }
