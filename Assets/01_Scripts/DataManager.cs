@@ -11,6 +11,10 @@ public class SaveData
 
     public int goldAd;
     public int jellyStoneAd;
+
+    // 스테이지 클리어 상태를 위한 필드 추가
+    public List<string> stageNames = new List<string>();
+    public List<bool> stageClearStatuses = new List<bool>();
 }
 
 public class DataManager : MonoBehaviour
@@ -67,6 +71,12 @@ public class DataManager : MonoBehaviour
 
                 CurrenyManager.Instance.goldAd = saveData.goldAd;
                 CurrenyManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
+
+                StageManager.Instance.stageClearStatus.Clear();
+                for (int i = 0; i < saveData.stageNames.Count; i++)
+                {
+                    StageManager.Instance.stageClearStatus.Add(saveData.stageNames[i], saveData.stageClearStatuses[i]);
+                }
             }
         }
         
@@ -87,7 +97,17 @@ public class DataManager : MonoBehaviour
             jellyStoneAd = CurrenyManager.Instance.jellyStoneAd
         };
 
+        if (StageManager.Instance != null)
+        {
+            foreach (var stage in StageManager.Instance.stageClearStatus)
+            {
+                saveData.stageNames.Add(stage.Key);
+                saveData.stageClearStatuses.Add(stage.Value);
+            }
+        }
+
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
+
     }
 }

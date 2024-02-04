@@ -2,19 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class EnemySpawnInfo
+{
+    public GameObject enemyPrefab; // 소환할 적군 유닛 프리팹
+    public int count; // 이 유형의 적을 몇 마리 소환할지
+
+    public EnemySpawnInfo(GameObject prefab, int spawnCount)
+    {
+        enemyPrefab = prefab;
+        count = spawnCount;
+    }
+}
+
 public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager instance;
-    public GameObject[] enemyPrefab; // 적군 유닛 프리팹
     public Transform spawnPoint; // 적군 유닛 스폰 장소
-
+    public GameObject enemyParent; // 적군 유닛을 담을 부모 오브젝트
+    public GameObject[] enemyPrefab; // 이 배열은 인스펙터에서 설정해야 합니다.
     public float spawnInterval = 5f; // 스폰되는 시간 간격
-    private float timeSinceLastSpawn; // 마지막 스폰 이후의 시간
 
-    public int[] spawnLimits; // 각 몬스터 유형별 소환 제한
-    public int[] spawnCounts; // 각 몬스터 유형별 현재 소환 횟수
-
-    public GameObject enemyParent;
+    public List<EnemySpawnInfo> currentWaveSpawns = new List<EnemySpawnInfo>(); // 현재 웨이브에서 소환될 적 정보
 
     void Awake()
     {
@@ -25,104 +34,82 @@ public class EnemySpawnManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
-        spawnCounts = new int[enemyPrefab.Length];
     }
 
-    void Start()
+    public void StartWave(List<EnemySpawnInfo> waveSpawns)
     {
-        FindEnemyCastle();
-        // 초기 시간 설정
-        timeSinceLastSpawn = spawnInterval;
+        currentWaveSpawns = waveSpawns;
+        StartCoroutine(SpawnWave());
     }
 
-    public void FindEnemyCastle()
+    IEnumerator SpawnWave()
     {
-        spawnPoint = GameObject.FindWithTag("EnemyCastle").transform;
-    }
-
-    public void EnemySpawnTable(string stageName)
-    {
-        if (stageName == "Stage1") EnemySpawnStage1();
-        else if (stageName == "Stage2") EnemySpawnStage2();
-        else if (stageName == "Stage3") EnemySpawnStage3();
-    }
-
-    public void EnemySpawnStage1()
-    {
-        spawnLimits = new int[enemyPrefab.Length];
-        spawnLimits[0] = 2;
-        spawnLimits[1] = 2;
-        spawnLimits[2] = 2;
-        spawnLimits[3] = 2;
-        spawnLimits[4] = 2;
-        spawnLimits[5] = 2;
-        spawnLimits[6] = 2;
-        spawnLimits[7] = 2;
-        spawnLimits[8] = 2;
-        spawnLimits[9] = 2;
-        spawnLimits[11] = 2;
-        spawnLimits[12] = 2;
-        spawnLimits[13] = 2;
-        spawnLimits[14] = 2;
-        spawnLimits[15] = 2;
-        spawnLimits[16] = 2;
-        spawnLimits[17] = 2;
-        spawnLimits[18] = 2;
-        spawnLimits[19] = 2;
-        spawnLimits[20] = 2;
-        spawnLimits[21] = 2;
-        spawnLimits[22] = 2;
-        spawnLimits[23] = 2;
-        ResetSpawnCounts();
-    }
-
-    public void EnemySpawnStage2()
-    {
-        spawnLimits = new int[enemyPrefab.Length];
-        spawnLimits[2] = 5;
-        spawnLimits[3] = 5;
-        ResetSpawnCounts();
-    }
-
-    public void EnemySpawnStage3()
-    {
-        spawnLimits = new int[enemyPrefab.Length];
-        spawnLimits[4] = 5;
-        spawnLimits[5] = 5;
-        ResetSpawnCounts();
-    }
-
-    private void ResetSpawnCounts()
-    {
-        for (int i = 0; i < spawnCounts.Length; i++)
+        // 전체 소환 몬스터 리스트 생성
+        List<EnemySpawnInfo> spawnList = new List<EnemySpawnInfo>();
+        foreach (var spawnInfo in currentWaveSpawns)
         {
-            spawnCounts[i] = 0;
-        }
-    }
-
-    void Update()
-    {
-        timeSinceLastSpawn += Time.deltaTime;
-
-        if (timeSinceLastSpawn >= spawnInterval)
-        {
-            SpawnEnemy();
-            timeSinceLastSpawn = 0f;
-        }
-    }
-
-    private void SpawnEnemy()
-    {
-        for (int i = 0; i < enemyPrefab.Length; i++)
-        {
-            if (spawnCounts[i] < spawnLimits[i])
+            for (int i = 0; i < spawnInfo.count; i++)
             {
-                GameObject spawnedEnemy =  Instantiate(enemyPrefab[i], spawnPoint.position, Quaternion.identity);
-                spawnCounts[i]++;
-                spawnedEnemy.transform.parent = enemyParent.transform;
-
-                break;
+                spawnList.Add(new EnemySpawnInfo(spawnInfo.enemyPrefab, 1));
             }
         }
+
+        // 몬스터 랜덤 소환
+        while (spawnList.Count > 0)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+            int randomIndex = Random.Range(0, spawnList.Count);
+            Instantiate(spawnList[randomIndex].enemyPrefab, spawnPoint.position, Quaternion.identity, enemyParent.transform);
+            spawnList.RemoveAt(randomIndex); // 소환된 몬스터는 리스트에서 제거
+        }
+    }
+
+    IEnumerator StartSequentialWaves(List<List<EnemySpawnInfo>> allWaves)
+    {
+        foreach (var wave in allWaves)
+        {
+            currentWaveSpawns = wave;
+            yield return StartCoroutine(SpawnWave());
+            // 웨이브 사이에 딜레이 추가 (예: 5초)
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
+    public void EnemySpawnTable(string stageName) // 여기가 진입점.
+    {
+        InitEnemySpawn();
+
+        if (stageName == "Stage1")
+        {
+            // 모든 웨이브를 포함하는 리스트
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+        {
+            // Wave1
+            new List<EnemySpawnInfo>
+            {
+                new EnemySpawnInfo(enemyPrefab[0], 4),
+                new EnemySpawnInfo(enemyPrefab[1], 4),
+            },
+            // Wave2
+            new List<EnemySpawnInfo>
+            {
+                new EnemySpawnInfo(enemyPrefab[2], 3),
+                new EnemySpawnInfo(enemyPrefab[3], 5),
+            },
+            // Wave3
+            new List<EnemySpawnInfo>
+            {
+                new EnemySpawnInfo(enemyPrefab[4], 2),
+                new EnemySpawnInfo(enemyPrefab[5], 4),
+            }
+        };
+
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+    }
+
+    public void InitEnemySpawn()
+    {
+        spawnPoint = GameObject.FindWithTag("EnemyCastle").transform;
     }
 }
