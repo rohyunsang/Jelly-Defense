@@ -44,11 +44,9 @@ public class GameManager : MonoBehaviour
         }
 
         // 씬 로딩 완료 후 실행할 코드
-        Debug.Log("Scene Loaded");
         SlimeSpawnManager.instance.FindSlimeSpawn();
-        Debug.Log(sceneName);
-        EnemySpawnManager.instance.EnemySpawnTable(sceneName);
         SlimeSpawnManager.instance.InitSlimeSpawnManager();
+        EnemySpawnManager.instance.EnemySpawnTable(sceneName);
     }
     public void PauseGame()
     {
@@ -59,10 +57,5 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1; // 시간을 다시 시작
-    }
-
-    public void OffCamera()
-    {
-
     }
 }
