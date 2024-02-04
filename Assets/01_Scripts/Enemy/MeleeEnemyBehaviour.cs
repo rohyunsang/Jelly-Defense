@@ -260,12 +260,14 @@ public class MeleeEnemyBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("SlimeWeapon"))
+        if (other.gameObject.CompareTag("SlimeWeapon"))
         {
+            Debug.Log("SlimeWeapon");
+            Debug.Log(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
             GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
 
         }
-        else if (other.transform.CompareTag("SlimeProjectileWeapon"))
+        else if (other.gameObject.CompareTag("SlimeProjectileWeapon"))
         {
             SlimeWeapon slimeWeapon = other.gameObject.GetComponent<SlimeWeapon>();
             if (slimeWeapon != null)
