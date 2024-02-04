@@ -1662,9 +1662,12 @@ GameObject:
   - component: {fileID: 1802286859466067827}
   - component: {fileID: 1802286859466837841}
   - component: {fileID: 1802286859467967889}
+  - component: {fileID: 5536330426762191944}
+  - component: {fileID: 8284481275817108540}
+  - component: {fileID: 7357274115791109007}
   m_Layer: 0
-  m_Name: AxeMesh
-  m_TagString: Untagged
+  m_Name: Weapon
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1734,6 +1737,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &5536330426762191944
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036051}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8284481275817108540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192d7a67dcac19b498853d4a8005f7c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 0
+--- !u!65 &7357274115791109007
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.74, y: 1.49, z: 2.6724007}
+  m_Center: {x: -0.000000047612694, y: -0.23827925, z: 0.5915246}
 --- !u!1 &1802286859466036053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,9 +1789,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1802286859466067829}
   - component: {fileID: 1802286859456520337}
+  - component: {fileID: 3548499835593640741}
+  - component: {fileID: 696925587055403594}
+  - component: {fileID: 8753292055248590924}
   m_Layer: 0
   m_Name: BlackKnight
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1760,8 +1808,8 @@ Transform:
   m_GameObject: {fileID: 1802286859466036053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1802286859466067831}
   - {fileID: 1802286859466067833}
@@ -1789,6 +1837,65 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &3548499835593640741
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!195 &696925587055403594
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036053}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &8753292055248590924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802286859466036053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a82be317e29e942925b90a0d9d843d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeCastle: {fileID: 0}
+  <MaxHP>k__BackingField: 50
+  <AttackDamage>k__BackingField: 10
+  <CurrentHP>k__BackingField: 50
+  <Defense>k__BackingField: 5
+  <AttackSpeed>k__BackingField: 1
+  <MoveSpeed>k__BackingField: 3
+  <AttackRange>k__BackingField: 3
+  weaponCollider: {fileID: 7357274115791109007}
+  enemyWeapon: {fileID: 8284481275817108540}
+  isFire: 0
 --- !u!1 &1802286859466036055
 GameObject:
   m_ObjectHideFlags: 0

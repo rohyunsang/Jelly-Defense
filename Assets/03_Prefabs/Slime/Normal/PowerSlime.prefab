@@ -265,6 +265,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9100832090519068859}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1558067490
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010575189096524394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!136 &3061227217541992431
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -322,20 +336,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &1558067490
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010575189096524394}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &1558067489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,24 +355,25 @@ MonoBehaviour:
     Name: 
     Grade: 0
     HP: 0
-    Attack: 0
+    AttackDamage: 0
     Defense: 0
     AttackSpeed: 0
     MoveSpeed: 0
     Class: 0
     AttackRange: 0
-    SkillRange: 0
     Cost: 0
-  defense: 0
-  attackSpeed: 0
-  attackDistance: 6
-  attackInterval: 1.8
-  detectionRadius: 4
+  <MaxHP>k__BackingField: 0
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <AttackRange>k__BackingField: 0
   weaponColliders:
   - {fileID: 325381729}
-  slimeWeapon: {fileID: 325381728}
+  slimeWeapon:
+  - {fileID: 325381728}
   isFire: 0
-  isSkill: 0
   meleeSlimeType: 0
   epicStarHit: {fileID: 4535006216103734310, guid: 64fe9a5f77443aa4a87ba2a3c8bd7a41,
     type: 3}
