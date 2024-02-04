@@ -72,7 +72,7 @@ public class DataManager : MonoBehaviour
                 CurrenyManager.Instance.goldAd = saveData.goldAd;
                 CurrenyManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
 
-                StageManager.Instance.stageClearStatus.Clear();
+                
                 for (int i = 0; i < saveData.stageNames.Count; i++)
                 {
                     StageManager.Instance.stageClearStatus.Add(saveData.stageNames[i], saveData.stageClearStatuses[i]);
