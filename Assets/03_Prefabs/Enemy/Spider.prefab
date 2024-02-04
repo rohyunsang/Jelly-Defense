@@ -649,8 +649,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4843028258353612}
   - component: {fileID: 95690966028241422}
-  - component: {fileID: -8408983205446180797}
-  - component: {fileID: 6941348991591755625}
+  - component: {fileID: 5648402336135523062}
+  - component: {fileID: -351557387916107124}
+  - component: {fileID: -2670681403267194284}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
@@ -696,7 +697,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!195 &-8408983205446180797
+--- !u!136 &5648402336135523062
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557585983417840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-351557387916107124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557585983417840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c013db3ed447e941afd74475307dfce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeCastle: {fileID: 0}
+  <MaxHP>k__BackingField: 0
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <AttackRange>k__BackingField: 0
+  magicPrefab: {fileID: 0}
+  magicSpeed: 20
+  firePoint: {fileID: 0}
+  isFire: 0
+--- !u!195 &-2670681403267194284
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -718,20 +757,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &6941348991591755625
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557585983417840}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1574160754023944
 GameObject:
   m_ObjectHideFlags: 0

@@ -1533,6 +1533,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4530003306004526970}
   - component: {fileID: 4530003305994672282}
+  - component: {fileID: 4081909583320777082}
+  - component: {fileID: -461394118865959676}
+  - component: {fileID: -6214679879495947944}
   m_Layer: 0
   m_Name: Beholder
   m_TagString: Enemy
@@ -1578,6 +1581,66 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &4081909583320777082
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530003306004163418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &-461394118865959676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530003306004163418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c013db3ed447e941afd74475307dfce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeCastle: {fileID: 0}
+  <MaxHP>k__BackingField: 0
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <AttackRange>k__BackingField: 0
+  magicPrefab: {fileID: 0}
+  magicSpeed: 20
+  firePoint: {fileID: 0}
+  isFire: 0
+--- !u!195 &-6214679879495947944
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530003306004163418}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4530003306004163420
 GameObject:
   m_ObjectHideFlags: 0
