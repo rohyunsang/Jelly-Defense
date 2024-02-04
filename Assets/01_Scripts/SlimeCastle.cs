@@ -23,6 +23,20 @@ public class SlimeCastle : MonoBehaviour
         {
             GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
         }
+        else if (other.transform.CompareTag("EnemyProjectileWeapon"))
+        {
+            EnemyWeapon enemyWeapon = other.gameObject.GetComponent<EnemyWeapon>();
+            if (enemyWeapon != null)
+            {
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+                Destroy(other.gameObject);
+            }
+
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void GetHit(float damage) //데미지를 받음

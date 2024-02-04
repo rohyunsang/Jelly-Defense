@@ -51,6 +51,24 @@ public class MeleeEnemyBehaviour : MonoBehaviour
         navAgent.enabled = true;
         navAgent.isStopped = false;
 
+        string enemyPrefabName = gameObject.name.Replace("(Clone)", "");
+
+        Enemy enemyData = GoogleSheetManager.Instance.enemys.FirstOrDefault(enemy => enemy.Name == enemyPrefabName);
+
+        if (enemyData != null)
+        {
+            //slimeCost = slimeData.Cost;
+            MaxHP = enemyData.HP;
+            AttackDamage = enemyData.AttackDamage;
+            Defense = enemyData.Defense;
+            AttackSpeed = enemyData.AttackSpeed;
+            AttackRange = enemyData.AttackRange;
+        }
+        else
+        {
+            Debug.LogError("Enemy data not found for " + enemyPrefabName);
+        }
+
         slimeCastle = GameObject.FindWithTag("SlimeCastle").transform;
     }
 

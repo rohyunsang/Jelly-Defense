@@ -303,6 +303,20 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
         {
             GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
         }
+        else if (other.transform.CompareTag("EnemyProjectileWeapon"))
+        {
+            EnemyWeapon enemyWeapon = other.gameObject.GetComponent<EnemyWeapon>();
+            if (enemyWeapon != null)
+            {
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+                Destroy(other.gameObject);
+            }
+
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void OnSkill()  //여기가 1번째 

@@ -24,23 +24,38 @@ public class GoogleSheetManager : MonoBehaviour
 
         // Initialize other components or variables if needed
     }
-#endregion  
+    #endregion
 
     // 링크 뒤 export ~ 부분을 빼고 export?format=tsv 추가하기
-    const string URL = "https://docs.google.com/spreadsheets/d/1ThIRLXCaoj25XtKjm6mFWOKnF3pqoViRYx8E-IXKGBM/export?format=tsv";
-    
+    const string slimeDataURL = "https://docs.google.com/spreadsheets/d/1ThIRLXCaoj25XtKjm6mFWOKnF3pqoViRYx8E-IXKGBM/export?format=tsv"; // Slime
+    const string enemyDataURL = "https://docs.google.com/spreadsheets/d/14DXsg4yP4Y9zS7Le3GI-szxJ76Loj0xBkGyt_A5w_8c/export?format=tsv"; //Enemy
+
     [SerializeField]
     public List<Slime> slimes = new List<Slime>();
+
+    [SerializeField]
+    public List<Enemy> enemys = new List<Enemy>();
+
     IEnumerator Start()
     {
-        UnityWebRequest www = UnityWebRequest.Get(URL);
+        //Slime
+        UnityWebRequest www = UnityWebRequest.Get(slimeDataURL);
         yield return www.SendWebRequest();
 
         string data = www.downloadHandler.text;
         print(data);
-        ParseData(data);
+        ParseSlimeData(data);
+
+        // Enemy
+        www = UnityWebRequest.Get(enemyDataURL);
+        yield return www.SendWebRequest();
+
+        string enemyData = www.downloadHandler.text;
+        print(enemyData); 
+        ParseEnemyData(enemyData);
+
     }
-    void ParseData(string data)
+    void ParseSlimeData(string data)
     {
         string[] lines = data.Split('\n');
         for (int i = 1; i < lines.Length; i++) // 첫 번째 줄은 헤더이므로 건너뜁니다.
@@ -66,8 +81,34 @@ public class GoogleSheetManager : MonoBehaviour
             }
         }
     }
+    void ParseEnemyData(string data)
+    {
+        string[] lines = data.Split('\n');
+        for (int i = 1; i < lines.Length; i++) // 첫 번째 줄은 헤더이므로 건너뜁니다.
+        {
+            string[] fields = lines[i].Split('\t');
+            if (fields.Length >= 10) // 필드가 충분한지 확인
+            {
+                Enemy enemy = new Enemy()
+                {
+                    Index = int.Parse(fields[0]),
+                    Name = fields[1],
+                    HP = float.Parse(fields[2]),
+                    AttackDamage = float.Parse(fields[3]),
+                    Defense = float.Parse(fields[4]),
+                    AttackSpeed = float.Parse(fields[5]),
+                    MoveSpeed = float.Parse(fields[6]),
+                    Class = int.Parse(fields[7]),
+                    AttackRange = float.Parse(fields[8]),
+                    DropJellyPower = int.Parse(fields[9]),
+                };
+                enemys.Add(enemy);
+            }
+        }
+    }
 
 }
+
 [System.Serializable]
 public class Slime
 {
@@ -82,4 +123,18 @@ public class Slime
     public int Class;
     public float AttackRange;
     public int Cost;
+}
+[System.Serializable]
+public class Enemy
+{
+    public int Index;
+    public string Name;
+    public float HP;
+    public float AttackDamage;
+    public float Defense;
+    public float AttackSpeed;
+    public float MoveSpeed;
+    public int Class;
+    public float AttackRange;
+    public float DropJellyPower;
 }

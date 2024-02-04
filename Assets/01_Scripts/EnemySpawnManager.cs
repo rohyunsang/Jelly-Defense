@@ -50,8 +50,29 @@ public class EnemySpawnManager : MonoBehaviour
     public void EnemySpawnStage1()
     {
         spawnLimits = new int[enemyPrefab.Length];
-        spawnLimits[0] = 5;
-        spawnLimits[1] = 5;
+        spawnLimits[0] = 2;
+        spawnLimits[1] = 2;
+        spawnLimits[2] = 2;
+        spawnLimits[3] = 2;
+        spawnLimits[4] = 2;
+        spawnLimits[5] = 2;
+        spawnLimits[6] = 2;
+        spawnLimits[7] = 2;
+        spawnLimits[8] = 2;
+        spawnLimits[9] = 2;
+        spawnLimits[11] = 2;
+        spawnLimits[12] = 2;
+        spawnLimits[13] = 2;
+        spawnLimits[14] = 2;
+        spawnLimits[15] = 2;
+        spawnLimits[16] = 2;
+        spawnLimits[17] = 2;
+        spawnLimits[18] = 2;
+        spawnLimits[19] = 2;
+        spawnLimits[20] = 2;
+        spawnLimits[21] = 2;
+        spawnLimits[22] = 2;
+        spawnLimits[23] = 2;
         ResetSpawnCounts();
     }
 
