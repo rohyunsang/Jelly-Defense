@@ -288,7 +288,7 @@ public class MagicianEnemyBehaviour : MonoBehaviour
                 GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
                 Destroy(other.gameObject);
             }
-
+                
         }
         else
         {
