@@ -38,7 +38,6 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
     public float detectionRadius = 10f; //적 감지 반경
     private float detectionInterval = 0.5f;  // 범위 탐지 주기
     private float sinceLastDetectionTime = 0f; // 탐지 주기 초기화용
-    private bool hasAttacked = false;
 
     [Header("Weapon")]
     public Collider weaponCollider;
