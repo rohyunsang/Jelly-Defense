@@ -16,6 +16,9 @@ public class SaveData
     public List<string> stageNames = new List<string>();
     public List<bool> stageClearStatuses = new List<bool>();
 
+    public List<string> slimeNames = new List<string>();
+    public List<bool> hasSlime = new List<bool>();
+
 }
 
 public class DataManager : MonoBehaviour
@@ -57,6 +60,7 @@ public class DataManager : MonoBehaviour
             CurrenyManager.Instance.goldAd = 5 ;
             CurrenyManager.Instance.jellyStoneAd = 5;
             StageManager.Instance.InitializeStageClearStatus();
+            SlimeManager.instance.InitializeDefaultSlimes();
             JsonSave(); // 초기 데이터를 파일에 저장
         }
         else
@@ -78,6 +82,13 @@ public class DataManager : MonoBehaviour
                 for (int i = 0; i < saveData.stageNames.Count; i++)
                 {
                     StageManager.Instance.stageClearStatus.Add(saveData.stageNames[i], saveData.stageClearStatuses[i]);
+                }
+
+                // 슬라임 정보 불러오기
+                SlimeManager.instance.hasSlimes.Clear();
+                for (int i = 0; i < saveData.slimeNames.Count; i++)
+                {
+                    SlimeManager.instance.hasSlimes.Add(saveData.slimeNames[i], saveData.hasSlime[i]);
                 }
             }
         }
@@ -106,6 +117,15 @@ public class DataManager : MonoBehaviour
                 saveData.stageNames.Add(stage.Key);
                 saveData.stageClearStatuses.Add(stage.Value);
             }
+        }
+
+        // 슬라임 정보 저장
+        saveData.slimeNames.Clear();
+        saveData.hasSlime.Clear();
+        foreach (var slime in SlimeManager.instance.hasSlimes)
+        {
+            saveData.slimeNames.Add(slime.Key);
+            saveData.hasSlime.Add(slime.Value);
         }
 
         string json = JsonUtility.ToJson(saveData, true);

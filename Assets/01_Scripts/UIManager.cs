@@ -63,6 +63,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI goldAdText; // 광고 개수
     public TextMeshProUGUI jellyStoneAdText; // 광고 개수 
 
+    [Header("Collection")]
+    public GameObject collectionScreen;
+    public GameObject preButtonCollectionScreen;
+
     [Header("Etc")]
     public GameObject UIBackGround;
 
@@ -87,12 +91,7 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
-    // 광고 갯수 표시.. 
-    public void InitAdUI(int goldAd, int jellyStoneAd)
-    {
-        goldAdText.text = goldAd.ToString() + " / 5";
-        jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
-    }
+    
 
     //메인 스크린
     #region MainScreen 
@@ -315,6 +314,32 @@ public class UIManager : MonoBehaviour
        // AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
 
     }
+
+    // 광고 갯수 표시.. 
+    public void InitAdUI(int goldAd, int jellyStoneAd)
+    {
+        goldAdText.text = goldAd.ToString() + " / 5";
+        jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
+    }
+
+    #endregion
+
+    #region CollectionScreen
+
+    public void OnCollectionScreen()
+    {
+        UIBackGround.SetActive(true);
+        preButtonCollectionScreen.SetActive(true);
+        collectionScreen.SetActive(true);
+    }
+
+    public void OffCollectionScreen()
+    {
+        UIBackGround.SetActive(false);
+        preButtonCollectionScreen.SetActive(false);
+        collectionScreen.SetActive(false);
+    }
+    
 
     #endregion
 

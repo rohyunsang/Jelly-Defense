@@ -31,7 +31,7 @@ public class SlimeManager : MonoBehaviour
     public List<string> selectedSlimeName = new List<string>();
     // show inspector
     
-    public Dictionary<string, bool> hasSlime;
+    public Dictionary<string, bool> hasSlimes;
 
     public GameObject SlimeIconContent;
     public GameObject[] SlimeSlots;
@@ -57,14 +57,14 @@ public class SlimeManager : MonoBehaviour
 
     public void SpawnSlimeIcon() // pickUp Screen
     {
-        foreach (KeyValuePair<string, bool> slime in hasSlime)
+        foreach (KeyValuePair<string, bool> slime in hasSlimes)
         {
             Debug.Log($"Slime Name: {slime.Key}, Available: {slime.Value}");
         }
         foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
         {
             // Check if the player owns the slime before spawning its icon.
-            if (hasSlime[slimeIconPrefab.name.Replace("Icon","")])
+            if (hasSlimes[slimeIconPrefab.name.Replace("Icon","")])
             {
                 GameObject slimeIcon = Instantiate(slimeIconPrefab, SlimeIconContent.transform);
                 slimeIcon.name = slimeIconPrefab.name;
@@ -115,21 +115,21 @@ public class SlimeManager : MonoBehaviour
         // hasSlime["윤상슬라임"] = true;
     }
 
-    private void InitializeDefaultSlimes()
+    public void InitializeDefaultSlimes()
     {
-        hasSlime = new Dictionary<string, bool>();
+        hasSlimes = new Dictionary<string, bool>();
 
         foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
         {
-            hasSlime[slimeIconPrefab.name.Replace("Icon", "")] = false;
+            hasSlimes[slimeIconPrefab.name.Replace("Icon", "")] = false;
         }
         
         // 기본으로 제공하는 5마리 슬라임
-        hasSlime["GreenSlime"] = true;
-        hasSlime["WindSlime"] = true;
-        hasSlime["PowerSlime"] = true;
-        hasSlime["SquareIceSlime"] = true;
-        hasSlime["AmethystSlime"] = true;
+        hasSlimes["GreenSlime"] = true;
+        hasSlimes["WindSlime"] = true;
+        hasSlimes["PowerSlime"] = true;
+        hasSlimes["SquareIceSlime"] = true;
+        hasSlimes["AmethystSlime"] = true;
 
     }
 
