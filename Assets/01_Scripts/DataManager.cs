@@ -15,6 +15,7 @@ public class SaveData
     // 스테이지 클리어 상태를 위한 필드 추가
     public List<string> stageNames = new List<string>();
     public List<bool> stageClearStatuses = new List<bool>();
+
 }
 
 public class DataManager : MonoBehaviour
@@ -55,6 +56,7 @@ public class DataManager : MonoBehaviour
             CurrenyManager.Instance.jellyStone = 1000; // 예시 초기값
             CurrenyManager.Instance.goldAd = 5 ;
             CurrenyManager.Instance.jellyStoneAd = 5;
+            StageManager.Instance.InitializeStageClearStatus();
             JsonSave(); // 초기 데이터를 파일에 저장
         }
         else

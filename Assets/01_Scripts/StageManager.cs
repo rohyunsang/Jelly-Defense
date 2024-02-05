@@ -20,13 +20,14 @@ public class StageManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         // Initialize other components or variables if needed
+        stageClearStatus = new Dictionary<string, bool>(); 
     }
     #endregion
 
     [SerializeField]
     public Dictionary<string, bool> stageClearStatus;
 
-    private void InitializeStageClearStatus()
+    public void InitializeStageClearStatus()
     {
         stageClearStatus = new Dictionary<string, bool>();
 

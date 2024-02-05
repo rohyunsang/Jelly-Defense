@@ -30,6 +30,7 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] slimeIconPrefabs;
     public List<string> selectedSlimeName = new List<string>();
     // show inspector
+    
     public Dictionary<string, bool> hasSlime;
 
     public GameObject SlimeIconContent;
@@ -56,10 +57,20 @@ public class SlimeManager : MonoBehaviour
 
     public void SpawnSlimeIcon() // pickUp Screen
     {
+        foreach (KeyValuePair<string, bool> slime in hasSlime)
+        {
+            Debug.Log($"Slime Name: {slime.Key}, Available: {slime.Value}");
+        }
         foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
         {
-            GameObject slimeIcon = Instantiate(slimeIconPrefab, SlimeIconContent.transform);
-            slimeIcon.name = slimeIconPrefab.name;
+            // Check if the player owns the slime before spawning its icon.
+            if (hasSlime[slimeIconPrefab.name.Replace("Icon","")])
+            {
+                GameObject slimeIcon = Instantiate(slimeIconPrefab, SlimeIconContent.transform);
+                slimeIcon.name = slimeIconPrefab.name;
+
+                // Optionally, perform additional setup on the slimeIcon here, such as adding listeners or setting up UI elements.
+            }
         }
     }
 
@@ -107,13 +118,18 @@ public class SlimeManager : MonoBehaviour
     private void InitializeDefaultSlimes()
     {
         hasSlime = new Dictionary<string, bool>();
+
+        foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
+        {
+            hasSlime[slimeIconPrefab.name.Replace("Icon", "")] = false;
+        }
         
         // 기본으로 제공하는 5마리 슬라임
-        hasSlime["NormalSlime"] = true;
-        hasSlime["PowerSlime"] = true;
-        hasSlime["IceSlime"] = true;
+        hasSlime["GreenSlime"] = true;
         hasSlime["WindSlime"] = true;
-        hasSlime["BlockSlime"] = true;
+        hasSlime["PowerSlime"] = true;
+        hasSlime["SquareIceSlime"] = true;
+        hasSlime["AmethystSlime"] = true;
 
     }
 
@@ -272,6 +288,4 @@ public class SlimeManager : MonoBehaviour
         }
     }
 }
-    
-
 
