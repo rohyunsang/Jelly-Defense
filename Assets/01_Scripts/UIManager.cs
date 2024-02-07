@@ -68,7 +68,8 @@ public class UIManager : MonoBehaviour
     public GameObject preButtonCollectionScreen;
 
     [Header("Etc")]
-    public GameObject UIBackGround;
+    public GameObject UIBackGround; // black transparency 100
+    public GameObject UIBackGroundLight; 
 
     [Header("DontDestroy")]
     public GameObject slimeSpawnManager;
@@ -100,6 +101,29 @@ public class UIManager : MonoBehaviour
         UIBackGround.SetActive(true);
         stageScreen.SetActive(true); //스테이지 화면 열기
         stageScreenBackButton.SetActive(true);
+    }
+
+    #endregion
+
+    #region SettingScreenMain
+
+    public void OffSettingScreenMain()
+    {
+        settingScreenMain.SetActive(false);
+        UIBackGroundLight.SetActive(false);
+    }
+    public void OnSettingScreenMain()
+    {
+        settingScreenMain.SetActive(true);
+        UIBackGroundLight.SetActive(true);
+    }
+    public void OnClick_OpenURL() // 이용 약관
+    {
+        Application.OpenURL("https://sites.google.com/view/jellybangeodae"); //연결원하는 사이트
+    }
+    public void OnClickOpenPersonalURL() // 개인 정보 취급 방침
+    {
+        Application.OpenURL("https://sites.google.com/view/jellybangeodae"); //연결원하는 사이트
     }
 
     #endregion

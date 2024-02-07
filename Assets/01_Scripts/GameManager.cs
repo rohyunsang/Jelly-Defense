@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         SlimeSpawnManager.instance.FindSlimeSpawn();
         SlimeSpawnManager.instance.InitSlimeSpawnManager();
         EnemySpawnManager.instance.EnemySpawnTable(sceneName);
+        PlayerSkillManager.instance.InitPlayerSkill();
     }
     public void PauseGame()
     {

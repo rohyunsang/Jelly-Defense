@@ -14,11 +14,11 @@ public class SlimeSpawnManager : MonoBehaviour
     public GameObject[] slimePrefab; //아군 유닛 프리팹
     public Transform spawnPoint; //아군 유닛 스폰 장소 
 
-    public int slimeCost = 300; //아군 유닛 스폰 코스트
-    public int maxJellyPower = 500; //아군 유닛 스폰 코스트
+    public int slimeCost = 0; //아군 유닛 스폰 코스트
+    public int maxJellyPower = 250; //아군 유닛 스폰 코스트
 
     public TMP_Text jellyPowerText; // TextMeshPro Text 오브젝트를 할당할 변수
-    public float jellyPower = 300; // 아군 스폰 코스트 총량
+    public float jellyPower = 250f; // 아군 스폰 코스트 총량
 
     public bool isStart = false;
 
@@ -45,7 +45,7 @@ public class SlimeSpawnManager : MonoBehaviour
     {
         if (!isStart) return;
 
-        jellyPower += Time.deltaTime * 10f; //시간 증가시 젤리력 증가
+        jellyPower += Time.deltaTime * 15f; //시간 증가시 젤리력 증가
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
         int jellyPowerInt = Mathf.FloorToInt(jellyPower);

@@ -176,7 +176,10 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
         }
     }
 
-    
+    public void SlimeWeaponDamageUpdate()
+    {
+        magicPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
+    }
 
     void SearchEnemyInDetection() //¹üÀ§ ½ºÄµ
     {

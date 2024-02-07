@@ -181,7 +181,18 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
         }
     }
-
+    public void SlimeWeaponDamageUpdate()
+    {
+        if (slimeWeapon.Length == 2)
+        {
+            slimeWeapon[0].weaponDamage = AttackDamage;
+            slimeWeapon[1].weaponDamage = AttackDamage;
+        }
+        else
+        {
+            slimeWeapon[0].weaponDamage = AttackDamage;
+        }
+    }
     void SearchEnemyInDetection() //범위 스캔
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지, 배열 저장

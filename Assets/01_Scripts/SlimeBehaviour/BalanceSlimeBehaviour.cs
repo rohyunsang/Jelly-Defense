@@ -144,6 +144,11 @@ public class BalanceSlimeBehaviour : MonoBehaviour, ISlime
         }
     }
 
+    public void SlimeWeaponDamageUpdate()
+    {
+        slimeWeapon.weaponDamage = AttackDamage;
+    }
+
     void SearchEnemyInDetection() //범위 스캔
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지, 배열 저장

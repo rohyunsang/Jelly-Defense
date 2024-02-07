@@ -255,4 +255,9 @@ public class SlimeBehaviour : MonoBehaviour, ISlime
     {
         throw new System.NotImplementedException();
     }
+
+    public void SlimeWeaponDamageUpdate()
+    {
+        throw new System.NotImplementedException();
+    }
 }

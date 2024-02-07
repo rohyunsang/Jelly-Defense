@@ -16,4 +16,6 @@ public interface ISlime
     bool IsSkill { get; set; }
 
     void OnSkill();
+
+    void SlimeWeaponDamageUpdate();
 }

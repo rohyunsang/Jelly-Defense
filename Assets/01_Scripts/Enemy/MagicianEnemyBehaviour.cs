@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MagicianEnemyBehaviour : MonoBehaviour
+public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
 {
     //컴포넌트들
     private Animator anim;
@@ -43,6 +43,10 @@ public class MagicianEnemyBehaviour : MonoBehaviour
     public Transform firePoint;
     public bool isFire = false;
     public bool IsSkill { get; set; }
+
+    [Header("Stun")]
+    private bool isStunned = false; // 스턴 상태 관리 변수
+
 
     void Awake()
     {
@@ -102,7 +106,8 @@ public class MagicianEnemyBehaviour : MonoBehaviour
     }
     void Update()
     {
-        if (isDead) return; //죽었으면 아래로는 실행하지 않기
+        if (isDead || isStunned) return; // 죽었거나 스턴 상태이면 아래 로직 실행 안 함
+
 
         sinceLastDetectionTime += Time.deltaTime; //시간흐름 저장으로 최적화
         if (sinceLastDetectionTime >= detectionInterval) //범위스캔 간격보다 시간 흐름이 크면
@@ -290,9 +295,35 @@ public class MagicianEnemyBehaviour : MonoBehaviour
             }
                 
         }
+        else if (other.gameObject.CompareTag("Meteor"))
+        {
+            GetStunned(5f);
+        }
         else
         {
             return;
+        }
+    }
+
+    public void GetStunned(float duration)
+    {
+        if (!isStunned) // 이미 스턴 상태가 아니라면
+        {
+            StartCoroutine(StunDuration(duration));
+        }
+    }
+
+    IEnumerator StunDuration(float duration)
+    {
+        isStunned = true; // 스턴 상태로 전환
+        navAgent.isStopped = true; // 몬스터 이동 중지
+
+        yield return new WaitForSeconds(duration); // 스턴 지속 시간 대기
+
+        if (!isDead) // 스턴 종료 후, 몬스터가 살아있다면
+        {
+            isStunned = false; // 스턴 상태 해제
+            navAgent.isStopped = false; // 몬스터 이동 재개
         }
     }
 }

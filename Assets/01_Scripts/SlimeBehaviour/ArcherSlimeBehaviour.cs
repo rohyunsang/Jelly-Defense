@@ -121,6 +121,8 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
         arrowPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
     }
 
+
+
     void Update()
     {
         if (isDead) return; //죽었으면 아래로는 실행하지 않기
@@ -173,6 +175,11 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
         {
             anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
         }
+    }
+
+    public void SlimeWeaponDamageUpdate()
+    {
+        arrowPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
     }
 
     void SearchEnemyInDetection() //범위 스캔

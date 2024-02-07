@@ -14,6 +14,7 @@ TagManager:
   - EnemyWeapon
   - SlimeProjectileWeapon
   - EnemyProjectileWeapon
+  - Meteor
   layers:
   - Default
   - TransparentFX

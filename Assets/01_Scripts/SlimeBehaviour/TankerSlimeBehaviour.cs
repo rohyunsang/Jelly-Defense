@@ -168,7 +168,10 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
             anim.SetBool("isMove", true); //이동(idle2) 애니메이션 실행
         }
     }
-
+    public void SlimeWeaponDamageUpdate()
+    {
+        slimeWeapon.weaponDamage = AttackDamage;
+    }
     void SearchEnemyInDetection() //범위 스캔
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius); //범위 콜리더 감지, 배열 저장
