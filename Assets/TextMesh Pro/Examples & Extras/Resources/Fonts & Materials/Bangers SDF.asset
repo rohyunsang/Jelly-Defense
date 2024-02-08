@@ -314,6 +314,21 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+  - m_Index: 26
+    m_Metrics:
+      m_Width: 51.609375
+      m_Height: 25.734375
+      m_HorizontalBearingX: 5.90625
+      m_HorizontalBearingY: 60.046875
+      m_HorizontalAdvance: 51.890625
+    m_GlyphRect:
+      m_X: 11
+      m_Y: 945
+      m_Width: 53
+      m_Height: 27
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 95
@@ -358,6 +373,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 50
     m_GlyphIndex: 31
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 45
+    m_GlyphIndex: 26
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: 28584486757587946}
@@ -409,6 +428,10 @@ MonoBehaviour:
     m_Y: 549
     m_Width: 99
     m_Height: 125
+  - m_X: 0
+    m_Y: 934
+    m_Width: 74
+    m_Height: 48
   m_FreeGlyphRects:
   - m_X: 69
     m_Y: 38
@@ -422,10 +445,6 @@ MonoBehaviour:
     m_Y: 256
     m_Width: 931
     m_Height: 34
-  - m_X: 0
-    m_Y: 934
-    m_Width: 1023
-    m_Height: 89
   - m_X: 176
     m_Y: 0
     m_Width: 847
@@ -454,6 +473,14 @@ MonoBehaviour:
     m_Y: 674
     m_Width: 928
     m_Height: 349
+  - m_X: 0
+    m_Y: 982
+    m_Width: 1023
+    m_Height: 41
+  - m_X: 74
+    m_Y: 934
+    m_Width: 949
+    m_Height: 89
   m_fontInfo:
     Name: Bangers
     PointSize: 137

@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
     public GameObject epicSlimeSkillIcons;
     public GameObject[] addImages;
     public GameObject[] epicSlimeSkillTextures;
+    public GameObject shiningIcon;
+    public GameObject HUDBackGroundLight;
 
     public Texture2D AngelSlimeSkillIcon;
     public Texture2D DevilSlimeSkillIcon;
@@ -218,21 +220,29 @@ public class UIManager : MonoBehaviour
 
     #region HUDScreen
 
+
+
+    public void OnClickSpeedButton()
+    {
+        if (!shiningIcon.activeSelf)
+        {
+            shiningIcon.SetActive(true);
+            GameManager.Instance.DoubleTimeScale();
+        }
+        else
+        {
+            shiningIcon.SetActive(false);
+            GameManager.Instance.OriginTimeScale();
+        }
+
+    }
+
     public void OnOffEpicSlimeSkill()
     {
         epicSlimeSkillIcons.SetActive(!epicSlimeSkillIcons.activeSelf);
     }
 
-    public void HUDSettingButton() //설정창 들어가기 버튼
-    {
-        GameManager.Instance.PauseGame();
-        HUDsettingScreen.SetActive(true);
-    }
-    public void HUDResumeButton()  //이어서 하기 버튼
-    {
-        HUDsettingScreen.SetActive(false);
-        GameManager.Instance.ResumeGame();
-    }
+    
     public void OnStageClearScreen()
     {
         stageClearScreen.SetActive(true);
@@ -250,35 +260,43 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickHomeButtonStageFailScreen()
     {
-        stageFailScreen.SetActive(false);
+        //stageFailScreen.SetActive(false);
         GameManager.Instance.ChangeSceneToMain();
         GameManager.Instance.InitAllStageEnd();
+        
         OnDestroyObjects();
     }
 
     #endregion
 
     //SettingScreen 안의 버튼 이벤트들 
-    #region SettingScreen
-    public void OnClickSettingButton() //설정창 들어가기 버튼
+    #region SettingScreenHUD 
+
+    public void HUDSettingButton() //설정창 들어가기 버튼
     {
         GameManager.Instance.PauseGame();
-        settingScreenMain.SetActive(true);
+        HUDsettingScreen.SetActive(true);
+        HUDBackGroundLight.SetActive(true);
     }
-    public void OnClilckResumeButton()  //이어서 하기 버튼
+    public void HUDResumeButton()  //이어서 하기 버튼
     {
-        settingScreenMain.SetActive(false);
+        HUDsettingScreen.SetActive(false);
         GameManager.Instance.ResumeGame();
+        HUDBackGroundLight.SetActive(false);
     }
 
+    public void OnClickRetryButton() //
+    {
+        HUDsettingScreen.SetActive(false);
 
-    public void OnClickSoundButton() //만들어야 함
-    {
-        Debug.Log("OnClickSoundButton");
-    }
-    public void OnClickBlankButton() //생길지도
-    {
-        Debug.Log("OnClickBlankButton");
+        //Init
+        GameManager.Instance.ChangeSceneToMain();
+        GameManager.Instance.InitAllStageEnd();
+        OnDestroyObjects();
+
+        GameManager.Instance.goPickUpStage = true;
+        
+
     }
 
     public void OnClickHelpButton()
@@ -287,8 +305,10 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickHomeButton()
     {
-        mainUI.SetActive(true); //메인씬 최상위 캔버스 켜주기
-     //   SlimeManager.instance.SavePrefabNames();
+        HUDsettingScreen.SetActive(false);
+        //Init
+        GameManager.Instance.ChangeSceneToMain();
+        GameManager.Instance.InitAllStageEnd();
         OnDestroyObjects();
     }
 

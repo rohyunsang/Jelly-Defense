@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,9 +23,11 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public bool goPickUpStage = true;
+
     public void ChangeSceneToMain()
     {
-        SceneManager.LoadScene("Main");
+        StartCoroutine(LoadSceneAndPerformAction("Main"));
     }
 
     public void ChangeScene(string stageName) // stage이동할때.
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadSceneAndPerformAction(string sceneName)
     {
+        string preStageName = UIManager.instance.selectedStageName;
+
         // 비동기적으로 씬 로딩
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
@@ -43,12 +48,25 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        // 씬 로딩 완료 후 실행할 코드
-        SlimeSpawnManager.instance.FindSlimeSpawn();
-        SlimeSpawnManager.instance.InitSlimeSpawnManager();
-        EnemySpawnManager.instance.EnemySpawnTable(sceneName);
-        PlayerSkillManager.instance.InitPlayerSkill();
-        EnhanceObject.Instance.StageSwitch();
+        if(sceneName == "Main")
+        {
+            if (goPickUpStage) {
+                UIManager.instance.OnClickBattleButton();
+                UIManager.instance.pickUpScreen.SetActive(true);
+                UIManager.instance.selectedStageName = preStageName;
+                goPickUpStage = false;
+            }
+            
+        }
+        else
+        {
+            SlimeSpawnManager.instance.FindSlimeSpawn();
+            SlimeSpawnManager.instance.InitSlimeSpawnManager();
+            EnemySpawnManager.instance.EnemySpawnTable(sceneName);
+            PlayerSkillManager.instance.InitPlayerSkill();
+            EnhanceObject.Instance.StageSwitch();
+        }
+        
 
 
     }
@@ -67,7 +85,7 @@ public class GameManager : MonoBehaviour
             Destroy(child.gameObject);
         }
         PlayerSkillManager.instance.StageEndSettingInit();
-
+        OriginTimeScale();
     }
 
     public void PauseGame()
