@@ -48,7 +48,28 @@ public class GameManager : MonoBehaviour
         SlimeSpawnManager.instance.InitSlimeSpawnManager();
         EnemySpawnManager.instance.EnemySpawnTable(sceneName);
         PlayerSkillManager.instance.InitPlayerSkill();
+        EnhanceObject.Instance.StageSwitch();
+
+
     }
+
+    public void InitAllStageEnd()
+    {
+        SlimeSpawnManager.instance.isEnhanced = false;
+        EnemySpawnManager.instance.isEnhanced = false;
+
+        foreach (Transform child in SlimeSpawnManager.instance.slimeParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in EnemySpawnManager.instance.enemyParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        PlayerSkillManager.instance.StageEndSettingInit();
+
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0; // 시간을 멈춤
@@ -58,5 +79,14 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1; // 시간을 다시 시작
+    }
+
+    public void DoubleTimeScale()
+    {
+        Time.timeScale = 2;
+    }
+    public void OriginTimeScale()
+    {
+        Time.timeScale = 1;
     }
 }

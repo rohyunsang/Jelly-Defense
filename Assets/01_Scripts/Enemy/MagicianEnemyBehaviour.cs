@@ -29,6 +29,8 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
     public float MoveSpeed { get; set; }
     [field: SerializeField]
     public float AttackRange { get; set; }
+    [field: SerializeField]
+    public float DropJellyPower { get; set; }
 
     [Header("Addictional Data")]
     private float nextAttackTime; //공격주기 누적 초기화용
@@ -67,6 +69,7 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
             Defense = enemyData.Defense;
             AttackSpeed = enemyData.AttackSpeed;
             AttackRange = enemyData.AttackRange;
+            DropJellyPower = enemyData.DropJellyPower;
         }
         else
         {
@@ -273,6 +276,8 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
     }
     void Die() //사망
     {
+        SlimeSpawnManager.instance.jellyPower += DropJellyPower;
+
         Destroy(gameObject); //오브젝트 삭제
     }
 

@@ -77,6 +77,15 @@ public class UIManager : MonoBehaviour
     public GameObject battleHUDScreen;  //HUD 스크린
     public GameObject uIManager;  //UI매니저. 씬 전환시 missing 방지용
     public GameObject slimeManager;  //UI매니저. 씬 전환시 missing 방지용
+    public GameObject playerSkillManager;
+    public GameObject stageManager;
+    public GameObject enhancedObjectManager;
+    public GameObject enemySpawnManager;
+    public GameObject collectionManager;
+    public GameObject aliveSlime;
+    public GameObject aliveEnemy;
+    public GameObject currenyManager;
+    public GameObject dataManager;
 
 
 
@@ -232,6 +241,7 @@ public class UIManager : MonoBehaviour
     {
         stageClearScreen.SetActive(false);
         GameManager.Instance.ChangeSceneToMain();
+        GameManager.Instance.InitAllStageEnd();
         OnDestroyObjects();
     }
     public void OnStageFailScreen()
@@ -242,6 +252,7 @@ public class UIManager : MonoBehaviour
     {
         stageFailScreen.SetActive(false);
         GameManager.Instance.ChangeSceneToMain();
+        GameManager.Instance.InitAllStageEnd();
         OnDestroyObjects();
     }
 
@@ -375,6 +386,14 @@ public class UIManager : MonoBehaviour
         Destroy(battleHUDScreen);//메인씬 중복방지용 파괴
         Destroy(uIManager); //전체연결 없어짐 방지
         Destroy(slimeManager);//슬라임 컨텐트 ~ 버튼 연결 없어짐 방지
-
+        Destroy(playerSkillManager);
+        Destroy(stageManager);
+        Destroy(enhancedObjectManager);
+        Destroy(enemySpawnManager);
+        Destroy(collectionManager);
+        Destroy(aliveSlime);
+        Destroy(aliveEnemy);
+        Destroy(currenyManager);
+        Destroy(dataManager);
     }
 }

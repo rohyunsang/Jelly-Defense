@@ -26,6 +26,12 @@ public class EnemySpawnManager : MonoBehaviour
 
     public List<EnemySpawnInfo> currentWaveSpawns = new List<EnemySpawnInfo>(); // 현재 웨이브에서 소환될 적 정보
 
+    public GameObject treasureObject;
+    public int currentWave = 1;
+
+    public bool isEnhanced = false;
+
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -60,7 +66,11 @@ public class EnemySpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnInterval);
             int randomIndex = Random.Range(0, spawnList.Count);
-            Instantiate(spawnList[randomIndex].enemyPrefab, spawnPoint.position, Quaternion.identity, enemyParent.transform);
+            GameObject spawnedEnemy =  Instantiate(spawnList[randomIndex].enemyPrefab, spawnPoint.position, Quaternion.identity, enemyParent.transform);
+            if (isEnhanced & EnhanceObject.Instance.objectType != ObjectType.Jelly)
+            {
+                EnhanceObject.Instance.EnhancedEnemy(spawnedEnemy);
+            }
             spawnList.RemoveAt(randomIndex); // 소환된 몬스터는 리스트에서 제거
         }
     }
@@ -69,7 +79,6 @@ public class EnemySpawnManager : MonoBehaviour
     {
         foreach (var wave in allWaves) //
         {
-           
             int totalMonstersInWave = 0;
             foreach (var spawnInfo in wave)
             {
@@ -92,6 +101,16 @@ public class EnemySpawnManager : MonoBehaviour
             yield return StartCoroutine(SpawnWave());
             // 웨이브 사이에 딜레이 추가 (예: 5초)
             yield return new WaitForSeconds(5f);
+            currentWave++;
+            if(currentWave == 2)
+            {
+                Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
+                Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
+                GameObject spawnedTreasure =  Instantiate(treasureObject, 
+                    (slimeCastleTransform.position + enemyCastleTransform.position) / 2 + new Vector3(0f,3f,0f), Quaternion.identity);
+
+                spawnedTreasure.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            }
         }
     }
 

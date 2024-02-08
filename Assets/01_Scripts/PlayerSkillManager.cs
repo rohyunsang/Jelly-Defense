@@ -109,4 +109,9 @@ public class PlayerSkillManager : MonoBehaviour
         // Rotate the skill effect to face the enemy castle
         skillEffect.transform.LookAt(enemyCastleTransform);
     }
+
+    public void StageEndSettingInit()
+    {
+        isStart = false;
+    }
 }

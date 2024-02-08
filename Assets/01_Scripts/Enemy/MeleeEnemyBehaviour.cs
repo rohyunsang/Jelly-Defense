@@ -31,6 +31,9 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     public float AttackRange { get; set; }
     public bool IsSkill { get; set; }
 
+    [field: SerializeField]
+    public float DropJellyPower { get; set; }
+
     [Header("Addictional Data")]
     private float nextAttackTime; //공격주기 누적 초기화용
     private float detectionRadius = 20f; //적 감지 반경
@@ -65,6 +68,7 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
             Defense = enemyData.Defense;
             AttackSpeed = enemyData.AttackSpeed;
             AttackRange = enemyData.AttackRange;
+            DropJellyPower = enemyData.DropJellyPower;
         }
         else
         {
@@ -257,6 +261,7 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     }
     void Die() //사망
     {
+        SlimeSpawnManager.instance.jellyPower += DropJellyPower;
         Destroy(gameObject); //오브젝트 삭제
     }
 

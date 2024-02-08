@@ -124,12 +124,33 @@ public class SlimeManager : MonoBehaviour
             hasSlimes[slimeIconPrefab.name.Replace("Icon", "")] = false;
         }
         
+        // Test 용으로 25마리 다 true
         // 기본으로 제공하는 5마리 슬라임
         hasSlimes["GreenSlime"] = true;
         hasSlimes["WindSlime"] = true;
         hasSlimes["PowerSlime"] = true;
         hasSlimes["SquareIceSlime"] = true;
         hasSlimes["AmethystSlime"] = true;
+        hasSlimes["BlockSlime"] = true;
+        hasSlimes["BearSlime"] = true;
+        hasSlimes["ClownSlime"] = true;
+        hasSlimes["BoneSlime"] = true;
+        hasSlimes["MagicSlime"] = true;
+        hasSlimes["ParabolaSlime"] = true;
+        hasSlimes["BloodSlime"] = true;
+        hasSlimes["AngelSlime"] = true;
+        hasSlimes["CowardSlime"] = true;
+        hasSlimes["BunnySlime"] = true;
+        hasSlimes["DevilSlime"] = true;
+        hasSlimes["WitchSlime"] = true;
+        hasSlimes["SkullSlime"] = true;
+        hasSlimes["BlockIceSlime"] = true;
+        hasSlimes["CupidSlime"] = true;
+        hasSlimes["GhostSlime"] = true;
+        hasSlimes["LizardSlime"] = true;
+        hasSlimes["WizardSlime"] = true;
+        hasSlimes["GrassSlime"] = true;
+        hasSlimes["CatSlime"] = true;
 
     }
 

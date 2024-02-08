@@ -24,6 +24,8 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public GameObject slimeParent;
 
+    public bool isEnhanced = false;
+
 
     void Awake()
     {
@@ -46,6 +48,7 @@ public class SlimeSpawnManager : MonoBehaviour
         if (!isStart) return;
 
         jellyPower += Time.deltaTime * 15f; //시간 증가시 젤리력 증가
+        jellyPower = Mathf.Clamp(jellyPower, 0, maxJellyPower); // Ensure skill power does not exceed max
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
         int jellyPowerInt = Mathf.FloorToInt(jellyPower);
@@ -85,8 +88,10 @@ public class SlimeSpawnManager : MonoBehaviour
                 // 버튼에 해당하는 슬라임 프리팹을 위치와 회전값을 넣어서 스폰하기
             GameObject spawnedSlime = Instantiate(slimePrefab, spawnPoint.position, spawnPoint.rotation);
             jellyPower -= slimeCost;
+            if (isEnhanced && EnhanceObject.Instance.objectType != ObjectType.Jelly) {
+                EnhanceObject.Instance.EnhancedSlime(spawnedSlime);
+            }
             spawnedSlime.transform.parent = slimeParent.transform;
-
         }
         else
         {

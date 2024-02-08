@@ -361,11 +361,11 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
             if (enemy != null)
             {
-                enemy.currentHP -= AttackDamage * 3.0f; // 대미지 적용
+                enemy.currentHP -= AttackDamage * 1.5f; // 대미지 적용
             }
             else if(enemyCastle != null)
             {
-                enemyCastle.currentHP -= AttackDamage * 3.0f;
+                enemyCastle.currentHP -= AttackDamage * 1.5f;
             }
             
 
@@ -385,11 +385,11 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
             if (enemy != null)
             {
-                enemy.currentHP -= AttackDamage * 8.0f; // 대미지 적용
+                enemy.currentHP -= AttackDamage * 4.0f; // 대미지 적용
             }
             else if (enemyCastle != null)
             {
-                enemyCastle.currentHP -= AttackDamage * 8.0f;
+                enemyCastle.currentHP -= AttackDamage * 4.0f;
             }
 
 
