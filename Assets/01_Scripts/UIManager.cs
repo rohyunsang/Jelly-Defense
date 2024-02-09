@@ -219,9 +219,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region HUDScreen
-
-
-
     public void OnClickSpeedButton()
     {
         if (!shiningIcon.activeSelf)

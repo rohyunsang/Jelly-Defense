@@ -8,7 +8,7 @@ public class MobileCameraController : MonoBehaviour
     float touchZoomSpeed = 0.05f;
     float zoomMinBound = 10.0f;
     float zoomMaxBound = 50f;
-    float dragSpeed = 0.005f;
+    float dragSpeed = 0.01f;
     float returnSpeed = 10f; // Camera Back To Origin Pos
     Camera cam;
     private bool returnToOrigin = false;   // 

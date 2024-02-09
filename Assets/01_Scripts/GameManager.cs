@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public bool goPickUpStage = true;
+    public bool goPickUpStage = false;
 
     public void ChangeSceneToMain()
     {

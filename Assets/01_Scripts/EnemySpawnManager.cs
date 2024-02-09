@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -31,6 +32,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     public bool isEnhanced = false;
 
+    public TMP_Text waveText;
 
     void Awake()
     {
@@ -79,6 +81,11 @@ public class EnemySpawnManager : MonoBehaviour
     {
         foreach (var wave in allWaves) //
         {
+            // 현재 웨이브 번호를 UI에 표시
+            if (waveText != null)
+            {
+                waveText.text = $"WAVE {currentWave} / 3";
+            }
             int totalMonstersInWave = 0;
             foreach (var spawnInfo in wave)
             {
@@ -107,9 +114,9 @@ public class EnemySpawnManager : MonoBehaviour
                 Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
                 Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
                 GameObject spawnedTreasure =  Instantiate(treasureObject, 
-                    (slimeCastleTransform.position + enemyCastleTransform.position) / 2 + new Vector3(0f,3f,0f), Quaternion.identity);
+                    (slimeCastleTransform.position + enemyCastleTransform.position) / 2 + new Vector3(0f,4f,0f), Quaternion.identity);
 
-                spawnedTreasure.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                spawnedTreasure.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
             }
         }
     }
