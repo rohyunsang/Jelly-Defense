@@ -292,8 +292,6 @@ public class UIManager : MonoBehaviour
         OnDestroyObjects();
 
         GameManager.Instance.goPickUpStage = true;
-        
-
     }
 
     public void OnClickHelpButton()

@@ -26,7 +26,6 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public bool isEnhanced = false;
 
-    public TMP_Text waveText;
 
 
     void Awake()
