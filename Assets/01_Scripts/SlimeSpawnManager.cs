@@ -49,7 +49,7 @@ public class SlimeSpawnManager : MonoBehaviour
     {
         if (!isStart) return;
         if (lockJelly) return;
-        jellyPower += Time.deltaTime * 150f; //시간 증가시 젤리력 증가
+        jellyPower += Time.deltaTime * 15f; //시간 증가시 젤리력 증가
         jellyPower = Mathf.Clamp(jellyPower, 0, maxJellyPower); // Ensure skill power does not exceed max
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
