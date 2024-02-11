@@ -27,6 +27,7 @@ public class SlimeManager : MonoBehaviour
     }
 
     public GameObject[] slimePrefabs;
+    public GameObject[] lobbySlimePrefabs;
     public GameObject[] slimeIconPrefabs;
     public List<string> selectedSlimeName = new List<string>();
     // show inspector
@@ -46,6 +47,7 @@ public class SlimeManager : MonoBehaviour
     {
         InitializeDefaultSlimes();
         SpawnSlimeIcon();
+        LobbySlimeManager.Instance.RandomInstantiateLobbySlime();
     }
 
     #region SlimePickUp

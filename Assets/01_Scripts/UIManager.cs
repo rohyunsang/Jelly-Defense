@@ -95,6 +95,7 @@ public class UIManager : MonoBehaviour
     public GameObject aliveEnemy;
     public GameObject currenyManager;
     public GameObject dataManager;
+    public GameObject lobbySlimeManager;
 
 
 
@@ -470,5 +471,6 @@ public class UIManager : MonoBehaviour
         Destroy(aliveEnemy);
         Destroy(currenyManager);
         Destroy(dataManager);
+        Destroy(lobbySlimeManager);
     }
 }

@@ -22,6 +22,8 @@ public class MobileCameraController : MonoBehaviour
 
     void Update()
     {
+        if (UIManager.instance && UIManager.instance.HUDsettingScreen.activeSelf) return;
+
         if (Input.touchSupported && Input.touchCount > 0)
         {
             if (Input.touchCount == 1)

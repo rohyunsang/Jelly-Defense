@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(string stageName) // stage이동할때.
     {
+        if (stageName == "Stage2" || stageName == "Stage3") stageName = "Stage1";
+        else if (stageName == "Stage5" || stageName == "Stage6" || stageName == "Stage7") stageName = "Stage4";
+        else if (stageName == "Stage9" || stageName == "Stage10") stageName = "Stage8";
         StartCoroutine(LoadSceneAndPerformAction(stageName));
     }
 
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     public void DoubleTimeScale()
     {
-        Time.timeScale = 2;
+        Time.timeScale = 1.5f;
     }
     public void OriginTimeScale()
     {

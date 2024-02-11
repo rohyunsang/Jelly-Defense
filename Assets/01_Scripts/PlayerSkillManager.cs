@@ -62,6 +62,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void OnClickSkill_1() // Depo need cost 100
     {
+        if (currentPlayerSkillPower < 100f) return;
         currentPlayerSkillPower -= 100f;
         Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
         Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
@@ -80,6 +81,8 @@ public class PlayerSkillManager : MonoBehaviour
     }
     public void OnClickSkill_2() // Move Speed need cost 150
     {
+        if (currentPlayerSkillPower < 150f) return;
+
         currentPlayerSkillPower -= 150f;
         foreach (Transform child in SlimeSpawnManager.instance.slimeParent.transform)
         {
@@ -93,6 +96,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void OnClickSkill_3() //Meteo need cost 200
     {
+        if (currentPlayerSkillPower < 199f) return;
         currentPlayerSkillPower -= 199f;
         Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
         Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
@@ -101,7 +105,7 @@ public class PlayerSkillManager : MonoBehaviour
         Vector3 direction = (enemyCastleTransform.position - slimeCastleTransform.position).normalized;
 
         // Calculate the position 20 units away towards the enemy castle
-        Vector3 skillPosition = slimeCastleTransform.position + direction * 20f;
+        Vector3 skillPosition = slimeCastleTransform.position + direction * 40f;
 
         // Assuming you have a skill prefab or effect to instantiate
         GameObject skillEffect = Instantiate(meteorPrefab, skillPosition, Quaternion.identity);
