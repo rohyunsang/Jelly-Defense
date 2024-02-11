@@ -93,13 +93,13 @@ public class EnemySpawnManager : MonoBehaviour
             }
 
             // 웨이브의 총 시간을 웨이브의 총 몬스터 개수로 나누어 spawnInterval 계산
-            if (totalMonstersInWave > 0) // 0으로 나누는 것을 방지
+            if (totalMonstersInWave > 5) // 0으로 나누는 것을 방지
             {
                 spawnInterval = 40f / totalMonstersInWave;
             }
             else
             {
-                // 총 몬스터 개수가 0인 경우 기본 spawnInterval 사용 또는 오류 처리
+                // 총 몬스터 개수가 5마리 이하인 경우 기본 spawnInterval 사용 또는 오류 처리
                 spawnInterval = 5f; // 예시: 기본 값을 사용하거나 적절한 처리를 할 수 있습니다.
             }
             Debug.Log(spawnInterval);
@@ -133,9 +133,8 @@ public class EnemySpawnManager : MonoBehaviour
             // Wave1
             new List<EnemySpawnInfo>
             {
-                new EnemySpawnInfo(enemyPrefab[26], 8),
-                //new EnemySpawnInfo(enemyPrefab[0], 3),
-                //new EnemySpawnInfo(enemyPrefab[1], 5),
+                new EnemySpawnInfo(enemyPrefab[0], 3),
+                new EnemySpawnInfo(enemyPrefab[1], 5),
             },
             // Wave2
             new List<EnemySpawnInfo>
@@ -232,8 +231,8 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 new EnemySpawnInfo(enemyPrefab[0], 1),
                 new EnemySpawnInfo(enemyPrefab[1], 1),
-                new EnemySpawnInfo(enemyPrefab[2], 6), // 내 맘대로 값
-                // 보스 몬스터 추가해야함. @@@@@@@@@@@@@@@@@@@@
+                new EnemySpawnInfo(enemyPrefab[24], 1), 
+               
             }
             };
             StartCoroutine(StartSequentialWaves(allWaves));
@@ -319,9 +318,8 @@ public class EnemySpawnManager : MonoBehaviour
             // Wave3
             new List<EnemySpawnInfo>
             {
-                new EnemySpawnInfo(enemyPrefab[3], 8) // 내맘대로 값
+                new EnemySpawnInfo(enemyPrefab[25], 1) 
                 
-                // 보스 몬스터 추가해야함. @@@@@@@@@@@@@@@@@@@@
             }
             };
             StartCoroutine(StartSequentialWaves(allWaves));
@@ -416,8 +414,8 @@ public class EnemySpawnManager : MonoBehaviour
             // Wave3
             new List<EnemySpawnInfo>
             {
-                new EnemySpawnInfo(enemyPrefab[7], 8) // 내 맘대로 값
-                // 보스 몬스터 추가해야함 !!!!!!!!!!!!!!!!!
+                new EnemySpawnInfo(enemyPrefab[26], 1) 
+
             }
             };
             StartCoroutine(StartSequentialWaves(allWaves));
