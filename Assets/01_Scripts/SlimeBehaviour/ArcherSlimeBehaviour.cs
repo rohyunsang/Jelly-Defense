@@ -58,6 +58,9 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
     public bool isFire = false;
     public ArcherSlimeType archerSlimeType;
     public bool IsSkill { get; set; }
+
+    [Header("ArcherSkill")]
+    public int skillCnt = 0;
     
 
     void Awake()
@@ -150,7 +153,12 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
                 {
                     if (IsSkill)
                     {
-                        IsSkill = false;
+                        skillCnt++;
+                        if (skillCnt >= 4)
+                        {
+                            IsSkill = false;
+                            skillCnt = 0;
+                        }
                         ArcherSkill();
                     }
                     else

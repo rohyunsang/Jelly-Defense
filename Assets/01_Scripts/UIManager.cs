@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     public GameObject epicSlimeSkillIcons;
     public GameObject[] addImages;
     public GameObject[] epicSlimeSkillTextures;
+    public GameObject[] epicSlimeSkillCostText;
     public GameObject shiningIcon;
     public GameObject HUDBackGroundLight;
     public GameObject lockImage;

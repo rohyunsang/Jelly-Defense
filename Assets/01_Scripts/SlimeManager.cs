@@ -204,6 +204,9 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSLimeSkillIconName.Add("AngelSlime");
                 skillIdx++;
@@ -218,6 +221,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSLimeSkillIconName.Add("DevilSlime");
                 skillIdx++;
@@ -232,6 +237,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSLimeSkillIconName.Add("WitchSlime");
                 skillIdx++;
@@ -246,6 +253,8 @@ public class SlimeManager : MonoBehaviour
 
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSLimeSkillIconName.Add("SkullSlime");
                 skillIdx++;
@@ -284,6 +293,9 @@ public class SlimeManager : MonoBehaviour
 
     public void EpicSlimeSkillController(Button button)
     {
+        if (SlimeSpawnManager.instance.jellyPower < 150f) return;
+        SlimeSpawnManager.instance.jellyPower -= 150f;
+
         if (int.Parse(button.name) >= epicSLimeSkillIconName.Count)
         {
             return;
