@@ -18,4 +18,6 @@ public interface ISlime
     void OnSkill();
 
     void SlimeWeaponDamageUpdate();
+
+    void GetHit(float damage);
 }

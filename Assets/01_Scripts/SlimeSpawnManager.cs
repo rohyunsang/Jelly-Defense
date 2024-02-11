@@ -26,7 +26,7 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public bool isEnhanced = false;
 
-
+    public bool lockJelly = false;
 
     void Awake()
     {
@@ -41,14 +41,15 @@ public class SlimeSpawnManager : MonoBehaviour
         // Set the instance to this object and make sure it persists between scene loads
         instance = this;
         DontDestroyOnLoad(gameObject);
+        lockJelly = false;
     }
 
 
     void Update()
     {
         if (!isStart) return;
-
-        jellyPower += Time.deltaTime * 15f; //시간 증가시 젤리력 증가
+        if (lockJelly) return;
+        jellyPower += Time.deltaTime * 150f; //시간 증가시 젤리력 증가
         jellyPower = Mathf.Clamp(jellyPower, 0, maxJellyPower); // Ensure skill power does not exceed max
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
@@ -93,6 +94,11 @@ public class SlimeSpawnManager : MonoBehaviour
                 EnhanceObject.Instance.EnhancedSlime(spawnedSlime);
             }
             spawnedSlime.transform.parent = slimeParent.transform;
+
+            int jellyPowerInt = Mathf.FloorToInt(jellyPower);
+
+            // UI Text 오브젝트에 jellyPowerInt 값을 표시
+            jellyPowerText.text = jellyPowerInt + " / " + maxJellyPower;
         }
         else
         {

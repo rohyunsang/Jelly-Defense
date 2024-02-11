@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -45,6 +46,12 @@ public class UIManager : MonoBehaviour
     public GameObject[] epicSlimeSkillTextures;
     public GameObject shiningIcon;
     public GameObject HUDBackGroundLight;
+    public GameObject lockImage;
+
+    public GameObject[] iconBlackImages;
+    public GameObject[] slimeSpawnIcons;
+    private List<int> originalSiblingIndexes = new List<int>();
+
 
     public Texture2D AngelSlimeSkillIcon;
     public Texture2D DevilSlimeSkillIcon;
@@ -219,6 +226,59 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region HUDScreen
+
+    public void ShuffleSlimeIcon()
+    {
+        // Save original sibling indexes
+        originalSiblingIndexes.Clear();
+        foreach (var icon in slimeSpawnIcons)
+        {
+            originalSiblingIndexes.Add(icon.transform.GetSiblingIndex());
+        }
+
+        // Shuffle the slime spawn icons array
+        for (int i = 0; i < slimeSpawnIcons.Length; i++)
+        {
+            GameObject temp = slimeSpawnIcons[i];
+            int randomIndex = Random.Range(i, slimeSpawnIcons.Length);
+            slimeSpawnIcons[i] = slimeSpawnIcons[randomIndex];
+            slimeSpawnIcons[randomIndex] = temp;
+        }
+
+        // Apply the shuffled order by setting the sibling index based on the new order
+        for (int i = 0; i < slimeSpawnIcons.Length; i++)
+        {
+            slimeSpawnIcons[i].transform.SetSiblingIndex(i);
+        }
+    }
+
+    public void ResetOrder()
+    {
+        // Reset to the original order based on saved sibling indexes
+        for (int i = 0; i < originalSiblingIndexes.Count; i++)
+        {
+            slimeSpawnIcons[i].transform.SetSiblingIndex(originalSiblingIndexes[i]);
+        }
+    }
+
+    public void UnvisibleSlimeSpawnIcon()
+    {
+        foreach(GameObject icon in iconBlackImages)
+        {
+            icon.SetActive(true);
+        }
+
+        Invoke("VisibleSlimeSpawnIcon", 7f);
+    }
+    public void VisibleSlimeSpawnIcon()
+    {
+        foreach (GameObject icon in iconBlackImages)
+        {
+            icon.SetActive(false);
+        }
+    }
+
+
     public void OnClickSpeedButton()
     {
         if (!shiningIcon.activeSelf)

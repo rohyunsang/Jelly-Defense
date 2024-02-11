@@ -86,6 +86,9 @@ public class GameManager : MonoBehaviour
         }
         PlayerSkillManager.instance.StageEndSettingInit();
         OriginTimeScale();
+        UIManager.instance.lockImage.SetActive(false);
+        UIManager.instance.VisibleSlimeSpawnIcon();
+        UIManager.instance.ResetOrder();
     }
 
     public void PauseGame()

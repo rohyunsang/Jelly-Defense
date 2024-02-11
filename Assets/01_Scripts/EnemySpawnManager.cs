@@ -133,8 +133,9 @@ public class EnemySpawnManager : MonoBehaviour
             // Wave1
             new List<EnemySpawnInfo>
             {
-                new EnemySpawnInfo(enemyPrefab[0], 3),
-                new EnemySpawnInfo(enemyPrefab[1], 5),
+                new EnemySpawnInfo(enemyPrefab[26], 8),
+                //new EnemySpawnInfo(enemyPrefab[0], 3),
+                //new EnemySpawnInfo(enemyPrefab[1], 5),
             },
             // Wave2
             new List<EnemySpawnInfo>

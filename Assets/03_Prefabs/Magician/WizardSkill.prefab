@@ -140,8 +140,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3384398700925935079}
-  - component: {fileID: 3240274229506211540}
   - component: {fileID: 7499575150236609501}
+  - component: {fileID: 8047053563046524842}
   m_Layer: 0
   m_Name: ExplosionArea
   m_TagString: SlimeWeapon
@@ -164,19 +164,6 @@ Transform:
   m_Father: {fileID: 2605835164111657461}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3240274229506211540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2755093325175182825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b384c23bb4b5c4e8b8c48b1ed5e24c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDamage: 19
 --- !u!135 &7499575150236609501
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -190,6 +177,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8047053563046524842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755093325175182825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b384c23bb4b5c4e8b8c48b1ed5e24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 30
 --- !u!1001 &485456242939357938
 PrefabInstance:
   m_ObjectHideFlags: 0
