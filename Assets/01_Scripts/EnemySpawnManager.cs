@@ -79,6 +79,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     IEnumerator StartSequentialWaves(List<List<EnemySpawnInfo>> allWaves)
     {
+        currentWave = 1;
         foreach (var wave in allWaves) //
         {
             // 현재 웨이브 번호를 UI에 표시
@@ -114,7 +115,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
                 Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
                 GameObject spawnedTreasure =  Instantiate(treasureObject, 
-                    (slimeCastleTransform.position + enemyCastleTransform.position) / 2 + new Vector3(0f,4f,0f), Quaternion.identity);
+                    (slimeCastleTransform.position + enemyCastleTransform.position) / 2 + new Vector3(0f,2.5f,0f), Quaternion.identity);
 
                 spawnedTreasure.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
             }
@@ -217,7 +218,7 @@ public class EnemySpawnManager : MonoBehaviour
             new List<EnemySpawnInfo>
             {
                 new EnemySpawnInfo(enemyPrefab[0], 4),
-                new EnemySpawnInfo(enemyPrefab[1], 2),
+                new EnemySpawnInfo(enemyPrefab[1], 3),
                 new EnemySpawnInfo(enemyPrefab[2], 1),
             },
             // Wave2
@@ -231,6 +232,7 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 new EnemySpawnInfo(enemyPrefab[0], 1),
                 new EnemySpawnInfo(enemyPrefab[1], 1),
+                new EnemySpawnInfo(enemyPrefab[2], 1),
                 new EnemySpawnInfo(enemyPrefab[24], 1), 
                
             }

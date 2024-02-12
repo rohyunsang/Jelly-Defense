@@ -92,7 +92,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
 
         enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
-        magicPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
+        
     }
 
     private void Start()
@@ -120,6 +120,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
         {
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
+        magicPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
     }
     void Update()
     {
@@ -224,9 +225,9 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
     void MagicArrow(Transform target , GameObject magicPrefab)
     {
-        // 
         GameObject arrow = Instantiate(magicPrefab, firePoint.position, firePoint.rotation);
-      
+
+        Destroy(arrow, 3f);
         arrow.transform.LookAt(target.position);
 
         // 화살에 Rigidbody 컴포넌트가 있는지 확인하고, 있으면 발사
@@ -284,6 +285,12 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
             StopNavAgent();  //네비 멈추기
             navAgent.enabled = false; // Agent끄기. StopNavAgent()으로 이동시키면 이동하지않는 문제 발생
             anim.SetTrigger("Death");//사망 애니메이션 재생
+
+            // 레전드 슬라임 초기화 부분.
+            if (MagicianSlimeType.Legend == magicianSlimeType)
+                SlimeSpawnManager.instance.DieLegendSlime();
+
+
             Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
         }
     }
@@ -336,7 +343,15 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
                 EpicMagicianSkill();
                 break;
             case MagicianSlimeType.Legend:
-                LegendMagicianSkill();
+                if (gameObject.name.Contains("Wizard"))
+                {
+                    Debug.Log("여기 잡ㅎ리니");
+                    LegendLizardSkill();
+                }
+                else
+                {
+                    LegendMagicianSkill();
+                }
                 break;
             case MagicianSlimeType.NonSkill:
                 break;
@@ -344,6 +359,14 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
     }
 
     public void EpicMagicianSkill()
+    {
+        MagicArrow(target, skillPrefab);
+        StopNavAgent();
+        StartCoroutine(ResumeMovementAfterAttack());
+        StartCoroutine(ActivateWeaponCollider());
+    }
+
+    public void LegendLizardSkill()
     {
         MagicArrow(target, skillPrefab);
         StopNavAgent();

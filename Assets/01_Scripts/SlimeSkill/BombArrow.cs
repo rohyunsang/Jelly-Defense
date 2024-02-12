@@ -11,6 +11,7 @@ public class BombArrow : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트 가져오기
+        Destroy(gameObject, 5f);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -20,7 +21,7 @@ public class BombArrow : MonoBehaviour
             bombArrowEffect.SetActive(true);
             StopMovement(); // 화살의 이동을 멈춤
             explosionArea.SetActive(true); // 폭발 영역 활성화
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 1f);
         }
     }
 

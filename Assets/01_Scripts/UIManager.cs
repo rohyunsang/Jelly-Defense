@@ -59,9 +59,16 @@ public class UIManager : MonoBehaviour
     public Texture2D WitchSlimeSkillIcon;
     public Texture2D SkullSlimeSkillIcon;
 
+    public Texture2D GhostSlimeSkillIcon;
+    public Texture2D LizardSlimeSkillIcon;
+    public Texture2D WizardSlimeSkillIcon;
+    public Texture2D GrassSlimeSkillIcon;
+    public Texture2D CatSlimeSkillIcon;
+
     [Header("PickUpScreen")]
     public GameObject pickUpScreen;  //슬라임 선택창
     public GameObject notFullSlimeInfo;
+    public GameObject onlyOneLegendSlimeInfo;
 
     [Header("Shop")]
     public GameObject shopScreen;

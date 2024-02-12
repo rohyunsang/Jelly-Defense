@@ -289,6 +289,14 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             StopNavAgent();  //네비 멈추기
             navAgent.enabled = false; // Agent끄기. StopNavAgent()으로 이동시키면 이동하지않는 문제 발생
             anim.SetTrigger("Death");//사망 애니메이션 재생
+
+            // 레전드 슬라임 초기화 부분.
+            if (MeleeSlimeType.Legend == meleeSlimeType)
+            {
+                SlimeSpawnManager.instance.DieLegendSlime();
+                Debug.Log("밀리밀리");
+            }
+
             Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
         }
     }

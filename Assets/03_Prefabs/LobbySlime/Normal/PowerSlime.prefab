@@ -189,17 +189,17 @@ PrefabInstance:
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6683553034768666731, guid: 941dc3b27dbb9384e8afe524e9151b93,
         type: 3}
@@ -265,20 +265,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9100832090519068859}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &3061227217541992431
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010575189096524394}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!95 &2091301329
 Animator:
   serializedVersion: 5

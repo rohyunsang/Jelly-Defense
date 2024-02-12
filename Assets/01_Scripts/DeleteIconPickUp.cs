@@ -13,6 +13,15 @@ public class DeleteIconPickUp : MonoBehaviour
             // 첫 번째 자식 오브젝트를 가져옴
             Transform firstChild = button.transform.GetChild(0);
 
+            string slimeIconName = firstChild.name;
+
+            // 해당 슬라임 아이콘이 레전드리 슬라임인지 확인
+            if (SlimeManager.instance.selectedLegendSlime == slimeIconName)
+            {
+                // 선택된 레전드리 슬라임 초기화
+                SlimeManager.instance.selectedLegendSlime = "";
+            }
+
             // 해당 자식 오브젝트(슬라임 아이콘)를 삭제
             slimeIconContent.transform.Find(firstChild.name).GetComponent<PickUpSlime>().checkImage.SetActive(false);
 

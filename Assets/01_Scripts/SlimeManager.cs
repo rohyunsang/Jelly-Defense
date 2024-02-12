@@ -8,6 +8,7 @@ using Image = UnityEngine.UI.Image;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 using Unity.VisualScripting;
+using System;
 
 public class SlimeManager : MonoBehaviour
 {
@@ -41,7 +42,10 @@ public class SlimeManager : MonoBehaviour
     public GameObject slimeInfo;
 
     public List<int> epicSlimeSkillIconIdx;
-    public List<string> epicSLimeSkillIconName;
+    public List<string> epicSlimeSkillIconName;
+
+    public string selectedLegendSlime = ""; // 선택된 레전드 슬라임 이름
+    public int legendSlimeSpawnIconIdx = -1;
 
     private void Start()
     {
@@ -193,7 +197,15 @@ public class SlimeManager : MonoBehaviour
             Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == selectedSlimeName[i]);
             SlimeButtons[i].transform.Find("CostText").GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
 
-            if(selectedSlimeName[i] == "AngelSlime")
+            int pickedSlimeIndex = Array.FindIndex(SlimeManager.instance.slimeIconPrefabs, item => item.name == iconImage.name);
+            if (pickedSlimeIndex >= 20 && pickedSlimeIndex <= 24)
+            {
+                SlimeButtons[i].transform.SetAsLastSibling();
+                legendSlimeSpawnIconIdx = i;
+            }
+
+
+            if (selectedSlimeName[i] == "AngelSlime")
             {
                 Debug.Log("AngelSlime");
                 UIManager.instance.addImages[skillIdx].SetActive(false);
@@ -208,7 +220,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
-                epicSLimeSkillIconName.Add("AngelSlime");
+                epicSlimeSkillIconName.Add("AngelSlime");
                 skillIdx++;
             }
             else if (selectedSlimeName[i] == "DevilSlime")
@@ -224,7 +236,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
-                epicSLimeSkillIconName.Add("DevilSlime");
+                epicSlimeSkillIconName.Add("DevilSlime");
                 skillIdx++;
             }
             else if (selectedSlimeName[i] == "WitchSlime")
@@ -240,7 +252,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
-                epicSLimeSkillIconName.Add("WitchSlime");
+                epicSlimeSkillIconName.Add("WitchSlime");
                 skillIdx++;
             }
             else if (selectedSlimeName[i] == "SkullSlime")
@@ -256,7 +268,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
-                epicSLimeSkillIconName.Add("SkullSlime");
+                epicSlimeSkillIconName.Add("SkullSlime");
                 skillIdx++;
             }
         }
@@ -293,13 +305,21 @@ public class SlimeManager : MonoBehaviour
 
     public void EpicSlimeSkillController(Button button)
     {
-        if (SlimeSpawnManager.instance.jellyPower < 150f) return;
-        SlimeSpawnManager.instance.jellyPower -= 150f;
-
-        if (int.Parse(button.name) >= epicSLimeSkillIconName.Count)
+        if (int.Parse(button.name) >= epicSlimeSkillIconName.Count)
         {
             return;
         }
+        int buttonIndex = int.Parse(button.name); 
+
+        // epicSlimeSkillIconName 리스트에서 해당 인덱스의 이름을 사용하여 슬라임을 찾습니다.
+        string slimeName = epicSlimeSkillIconName[buttonIndex];
+        Slime foundSlime = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimeName);
+
+        if (SlimeSpawnManager.instance.jellyPower < foundSlime.Cost) return;
+        SlimeSpawnManager.instance.jellyPower -= foundSlime.Cost;
+        Debug.Log(foundSlime.Cost);
+
+        
         Debug.Log("button Click");
         Debug.Log(button.name);
 
@@ -314,9 +334,9 @@ public class SlimeManager : MonoBehaviour
 
             Debug.Log(childSlime.name);
             Debug.Log(int.Parse(button.name));
-            Debug.Log(epicSLimeSkillIconName[int.Parse(button.name)]);
+            Debug.Log(epicSlimeSkillIconName[int.Parse(button.name)]);
 
-            if (childSlime.name.Contains(epicSLimeSkillIconName[int.Parse(button.name)]))
+            if (childSlime.name.Contains(epicSlimeSkillIconName[int.Parse(button.name)]))
             {
                 childSlime.GetComponent<ISlime>().IsSkill = true;
             }

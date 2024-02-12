@@ -247,6 +247,9 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
             StopNavAgent();  //네비 멈추기
             navAgent.enabled = false; // Agent끄기. StopNavAgent()으로 이동시키면 이동하지않는 문제 발생
             anim.SetTrigger("Death");//사망 애니메이션 재생
+
+
+
             Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
         }
     }
@@ -269,8 +272,6 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     {
         if (other.gameObject.CompareTag("SlimeWeapon"))
         {
-            Debug.Log("SlimeWeapon");
-            Debug.Log(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
             GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
 
         }

@@ -18,6 +18,7 @@ public class WizardSlimeSkill : MonoBehaviour
 
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyCastle"))
         {
+            transform.rotation = Quaternion.identity;
             GetComponent<MeshRenderer>().enabled = false;
             wizardSkillEffect.SetActive(true);
             StopMovement(); // ∏∂π˝¿« ¿Ãµø¿ª ∏ÿ√„

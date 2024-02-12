@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,18 +57,36 @@ public class PickUpSlime : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 
     private void TryPickUpSlime()
     {
+        // 이미 선택된 레전드 슬라임이 있는지 확인
+        if (!string.IsNullOrEmpty(SlimeManager.instance.selectedLegendSlime))
+        {
+            // 선택된 레전드 슬라임이 있고, 현재 선택하려는 슬라임이 레전드 범위에 있는지 확인
+            int slimeIndex = Array.FindIndex(SlimeManager.instance.slimeIconPrefabs, item => item.name == gameObject.name);
+            if (slimeIndex >= 20 && slimeIndex <= 24)
+            {
+                UIManager.instance.onlyOneLegendSlimeInfo.SetActive(true);
+                return; // 추가 선택 방지
+            }
+        }
+
         if (checkImage.activeSelf) return;
         int emptySlotIndex = SlimeManager.instance.FindFirstEmptySlot();
 
-        if (emptySlotIndex != -1) // Checks if there is an empty slot available
+        if (emptySlotIndex != -1) // 빈 슬롯이 있는 경우
         {
-            
+            // 선택 로직...
             PickUp(emptySlotIndex);
+
+            // 현재 선택한 슬라임이 레전드 범위에 있는 경우, 선택된 레전드 슬라임으로 설정
+            int pickedSlimeIndex = Array.FindIndex(SlimeManager.instance.slimeIconPrefabs, item => item.name == gameObject.name);
+            if (pickedSlimeIndex >= 20 && pickedSlimeIndex <= 24)
+            {
+                SlimeManager.instance.selectedLegendSlime = gameObject.name;
+            }
         }
         else
         {
-            // No empty slots available, handle accordingly (e.g., show a message)
-            Debug.Log("All slime slots are occupied.");
+            Debug.Log("모든 슬라임 슬롯이 차 있습니다.");
         }
     }
 

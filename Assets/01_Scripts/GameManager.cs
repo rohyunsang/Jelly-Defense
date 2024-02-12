@@ -32,18 +32,23 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(string stageName) // stage이동할때.
     {
-        if (stageName == "Stage2" || stageName == "Stage3") stageName = "Stage1";
-        else if (stageName == "Stage5" || stageName == "Stage6" || stageName == "Stage7") stageName = "Stage4";
-        else if (stageName == "Stage9" || stageName == "Stage10") stageName = "Stage8";
+        
         StartCoroutine(LoadSceneAndPerformAction(stageName));
     }
 
     private IEnumerator LoadSceneAndPerformAction(string sceneName)
     {
         string preStageName = UIManager.instance.selectedStageName;
+        string originScene = "";
+        originScene = sceneName;
+        if (sceneName == "Stage2" || sceneName == "Stage3") sceneName = "Stage1";
+        else if (sceneName == "Stage5" || sceneName == "Stage6" || sceneName == "Stage7") sceneName = "Stage4";
+        else if (sceneName == "Stage9" || sceneName == "Stage10") sceneName = "Stage8";
 
         // 비동기적으로 씬 로딩
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        
 
         // 씬 로딩이 완료될 때까지 대기
         while (!asyncLoad.isDone)
@@ -65,7 +70,7 @@ public class GameManager : MonoBehaviour
         {
             SlimeSpawnManager.instance.FindSlimeSpawn();
             SlimeSpawnManager.instance.InitSlimeSpawnManager();
-            EnemySpawnManager.instance.EnemySpawnTable(sceneName);
+            EnemySpawnManager.instance.EnemySpawnTable(originScene);
             PlayerSkillManager.instance.InitPlayerSkill();
             EnhanceObject.Instance.StageSwitch();
         }
