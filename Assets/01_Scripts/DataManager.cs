@@ -78,10 +78,13 @@ public class DataManager : MonoBehaviour
                 CurrenyManager.Instance.goldAd = saveData.goldAd;
                 CurrenyManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
 
-                
+
+                // 스테이지 클리어 상태 불러오기
+                StageManager.Instance.stageClearStatus.Clear(); // 딕셔너리 초기화
                 for (int i = 0; i < saveData.stageNames.Count; i++)
                 {
-                    StageManager.Instance.stageClearStatus.Add(saveData.stageNames[i], saveData.stageClearStatuses[i]);
+                    // 이미 존재하는 키에 대한 처리가 필요 없으므로, Add 대신 인덱싱을 사용하여 값을 할당
+                    StageManager.Instance.stageClearStatus[saveData.stageNames[i]] = saveData.stageClearStatuses[i];
                 }
 
                 // 슬라임 정보 불러오기

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // IAP 사용 
 using UnityEngine.Purchasing;
@@ -24,8 +25,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     #endregion
 
     [Header("Product ID")]
-    public readonly string productId_test_id = "test_id";
-    public readonly string productId_test_id2 = "test_id2";
+    [SerializeField] private string jelly1000 = "jelly1000";
 
     [Header("Cache")]
     private IStoreController storeController; //구매 과정을 제어하는 함수 제공자
@@ -33,37 +33,35 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     private void Start()
     {
-        InitUnityIAP(); //Start 문에서 초기화 필수
+        InitIAP(); //Start 문에서 초기화 필수
     }
 
     /* Unity IAP를 초기화하는 함수 */
-    private void InitUnityIAP()
+    private void InitIAP()
     {
-        ConfigurationBuilder builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+        var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
         /* 구글 플레이 상품들 추가 */
-        builder.AddProduct(productId_test_id, ProductType.Consumable, new IDs() { { productId_test_id, GooglePlay.Name } });
-        builder.AddProduct(productId_test_id2, ProductType.Consumable, new IDs() { { productId_test_id2, GooglePlay.Name } });
-
+        builder.AddProduct(jelly1000, ProductType.Consumable);
         UnityPurchasing.Initialize(this, builder);
     }
 
     /* 구매하는 함수 */
     public void Purchase(string productId)
     {
-        Product product = storeController.products.WithID(productId); //상품 정의
+       storeController.InitiatePurchase(productId);
+    }
 
-        if (product != null && product.availableToPurchase) //상품이 존재하면서 구매 가능하면
+    private void CheckNonConsumalbe(string id)
+    {
+        var product = storeController.products.WithID(id);
+
+        if (product != null)
         {
-            storeController.InitiatePurchase(product); //구매가 가능하면 진행
-        }
-        else //상품이 존재하지 않거나 구매 불가능하면
-        {
-            Debug.Log("상품이 없거나 현재 구매가 불가능합니다");
+            bool isCheck = product.hasReceipt;
         }
     }
 
-    #region Interface
     /* 초기화 성공 시 실행되는 함수 */
     public void OnInitialized(IStoreController controller, IExtensionProvider extension)
     {
@@ -76,7 +74,11 @@ public class IAPManager : MonoBehaviour, IStoreListener
     /* 초기화 실패 시 실행되는 함수 */
     public void OnInitializeFailed(InitializationFailureReason error)
     {
-        Debug.Log("초기화에 실패했습니다");
+        Debug.Log("초기화에 실패했습니다" + error);
+    }
+    public void OnInitializeFailed(InitializationFailureReason error, string message)
+    {
+        Debug.Log("초기화에 실패했습니다" + error + message);
     }
 
     /* 구매에 실패했을 때 실행되는 함수 */
@@ -86,25 +88,17 @@ public class IAPManager : MonoBehaviour, IStoreListener
     }
 
     /* 구매를 처리하는 함수 */
-    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
+    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
     {
-        Debug.Log("구매에 성공했습니다");
 
-        if (args.purchasedProduct.definition.id == productId_test_id)
+        var product = purchaseEvent.purchasedProduct;
+        Debug.Log("구매에 성공했습니다" + product.definition.id);
+
+        if (product.definition.id == jelly1000)
         {
-            /* test_id 구매 처리 */
-        }
-        else if (args.purchasedProduct.definition.id == productId_test_id2)
-        {
-            /* test_id2 구매 처리 */
+            Debug.Log("젤리 1000개 구매 성공");
         }
 
         return PurchaseProcessingResult.Complete;
     }
-
-    public void OnInitializeFailed(InitializationFailureReason error, string message)
-    {
-        throw new System.NotImplementedException();
-    }
-    #endregion
 }

@@ -1,4 +1,4 @@
-/*
+
  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +26,8 @@ public class AdManager : MonoBehaviour
     #endregion
 
     RewardedAd rewardedAd;
+    const string videoAd = "ca-app-pub-9333309559865878/9920625966"; // ¡¯¬• ±§∞Ì ID
+    const string videoAdTest = "ca-app-pub-3940256099942544/5224354917";
 
     const string goldAdId = "ca-app-pub-9333309559865878/2838210859"; // ≈◊Ω∫∆Æ ±§∞Ì ID
     //const string jellyAdId = "ca-app-pub-9333309559865878/3299614974"; // ≈◊Ω∫∆Æ ±§∞Ì ID
@@ -51,7 +53,7 @@ public class AdManager : MonoBehaviour
     //±§∞Ì √ ±‚»≠ «‘ºˆ
     public void LoadAds()
     {
-        RewardedAd.Load(goldAdId, new AdRequest.Builder().Build(), LoadCallback);
+        RewardedAd.Load(videoAdTest, new AdRequest.Builder().Build(), LoadCallback);
         Debug.Log("±§∞Ì init µ  "); 
     }
 
@@ -90,11 +92,10 @@ public class AdManager : MonoBehaviour
         }
     }
 
-    //∫∏ªÛ «‘ºˆ
     public void GetGoldReward(Reward reward)
     {
         Debug.Log("∞ÒµÂ »πµÊ«‘");
-        
+
         CurrenyManager.Instance.gold += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
         CurrenyManager.Instance.goldAd--; // «—∞≥ ±Ô¿Ω
 
@@ -104,14 +105,12 @@ public class AdManager : MonoBehaviour
         LoadAds();
     }
 
-    //∫∏ªÛ «‘ºˆ
     public void GetJellyReward(Reward reward)
     {
         Debug.Log("¡©∏Æ »πµÊ«‘");
 
-
-        CurrenyManager.Instance.jellyStone += 100; // ¿œ¥‹ 100¡©∏Æ ¡‡ ∫Ω 
-        CurrenyManager.Instance.jellyStoneAd--; // «—∞≥ ±Ô¿Ω
+        CurrenyManager.Instance.gold += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
+        CurrenyManager.Instance.goldAd--; // «—∞≥ ±Ô¿Ω
 
         DataManager.Instance.JsonSave(); // πŸæ∆∑Œ ¿˙¿Â 
         DataManager.Instance.JsonLoad(); // ø©±‚ UI init ¿÷¿∏π«∑Œ 
@@ -120,5 +119,5 @@ public class AdManager : MonoBehaviour
     }
 }
 
- */
+ 
 
