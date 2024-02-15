@@ -109,8 +109,8 @@ public class AdManager : MonoBehaviour
     {
         Debug.Log("¡©∏Æ »πµÊ«‘");
 
-        CurrenyManager.Instance.gold += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
-        CurrenyManager.Instance.goldAd--; // «—∞≥ ±Ô¿Ω
+        CurrenyManager.Instance.jellyStone += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
+        CurrenyManager.Instance.jellyStoneAd--; // «—∞≥ ±Ô¿Ω
 
         DataManager.Instance.JsonSave(); // πŸæ∆∑Œ ¿˙¿Â 
         DataManager.Instance.JsonLoad(); // ø©±‚ UI init ¿÷¿∏π«∑Œ 

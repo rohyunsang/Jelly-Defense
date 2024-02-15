@@ -379,6 +379,7 @@ MonoBehaviour:
   firePoint: {fileID: 3963424990053533774}
   isFire: 0
   magicianSlimeType: 2
+  classType: 1
 --- !u!1 &6836084817472424367
 GameObject:
   m_ObjectHideFlags: 0

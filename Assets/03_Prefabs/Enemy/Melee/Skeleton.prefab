@@ -1438,9 +1438,11 @@ MonoBehaviour:
   <AttackSpeed>k__BackingField: 0
   <MoveSpeed>k__BackingField: 0
   <AttackRange>k__BackingField: 0
+  <DropJellyPower>k__BackingField: 0
   weaponCollider: {fileID: 102668650852599400}
   enemyWeapon: {fileID: 2460754741186455686}
   isFire: 0
+  classType: 3
 --- !u!136 &5023845356850262377
 CapsuleCollider:
   m_ObjectHideFlags: 0

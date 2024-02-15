@@ -414,11 +414,13 @@ MonoBehaviour:
   <AttackSpeed>k__BackingField: 0
   <MoveSpeed>k__BackingField: 0
   <AttackRange>k__BackingField: 0
+  <DropJellyPower>k__BackingField: 0
   magicPrefab: {fileID: 426949901636449925, guid: b7b2d4140ade6464ab82a7027c0f03aa,
     type: 3}
   magicSpeed: 20
   firePoint: {fileID: 3174417119307322214}
   isFire: 0
+  classType: 1
 --- !u!195 &4440377760365154233
 NavMeshAgent:
   m_ObjectHideFlags: 0

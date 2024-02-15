@@ -56,7 +56,7 @@ public class EnhanceObject : MonoBehaviour
                 objectType = ObjectType.Jelly;
                 break;
             case "Stage6":
-                objectType = ObjectType.Attack;
+                objectType = ObjectType.AttackSpeed;
                 break;
             case "Stage7":
                 objectType = ObjectType.Attack;
@@ -76,8 +76,7 @@ public class EnhanceObject : MonoBehaviour
     public void EnhancedSlime(GameObject gameObject)
     {
         Debug.Log("Enhanced");
-
-        Instantiate(buffEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+        
 
         ISlime slime = gameObject.GetComponent<ISlime>();
         switch (objectType)
@@ -104,19 +103,15 @@ public class EnhanceObject : MonoBehaviour
         {
             case ObjectType.Hp:
                 enemy.CurrentHP *= 1.1f;
-                Instantiate(buffEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                 break;
             case ObjectType.Attack:
                 enemy.AttackDamage *= 1.1f;
-                Instantiate(buffEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                 break;
             case ObjectType.Defense:
                 enemy.Defense *= 1.1f;
-                Instantiate(buffEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                 break;
             case ObjectType.AttackSpeed:
                 enemy.AttackSpeed *= 1.1f;
-                Instantiate(buffEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                 break;
             
         }

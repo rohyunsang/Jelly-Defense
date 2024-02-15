@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 1279078369}
   m_Layer: 0
   m_Name: WitchSlime
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -654,23 +654,21 @@ MonoBehaviour:
     Index: 0
     Name: 
     Grade: 0
-    Type: 0
     HP: 0
-    Attack: 0
+    AttackDamage: 0
     Defense: 0
     AttackSpeed: 0
-    Speed: 0
-    Range: 
+    MoveSpeed: 0
+    Class: 0
+    AttackRange: 0
     Cost: 0
-    Target: 0
-  HP: 100
-  attackDamage: 0
-  defense: 0
-  attackSpeed: 0
-  attackDistance: 20
-  attackInterval: 1.8
-  currentHP: 0
-  detectionRadius: 20
+  <MaxHP>k__BackingField: 0
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <AttackRange>k__BackingField: 0
   magicPrefab: {fileID: 426949901636449925, guid: 35d02c0e557f26a47979be73a9cc1298,
     type: 3}
   skillPrefab: {fileID: 426949901636449925, guid: d2bbbd7c1c0711e4cb04347720dbda6c,
@@ -678,8 +676,8 @@ MonoBehaviour:
   magicSpeed: 20
   firePoint: {fileID: 1295890077742413125}
   isFire: 0
-  isSkill: 0
   magicianSlimeType: 1
+  classType: 1
 --- !u!1 &7594853647456547639
 GameObject:
   m_ObjectHideFlags: 0

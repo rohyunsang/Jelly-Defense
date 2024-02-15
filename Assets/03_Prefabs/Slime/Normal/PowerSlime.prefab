@@ -379,6 +379,7 @@ MonoBehaviour:
     type: 3}
   legendStarHit: {fileID: 4535006216103734310, guid: 1f2fbea8552e27842b748f7a29d3c433,
     type: 3}
+  classType: 2
 --- !u!1 &3732837848185376954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5584765558746017793, guid: 941dc3b27dbb9384e8afe524e9151b93,

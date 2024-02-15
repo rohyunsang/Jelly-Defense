@@ -49,6 +49,7 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     [Header("Stun")]
     private bool isStunned = false; // 스턴 상태 관리 변수
 
+    public ClassType classType;
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -104,8 +105,8 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
 
-        enemyWeapon.weaponDamage = AttackDamage; 
-
+        enemyWeapon.weaponDamage = AttackDamage;
+        enemyWeapon.classType = classType;
     }
     void Update()
     {
@@ -272,7 +273,37 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     {
         if (other.gameObject.CompareTag("SlimeWeapon"))
         {
-            GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+            if(ClassType.Tanker == classType)  // 몬스터가 탱커
+            {
+                if(other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Ranged)
+                {
+                    GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 0.8f);
+                }
+                else if(other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Melee)
+                {
+                    GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.2f);
+                }
+                else
+                {
+                    GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+                }
+            }
+            else if(ClassType.Melee == classType) // 몬스터가 근접
+            {
+                if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Ranged) // 원거리면
+                {
+                    GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.2f);
+                }
+                else
+                {
+                    GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+                }
+            }
+            else
+            {
+                GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+            }
+
 
         }
         else if (other.gameObject.CompareTag("SlimeProjectileWeapon"))
@@ -280,7 +311,28 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
             SlimeWeapon slimeWeapon = other.gameObject.GetComponent<SlimeWeapon>();
             if (slimeWeapon != null)
             {
-                GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+                if (ClassType.Tanker == classType)  // 몬스터가 탱커
+                {
+                    if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Ranged)
+                    {
+                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 0.8f);
+                    }
+                    else if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Melee)
+                    {
+                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.2f);
+                    }
+                }
+                else if (ClassType.Melee == classType) // 몬스터가 근접
+                {
+                    if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Ranged) // 원거리면
+                    {
+                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.2f);
+                    }
+                }
+                else
+                {
+                    GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
+                }
                 Destroy(other.gameObject);
             }
 
@@ -299,12 +351,14 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     {
         if (!isStunned) // 이미 스턴 상태가 아니라면
         {
+            
             StartCoroutine(StunDuration(duration));
         }
     }
 
     IEnumerator StunDuration(float duration)
     {
+        GameObject stunStar = Instantiate(PlayerSkillManager.instance.stunStarEffect, transform);
         isStunned = true; // 스턴 상태로 전환
         navAgent.isStopped = true; // 몬스터 이동 중지
 
@@ -312,6 +366,7 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
 
         if (!isDead) // 스턴 종료 후, 몬스터가 살아있다면
         {
+            Destroy(stunStar);
             isStunned = false; // 스턴 상태 해제
             navAgent.isStopped = false; // 몬스터 이동 재개
         }

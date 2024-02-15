@@ -1,28 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 // IAP 사용 
 using UnityEngine.Purchasing;
 
 public class IAPManager : MonoBehaviour, IStoreListener
 {
-    #region SingleTon Pattern
-    public static IAPManager instance;  // Singleton instance
-    void Awake() // SingleTon
-    {
-        // 이미 인스턴스가 존재하면서 이게 아니면 파괴 반환
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        // Set the instance to this object and make sure it persists between scene loads
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-    #endregion
 
     [Header("Product ID")]
     [SerializeField] private string jelly1000 = "jelly1000";
@@ -31,9 +15,9 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private IStoreController storeController; //구매 과정을 제어하는 함수 제공자
     private IExtensionProvider storeExtensionProvider; //여러 플랫폼을 위한 확장 처리 제공자
 
-    private void Start()
+    void Start()
     {
-        InitIAP(); //Start 문에서 초기화 필수
+        InitIAP();//Start 문에서 초기화 필수
     }
 
     /* Unity IAP를 초기화하는 함수 */
@@ -43,6 +27,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         /* 구글 플레이 상품들 추가 */
         builder.AddProduct(jelly1000, ProductType.Consumable);
+        
         UnityPurchasing.Initialize(this, builder);
     }
 
@@ -68,7 +53,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
         Debug.Log("초기화에 성공했습니다");
 
         storeController = controller;
-        storeExtensionProvider = extension;
     }
 
     /* 초기화 실패 시 실행되는 함수 */
@@ -96,7 +80,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         if (product.definition.id == jelly1000)
         {
-            Debug.Log("젤리 1000개 구매 성공");
+            CurrenyManager.Instance.jellyStone += 1000;  
+
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+            DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
         }
 
         return PurchaseProcessingResult.Complete;

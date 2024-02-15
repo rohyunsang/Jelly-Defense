@@ -34,6 +34,8 @@ public class SlimeSpawnManager : MonoBehaviour
 
     public Texture2D originLegendSlimeTexture2D;
 
+    public Slider jellyPowerSlider;
+
     void Awake()
     {
         jellyPower = 0;//젤리력 초기화
@@ -60,6 +62,11 @@ public class SlimeSpawnManager : MonoBehaviour
 
         // 소수점을 버리고 정수로 변환하여 텍스트로 표시
         int jellyPowerInt = Mathf.FloorToInt(jellyPower);
+
+        if (jellyPowerSlider != null)
+        {
+            jellyPowerSlider.value = jellyPower / maxJellyPower; // Update the Slider to represent the skill power ratio
+        }
 
         // UI Text 오브젝트에 jellyPowerInt 값을 표시
         jellyPowerText.text = jellyPowerInt + " / " + maxJellyPower;

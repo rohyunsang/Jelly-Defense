@@ -29,6 +29,7 @@ public class SlimeManager : MonoBehaviour
 
     public GameObject[] slimePrefabs;
     public GameObject[] lobbySlimePrefabs;
+
     public GameObject[] slimeIconPrefabs;
     public List<string> selectedSlimeName = new List<string>();
     // show inspector
@@ -47,12 +48,46 @@ public class SlimeManager : MonoBehaviour
     public string selectedLegendSlime = ""; // 선택된 레전드 슬라임 이름
     public int legendSlimeSpawnIconIdx = -1;
 
+    
+
     private void Start()
     {
         InitializeDefaultSlimes();
         SpawnSlimeIcon();
         LobbySlimeManager.Instance.RandomInstantiateLobbySlime();
     }
+
+    public void SelectRandomSlimesToShowInShop(int count)
+    {
+        // 상점에 표시할 슬라임 목록을 초기화
+        selectedSlimeName.Clear();
+
+        // 소유한 슬라임 목록에서 랜덤으로 선택
+        var ownedSlimes = hasSlimes.Where(s => s.Value == true).Select(s => s.Key).ToList();
+
+        // 소유한 슬라임이 선택할 수 있는 개수보다 적은 경우, 모든 소유한 슬라임을 추가
+        if (ownedSlimes.Count <= count)
+        {
+            selectedSlimeName = ownedSlimes;
+        }
+        else
+        {
+            // 선택할 개수만큼 랜덤으로 슬라임을 선택하여 추가
+            while (selectedSlimeName.Count < count)
+            {
+                var randomIndex = UnityEngine.Random.Range(0, ownedSlimes.Count);
+                var selectedSlime = ownedSlimes[randomIndex];
+                if (!selectedSlimeName.Contains(selectedSlime))
+                {
+                    selectedSlimeName.Add(selectedSlime);
+                }
+            }
+        }
+
+        // 선택된 슬라임을 기반으로 상점 UI 업데이트 로직 추가
+        // 예: 상점 UI에 선택된 슬라임 표시 로직 구현
+    }
+
 
     #region SlimePickUp
 
@@ -208,7 +243,6 @@ public class SlimeManager : MonoBehaviour
             if (selectedSlimeName[i] == "AngelSlime")
             {
                 Debug.Log("AngelSlime");
-                UIManager.instance.addImages[skillIdx].SetActive(false);
 
                 Texture2D texture = UIManager.instance.AngelSlimeSkillIcon;
                 // Convert Texture2D to Sprite
@@ -225,7 +259,6 @@ public class SlimeManager : MonoBehaviour
             }
             else if (selectedSlimeName[i] == "DevilSlime")
             {
-                UIManager.instance.addImages[skillIdx].SetActive(false);
 
                 Texture2D texture = UIManager.instance.DevilSlimeSkillIcon;
                 // Convert Texture2D to Sprite
@@ -241,7 +274,6 @@ public class SlimeManager : MonoBehaviour
             }
             else if (selectedSlimeName[i] == "WitchSlime")
             {
-                UIManager.instance.addImages[skillIdx].SetActive(false);
 
                 Texture2D texture = UIManager.instance.WitchSlimeSkillIcon;
                 // Convert Texture2D to Sprite
@@ -257,7 +289,6 @@ public class SlimeManager : MonoBehaviour
             }
             else if (selectedSlimeName[i] == "SkullSlime")
             {
-                UIManager.instance.addImages[skillIdx].SetActive(false);
 
                 Texture2D texture = UIManager.instance.SkullSlimeSkillIcon;
                 // Convert Texture2D to Sprite
@@ -305,6 +336,7 @@ public class SlimeManager : MonoBehaviour
 
     public void EpicSlimeSkillController(Button button)
     {
+        bool isNotEpic = true;
         if (int.Parse(button.name) >= epicSlimeSkillIconName.Count)
         {
             return;
@@ -339,8 +371,10 @@ public class SlimeManager : MonoBehaviour
             if (childSlime.name.Contains(epicSlimeSkillIconName[int.Parse(button.name)]))
             {
                 childSlime.GetComponent<ISlime>().IsSkill = true;
+                isNotEpic = false;
             }
         }
+        if(isNotEpic) SlimeSpawnManager.instance.jellyPower += foundSlime.Cost;
     }
 }
 

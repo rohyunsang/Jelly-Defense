@@ -523,6 +523,7 @@ MonoBehaviour:
     type: 3}
   legendStarHit: {fileID: 4535006216103734310, guid: 1f2fbea8552e27842b748f7a29d3c433,
     type: 3}
+  classType: 2
 --- !u!1 &8688236924316762973
 GameObject:
   m_ObjectHideFlags: 0

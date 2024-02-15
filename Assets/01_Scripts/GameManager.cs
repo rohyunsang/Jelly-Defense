@@ -97,6 +97,9 @@ public class GameManager : MonoBehaviour
         UIManager.instance.lockImage.SetActive(false);
         UIManager.instance.VisibleSlimeSpawnIcon();
         UIManager.instance.ResetOrder();
+        UIManager.instance.objectDesText.text = "";
+        UIManager.instance.objectImage.SetActive(false);
+        UIManager.instance.objectShining.SetActive(false);
     }
 
     public void PauseGame()

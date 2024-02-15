@@ -42,7 +42,6 @@ public class UIManager : MonoBehaviour
     public GameObject stageFailScreen;
     public GameObject stageClearScreen;
     public GameObject epicSlimeSkillIcons;
-    public GameObject[] addImages;
     public GameObject[] epicSlimeSkillTextures;
     public GameObject[] epicSlimeSkillCostText;
     public GameObject shiningIcon;
@@ -64,6 +63,11 @@ public class UIManager : MonoBehaviour
     public Texture2D WizardSlimeSkillIcon;
     public Texture2D GrassSlimeSkillIcon;
     public Texture2D CatSlimeSkillIcon;
+
+    public GameObject objectShining;
+    public GameObject objectDesImage;
+    public TextMeshProUGUI objectDesText;
+    public GameObject objectImage;
 
     [Header("PickUpScreen")]
     public GameObject pickUpScreen;  //슬라임 선택창
@@ -235,6 +239,20 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region HUDScreen
+
+    public void OnOffObjectDesText()
+    {
+        if (!objectShining.activeSelf) return;
+
+        if (objectDesImage.activeSelf)
+        {
+            objectDesImage.SetActive(false);
+        }
+        else
+        {
+            objectDesImage.SetActive(true);
+        }
+    }
 
     public void ShuffleSlimeIcon()
     {

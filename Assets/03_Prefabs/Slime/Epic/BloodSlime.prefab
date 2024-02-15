@@ -340,6 +340,7 @@ MonoBehaviour:
   weaponCollider: {fileID: 1824045045}
   slimeWeapon: {fileID: 1824045043}
   isFire: 0
+  classType: 3
 --- !u!195 &1340800332
 NavMeshAgent:
   m_ObjectHideFlags: 0

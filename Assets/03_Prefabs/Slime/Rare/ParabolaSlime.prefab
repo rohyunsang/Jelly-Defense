@@ -882,19 +882,20 @@ MonoBehaviour:
     Name: 
     Grade: 0
     HP: 0
-    Attack: 0
+    AttackDamage: 0
     Defense: 0
     AttackSpeed: 0
     MoveSpeed: 0
     Class: 0
     AttackRange: 0
-    SkillRange: 0
     Cost: 0
-  defense: 0
-  attackSpeed: 0
-  attackDistance: 30
-  attackInterval: 1.8
-  detectionRadius: 30
+  <MaxHP>k__BackingField: 0
+  <AttackDamage>k__BackingField: 0
+  <CurrentHP>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <AttackSpeed>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <AttackRange>k__BackingField: 0
   arrowPrefab: {fileID: 1030886390429175683, guid: 565c869e289f11b4ba13e645b045efc3,
     type: 3}
   bombArrowPrefab: {fileID: 1030886390429175683, guid: af26087ed97db514e8a281b8df512dca,
@@ -903,7 +904,8 @@ MonoBehaviour:
   firePoint: {fileID: 1887980899}
   isFire: 0
   archerSlimeType: 0
-  isSkill: 0
+  skillCnt: 0
+  classType: 1
 --- !u!195 &1660835621
 NavMeshAgent:
   m_ObjectHideFlags: 0

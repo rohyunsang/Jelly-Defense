@@ -59,6 +59,7 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
     public bool isFire = false;
     public TankerSlimeType tankerSlimeType;
     public bool IsSkill { get; set; }
+    public ClassType classType;
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -118,7 +119,7 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
         }
         
         slimeWeapon.weaponDamage = AttackDamage; 
-
+        slimeWeapon.classType = classType;
     }
     void Update()
     {
@@ -291,14 +292,32 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
         }
         if (other.transform.CompareTag("EnemyWeapon"))
         {
-            GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+            if (ClassType.Tanker == classType)  // 몬스터가 탱커
+            {
+                if (other.gameObject.GetComponent<EnemyWeapon>().classType == ClassType.Ranged)
+                {
+                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 0.8f);
+                }
+                else if (other.gameObject.GetComponent<EnemyWeapon>().classType == ClassType.Melee)
+                {
+                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 1.2f);
+                }
+                else
+                {
+                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+                }
+            }
+            else
+            {
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+            }
         }
         else if (other.transform.CompareTag("EnemyProjectileWeapon"))
         {
             EnemyWeapon enemyWeapon = other.gameObject.GetComponent<EnemyWeapon>();
             if (enemyWeapon != null)
             {
-                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 0.8f);
                 Destroy(other.gameObject);
             }
 

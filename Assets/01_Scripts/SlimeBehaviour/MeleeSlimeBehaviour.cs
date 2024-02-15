@@ -58,6 +58,8 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
     public GameObject epicStarHit; 
     public GameObject legendStarHit;
     public bool IsSkill { get; set; }
+
+    public ClassType classType;
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -90,7 +92,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
         enemyCastle = GameObject.FindWithTag("EnemyCastle").transform;
     }
 
-    private void Start()
+    void Start()
     {
         //게임오브젝트 중 적군 성 태그를 가진 오브젝트의 트랜스폼을 향해 가도록 함
         CurrentHP = MaxHP;
@@ -119,10 +121,13 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
         {
             slimeWeapon[0].weaponDamage = AttackDamage;
             slimeWeapon[1].weaponDamage = AttackDamage;
+            slimeWeapon[0].classType = classType;
+            slimeWeapon[1].classType = classType;
         }
         else
         {
             slimeWeapon[0].weaponDamage = AttackDamage;
+            slimeWeapon[0].classType = classType;
         }
         
         
@@ -294,7 +299,6 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             if (MeleeSlimeType.Legend == meleeSlimeType)
             {
                 SlimeSpawnManager.instance.DieLegendSlime();
-                Debug.Log("밀리밀리");
             }
 
             Invoke("Die", 1);//사망애니메이션을 보기위한 시간차
@@ -325,7 +329,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyWeapon enemyWeapon = other.gameObject.GetComponent<EnemyWeapon>();
             if (enemyWeapon != null)
             {
-                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 1.2f);
                 Destroy(other.gameObject);
             }
 

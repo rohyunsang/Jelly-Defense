@@ -926,6 +926,8 @@ MonoBehaviour:
   firePoint: {fileID: 1275488573}
   isFire: 0
   archerSlimeType: 1
+  skillCnt: 0
+  classType: 1
 --- !u!1 &936355598820259979
 GameObject:
   m_ObjectHideFlags: 0

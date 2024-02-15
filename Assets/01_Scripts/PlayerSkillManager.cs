@@ -21,6 +21,7 @@ public class PlayerSkillManager : MonoBehaviour
     public GameObject meteorPrefab; // 메테오
 
     public GameObject buffEffect;
+    public GameObject stunStarEffect;
 
     void Awake()
     {
@@ -71,13 +72,29 @@ public class PlayerSkillManager : MonoBehaviour
         Vector3 direction = (enemyCastleTransform.position - slimeCastleTransform.position).normalized;
 
         // Calculate the position 20 units away towards the enemy castle
-        Vector3 skillPosition = slimeCastleTransform.position + direction * 20f;
+        Vector3 skillPosition = slimeCastleTransform.position + direction * 5f;
 
         // Assuming you have a skill prefab or effect to instantiate
-        GameObject skillEffect = Instantiate(cannonPrefab, skillPosition, Quaternion.identity);
+        GameObject skillEffect0 = Instantiate(cannonPrefab, skillPosition + new Vector3(3f,0f,0f), Quaternion.identity);
+        skillPosition = slimeCastleTransform.position + direction * 10f;
+
+        GameObject skillEffect1 = Instantiate(cannonPrefab, skillPosition + new Vector3(-1f, 0f, 0f), Quaternion.identity);
+        skillPosition = slimeCastleTransform.position + direction * 15f;
+
+        GameObject skillEffect2 = Instantiate(cannonPrefab, skillPosition + new Vector3(-3f, 0f, 0f), Quaternion.identity);
+
+        skillPosition = slimeCastleTransform.position + direction * 5f;
+
+        GameObject skillEffect3 = Instantiate(cannonPrefab, skillPosition + new Vector3(-3f, 0f, 0f), Quaternion.identity);
+
+        skillPosition = slimeCastleTransform.position + direction * 15f;
+
+        GameObject skillEffect4 = Instantiate(cannonPrefab, skillPosition + new Vector3(2f, 0f, 0f), Quaternion.identity);
 
         // Rotate the skill effect to face the enemy castle
-        skillEffect.transform.LookAt(enemyCastleTransform);
+        skillEffect0.transform.LookAt(enemyCastleTransform);
+        skillEffect1.transform.LookAt(enemyCastleTransform);
+        skillEffect2.transform.LookAt(enemyCastleTransform);
     }
     public void OnClickSkill_2() // Move Speed need cost 150
     {
@@ -87,10 +104,30 @@ public class PlayerSkillManager : MonoBehaviour
         foreach (Transform child in SlimeSpawnManager.instance.slimeParent.transform)
         {
             // 각 자식 위치에 이펙트 생성
-            Instantiate(buffEffect, child.position, Quaternion.identity, child.transform);
+            var effectInstance = Instantiate(buffEffect, child.position, Quaternion.identity, child.transform);
             ISlime slime = child.gameObject.GetComponent<ISlime>();
-            slime.AttackDamage *= 1.2f;
+            slime.AttackDamage *= 1.1f;
             slime.SlimeWeaponDamageUpdate();
+
+            StartCoroutine(RemoveBuffAfterTime(effectInstance, slime, 10f));
+        }
+    }
+
+    IEnumerator RemoveBuffAfterTime(GameObject effectInstance, ISlime slime, float delay)
+    {
+        yield return new WaitForSeconds(delay); // 10초 대기
+
+        // 강화 효과 제거
+        if (slime != null)
+        {
+            slime.AttackDamage /= 1.1f; // 강화 전 상태로 돌림
+            slime.SlimeWeaponDamageUpdate();
+        }
+
+        // 이펙트 제거
+        if (effectInstance != null)
+        {
+            Destroy(effectInstance);
         }
     }
 

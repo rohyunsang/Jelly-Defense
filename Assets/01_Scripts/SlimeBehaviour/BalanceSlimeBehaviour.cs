@@ -45,6 +45,8 @@ public class BalanceSlimeBehaviour : MonoBehaviour, ISlime
     public bool isFire;
     public bool IsSkill { get; set; }
 
+    public ClassType classType;
+
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -102,6 +104,7 @@ public class BalanceSlimeBehaviour : MonoBehaviour, ISlime
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
         slimeWeapon.weaponDamage = AttackDamage;
+        slimeWeapon.classType = classType;
     }
     void Update()
     {

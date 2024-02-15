@@ -9,7 +9,7 @@ public class TreasureEnemyHit : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Slime") || other.gameObject.CompareTag("SlimeProjectileWeapon")
-            || other.gameObject.CompareTag("SlimeWeapon"))
+            || other.gameObject.CompareTag("SlimeWeapon") || other.gameObject.CompareTag("Meteor"))
             return;
         if (other.transform.CompareTag("EnemyWeapon"))
         {

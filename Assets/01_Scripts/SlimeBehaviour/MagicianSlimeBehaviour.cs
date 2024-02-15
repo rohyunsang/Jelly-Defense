@@ -61,7 +61,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
     public bool isFire = false;
     public MagicianSlimeType magicianSlimeType;
     public bool IsSkill { get; set; }
-
+    public ClassType classType;
 
     void Awake()
     {
@@ -121,6 +121,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
         magicPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
+        magicPrefab.GetComponent<SlimeWeapon>().classType = classType;
     }
     void Update()
     {

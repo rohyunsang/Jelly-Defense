@@ -49,7 +49,7 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
     [Header("Stun")]
     private bool isStunned = false; // 스턴 상태 관리 변수
 
-
+    public ClassType classType;
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -106,6 +106,7 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
         }
 
         magicPrefab.GetComponent<EnemyWeapon>().weaponDamage = AttackDamage;
+        magicPrefab.GetComponent<EnemyWeapon>().classType = classType;
     }
     void Update()
     {
@@ -286,9 +287,7 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
 
         if (other.gameObject.CompareTag("SlimeWeapon"))
         {
-
             GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);
-
         }
         else if (other.gameObject.CompareTag("SlimeProjectileWeapon"))
         {
@@ -320,13 +319,16 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
 
     IEnumerator StunDuration(float duration)
     {
+        GameObject stunStar = Instantiate(PlayerSkillManager.instance.stunStarEffect, transform);
         isStunned = true; // 스턴 상태로 전환
         navAgent.isStopped = true; // 몬스터 이동 중지
 
         yield return new WaitForSeconds(duration); // 스턴 지속 시간 대기
 
+        
         if (!isDead) // 스턴 종료 후, 몬스터가 살아있다면
         {
+            Destroy(stunStar);
             isStunned = false; // 스턴 상태 해제
             navAgent.isStopped = false; // 몬스터 이동 재개
         }

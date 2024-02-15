@@ -61,7 +61,8 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
 
     [Header("ArcherSkill")]
     public int skillCnt = 0;
-    
+
+    public ClassType classType;
 
     void Awake()
     {
@@ -122,6 +123,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
             Debug.LogError("NavMeshAgent is not on NavMesh!");
         }
         arrowPrefab.GetComponent<SlimeWeapon>().weaponDamage = AttackDamage;
+        arrowPrefab.GetComponent<SlimeWeapon>().classType = classType;
     }
 
 
