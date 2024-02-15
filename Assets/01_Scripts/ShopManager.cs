@@ -10,7 +10,7 @@ public class ShopManager : MonoBehaviour
     public static ShopManager Instance { get; private set; }
     public TMP_Text currentTimerText_TMP;
     private DateTime nextRefreshTime;
-    private const int refreshIntervalHours = 3; // 상점 새로고침 간격 (시간)
+
 
     public GameObject purchasePanel;
     public TextMeshProUGUI goldPriceText;
@@ -107,7 +107,7 @@ public class ShopManager : MonoBehaviour
         InitializeNextRefreshTime();
     }
 
-    private void Update()
+    void Update()
     {
         if (DateTime.Now >= nextRefreshTime)
         {
@@ -121,21 +121,42 @@ public class ShopManager : MonoBehaviour
 
     private void InitializeNextRefreshTime()
     {
-        nextRefreshTime = DateTime.Now.AddHours(refreshIntervalHours);
+        DateTime now = DateTime.Now;
+        DateTime[] refreshTimes = new DateTime[]
+        {
+            new DateTime(now.Year, now.Month, now.Day, 3, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 6, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 9, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 12, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 15, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 18, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 21, 0, 0),
+            new DateTime(now.Year, now.Month, now.Day, 0, 0, 0).AddDays(1), // 다음 날의 00:00
+        };
+
+        foreach (DateTime refreshTime in refreshTimes)
+        {
+            if (now < refreshTime)
+            {
+                nextRefreshTime = refreshTime;
+                return;
+            }
+        }
+
+        // 현재 시간이 마지막 새로고침 시간(21:00) 이후인 경우, 다음 날의 03:00을 다음 새로고침 시간으로 설정
+        nextRefreshTime = new DateTime(now.Year, now.Month, now.Day, 3, 0, 0).AddDays(1);
     }
 
     private void RefreshShop()
     {
-        SlimeManager.instance.RefreshShopSlimes();
-
-        // 다음 새로고침 시간 설정
+        // 상점 새로고침 로직...
         InitializeNextRefreshTime();
-
+        SlimeManager.instance.RefreshShopSlimes();
     }
 
     private void UpdateTimerDisplay()
     {
         TimeSpan timeLeft = nextRefreshTime - DateTime.Now;
-        currentTimerText_TMP.text = $"{timeLeft.Hours:D2}:{timeLeft.Minutes:D2}:{timeLeft.Seconds:D2}";
+        currentTimerText_TMP.text = string.Format("자동 갱신까지 {0:D2}:{1:D2}:{2:D2}", timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class SaveData
     public List<bool> hasSlime = new List<bool>();
 
     public List<string> showShopSlimes = new List<string>(); // 상점에 전시된 슬라임 정보
+    public string lastLoginDate; // 마지막 로그인 날짜 저장
 }
 
 public class DataManager : MonoBehaviour
@@ -66,6 +68,8 @@ public class DataManager : MonoBehaviour
             SlimeManager.instance.InitializeDefaultSlimes();
             SlimeManager.instance.RefreshShopSlimes();
 
+
+
             JsonSave(); // 초기 데이터를 파일에 저장
         }
         else
@@ -102,6 +106,12 @@ public class DataManager : MonoBehaviour
                 SlimeManager.instance.InitStartSlimeManager();
 
                 SlimeManager.instance.LoadShopSlime(saveData);
+            }
+
+            // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달
+            if (saveData != null && !string.IsNullOrEmpty(saveData.lastLoginDate))
+            {
+                DayManager.Instance.CheckDateChange(DateTime.Parse(saveData.lastLoginDate));
             }
         }
         
@@ -144,7 +154,8 @@ public class DataManager : MonoBehaviour
         {
             saveData.showShopSlimes.Add(slime);
         }
-        
+
+        saveData.lastLoginDate = DateTime.Now.ToString("yyyy-MM-dd");
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
