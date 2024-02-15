@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class DayManager : MonoBehaviour
 {
-    private DateTime lastCheckedTime = DateTime.Now;
-
     public static DayManager Instance { get; private set; }
+
+    private DateTime lastCheckedTime = DateTime.Now;
+    public bool getDailyGift = false;
+    public GameObject[] dailyObjects;
+    public int currentGiftDay = 0;
+
+
 
     private void Awake()
     {
@@ -51,11 +56,83 @@ public class DayManager : MonoBehaviour
         CurrenyManager.Instance.jellyStoneAd = 2;
 
         // 예시: 출석체크 로직 수행
-        // Note: 실제 출석체크 로직은 게임의 요구사항에 따라 달라질 수 있습니다.
+        getDailyGift = false;
 
         // 변경 사항 저장
         DataManager.Instance.JsonSave();
 
         // 필요한 UI 업데이트 또는 알림 로직
+    }
+
+    public void InitGiftCheck()
+    {
+        for(int i = 0; i < currentGiftDay; i++)
+        {
+            var checkImage = dailyObjects[i].transform.Find("CheckImage");
+            if(checkImage != null)
+            {
+                checkImage.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void GetDailyGiftButton()
+    {
+        if (!getDailyGift && currentGiftDay < dailyObjects.Length)
+        {
+            // "CheckImage" 자식 오브젝트를 활성화합니다.
+            var checkImage = dailyObjects[currentGiftDay].transform.Find("CheckImage");
+            if (checkImage != null)
+            {
+                checkImage.gameObject.SetActive(true);
+            }
+
+            getDailyGift = true; // 보상 수령 상태 업데이트
+            currentGiftDay++; // 다음 보상으로 이동
+            GetDailyGiftSwitch();
+            // 상태 저장
+            DataManager.Instance.JsonSave();
+        }
+
+        
+    }
+
+    private void GetDailyGiftSwitch()
+    {
+        if(currentGiftDay == 0)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 1)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 2)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 3)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 4)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 5)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 6)
+        {
+            CurrenyManager.Instance.gold += 3000;
+            UIManager.instance.AsycCurrenyUI();
+        }
     }
 }

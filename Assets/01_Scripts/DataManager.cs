@@ -22,6 +22,9 @@ public class SaveData
 
     public List<string> showShopSlimes = new List<string>(); // 상점에 전시된 슬라임 정보
     public string lastLoginDate; // 마지막 로그인 날짜 저장
+
+    public int currentGiftDay; // 현재 선물 받은 일수
+    public bool getDailyGift; // 일일 선물 수령 여부
 }
 
 public class DataManager : MonoBehaviour
@@ -106,6 +109,11 @@ public class DataManager : MonoBehaviour
                 SlimeManager.instance.InitStartSlimeManager();
 
                 SlimeManager.instance.LoadShopSlime(saveData);
+
+                // DayManager 상태 로드
+                DayManager.Instance.currentGiftDay = saveData.currentGiftDay;
+                DayManager.Instance.getDailyGift = saveData.getDailyGift;
+                DayManager.Instance.InitGiftCheck();
             }
 
             // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달
@@ -129,7 +137,9 @@ public class DataManager : MonoBehaviour
             jellyStone = CurrenyManager.Instance.jellyStone,
 
             goldAd = CurrenyManager.Instance.goldAd,
-            jellyStoneAd = CurrenyManager.Instance.jellyStoneAd
+            jellyStoneAd = CurrenyManager.Instance.jellyStoneAd,
+            currentGiftDay = DayManager.Instance.currentGiftDay,
+            getDailyGift = DayManager.Instance.getDailyGift
         };
 
         if (StageManager.Instance != null)
@@ -156,6 +166,8 @@ public class DataManager : MonoBehaviour
         }
 
         saveData.lastLoginDate = DateTime.Now.ToString("yyyy-MM-dd");
+
+        
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
