@@ -19,6 +19,7 @@ public class SaveData
     public List<string> slimeNames = new List<string>();
     public List<bool> hasSlime = new List<bool>();
 
+    public List<string> showShopSlimes = new List<string>(); // 상점에 전시된 슬라임 정보
 }
 
 public class DataManager : MonoBehaviour
@@ -40,7 +41,7 @@ public class DataManager : MonoBehaviour
         // Initialize other components or variables if needed
     }
     // 저장 파일 경로
-    private string path;
+    public string path;
 
     void Start()
     {
@@ -55,12 +56,16 @@ public class DataManager : MonoBehaviour
         {
             // 파일이 없을 경우 초기값 설정
             CurrenyManager.Instance.actionPoint = 150; // 예시 초기값
-            CurrenyManager.Instance.gold = 1000; // 예시 초기값
-            CurrenyManager.Instance.jellyStone = 1000; // 예시 초기값
+            CurrenyManager.Instance.gold = 99999; // 예시 초기값
+            CurrenyManager.Instance.jellyStone = 99999; // 예시 초기값
             CurrenyManager.Instance.goldAd = 5 ;
             CurrenyManager.Instance.jellyStoneAd = 5;
+
             StageManager.Instance.InitializeStageClearStatus();
+
             SlimeManager.instance.InitializeDefaultSlimes();
+            SlimeManager.instance.RefreshShopSlimes();
+
             JsonSave(); // 초기 데이터를 파일에 저장
         }
         else
@@ -93,11 +98,15 @@ public class DataManager : MonoBehaviour
                 {
                     SlimeManager.instance.hasSlimes.Add(saveData.slimeNames[i], saveData.hasSlime[i]);
                 }
+
+                SlimeManager.instance.InitStartSlimeManager();
+
+                SlimeManager.instance.LoadShopSlime(saveData);
             }
         }
         
         // UI 연결 
-        UIManager.instance.InitCurrenyUI(CurrenyManager.Instance.actionPoint, CurrenyManager.Instance.gold, CurrenyManager.Instance.jellyStone);
+        UIManager.instance.AsycCurrenyUI();
         UIManager.instance.InitAdUI(CurrenyManager.Instance.goldAd, CurrenyManager.Instance.jellyStoneAd); // 광고 갯수도 업댓 
     }
 
@@ -131,8 +140,15 @@ public class DataManager : MonoBehaviour
             saveData.hasSlime.Add(slime.Value);
         }
 
+        foreach (var slime in SlimeManager.instance.showShopSlimes)
+        {
+            saveData.showShopSlimes.Add(slime);
+        }
+        
+
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
 
     }
+   
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ShopManager : MonoBehaviour
 {
@@ -10,7 +11,87 @@ public class ShopManager : MonoBehaviour
     public TMP_Text currentTimerText_TMP;
     private DateTime nextRefreshTime;
     private const int refreshIntervalHours = 3; // 상점 새로고침 간격 (시간)
-    private const int slimesToShow = 4; // 상점에 보여질 슬라임 수
+
+    public GameObject purchasePanel;
+    public TextMeshProUGUI goldPriceText;
+    public TextMeshProUGUI jellyPriceText;
+    public TextMeshProUGUI purchaseInfoText;
+    public GameObject goldBuyButton;
+    public GameObject jellyBuyButton;
+
+
+    public int goldPrice;
+    public int jellyPrice;
+
+    public PurchaseOption purchaseOption;
+    public string currentSlimeName;
+
+    public GameObject purchaseSuccessPanel;
+    public GameObject purchaseFailPanel;
+
+    public void OnPurchasePanel()
+    {
+        goldBuyButton.SetActive(false);
+        jellyBuyButton.SetActive(false);
+
+        if (purchaseOption == PurchaseOption.JellyOnly)
+        {
+            jellyBuyButton.SetActive(true);
+            purchaseInfoText.text = "정말로 구매하시겠습니까?";
+            jellyPriceText.text = jellyPrice.ToString("N0");
+        }
+        else if(purchaseOption == PurchaseOption.GoldOnly)
+        {
+            goldBuyButton.SetActive(true);
+            purchaseInfoText.text = "정말로 구매하시겠습니까?";
+            goldPriceText.text = goldPrice.ToString("N0");
+        }
+        else if(purchaseOption == PurchaseOption.Both)
+        {
+            jellyBuyButton.SetActive(true);
+            goldBuyButton.SetActive(true);
+
+            purchaseInfoText.text = "골드로 구매하시겠습니까? \r\n젤리석으로 구매하시겠습니까?";
+            jellyPriceText.text = jellyPrice.ToString("N0");
+            goldPriceText.text = goldPrice.ToString("N0");
+
+        }
+    }
+
+    public void GoldBuyButton()
+    {
+        purchasePanel.SetActive(false);
+        if(CurrenyManager.Instance.gold - goldPrice >= 0)
+        {
+            purchaseSuccessPanel.SetActive(true);
+            CurrenyManager.Instance.gold -= goldPrice;
+            SlimeManager.instance.UpdateSlime(currentSlimeName);
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave();
+        }
+        else
+        {
+            purchaseFailPanel.SetActive(true);
+        }
+    }
+    public void JellyBuyButton()
+    {
+        purchasePanel.SetActive(false);
+
+        if(CurrenyManager.Instance.jellyStone - jellyPrice >= 0)
+        {
+            purchaseSuccessPanel.SetActive(true);
+            CurrenyManager.Instance.jellyStone -= jellyPrice;
+            SlimeManager.instance.UpdateSlime(currentSlimeName);
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave();
+        }
+        else
+        {
+            purchaseFailPanel.SetActive(true);
+        }
+    }
+
 
     private void Awake()
     {
@@ -24,11 +105,6 @@ public class ShopManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         InitializeNextRefreshTime();
-    }
-
-    private void Start()
-    {
-        UpdateShopDisplay();
     }
 
     private void Update()
@@ -50,21 +126,11 @@ public class ShopManager : MonoBehaviour
 
     private void RefreshShop()
     {
-        // 상점 새로고침 로직
-        // 예: SlimeManager에서 랜덤으로 4마리 슬라임 선택
-        SlimeManager.instance.SelectRandomSlimesToShowInShop(slimesToShow);
+        SlimeManager.instance.RefreshShopSlimes();
 
         // 다음 새로고침 시간 설정
         InitializeNextRefreshTime();
 
-        // 상점 UI 업데이트
-        UpdateShopDisplay();
-    }
-
-    private void UpdateShopDisplay()
-    {
-        // 상점에 슬라임 표시 로직
-        // 예: 선택된 슬라임을 상점에 표시
     }
 
     private void UpdateTimerDisplay()

@@ -34,7 +34,7 @@ public class SlimeManager : MonoBehaviour
     public List<string> selectedSlimeName = new List<string>();
     // show inspector
     
-    public Dictionary<string, bool> hasSlimes;
+    public Dictionary<string, bool> hasSlimes = new Dictionary<string, bool>();
 
     public GameObject SlimeIconContent;
     public GameObject[] SlimeSlots;
@@ -48,46 +48,90 @@ public class SlimeManager : MonoBehaviour
     public string selectedLegendSlime = ""; // 선택된 레전드 슬라임 이름
     public int legendSlimeSpawnIconIdx = -1;
 
-    
+    public Transform shopSlimeParent;
+    public GameObject[] shopSlimePrefabs;
+    public List<string> showShopSlimes = new List<string>();
 
     private void Start()
     {
-        InitializeDefaultSlimes();
-        SpawnSlimeIcon();
-        LobbySlimeManager.Instance.RandomInstantiateLobbySlime();
     }
 
-    public void SelectRandomSlimesToShowInShop(int count)
+    public void LoadShopSlime(SaveData saveData)
     {
-        // 상점에 표시할 슬라임 목록을 초기화
-        selectedSlimeName.Clear();
-
-        // 소유한 슬라임 목록에서 랜덤으로 선택
-        var ownedSlimes = hasSlimes.Where(s => s.Value == true).Select(s => s.Key).ToList();
-
-        // 소유한 슬라임이 선택할 수 있는 개수보다 적은 경우, 모든 소유한 슬라임을 추가
-        if (ownedSlimes.Count <= count)
+        foreach (var slimeName in saveData.showShopSlimes)
         {
-            selectedSlimeName = ownedSlimes;
-        }
-        else
-        {
-            // 선택할 개수만큼 랜덤으로 슬라임을 선택하여 추가
-            while (selectedSlimeName.Count < count)
+            // 슬라임 이름에 "Icon"을 붙여서 해당 슬라임의 아이콘 프리팹을 찾습니다.
+            string slimeIconName = slimeName + "Icon";
+            GameObject slimeIconPrefab = shopSlimePrefabs.FirstOrDefault(prefab => prefab.name.Equals(slimeIconName));
+
+            // 해당하는 슬라임 아이콘 프리팹이 있으면 인스턴스화하고 상점에 추가합니다.
+            if (slimeIconPrefab != null)
             {
-                var randomIndex = UnityEngine.Random.Range(0, ownedSlimes.Count);
-                var selectedSlime = ownedSlimes[randomIndex];
-                if (!selectedSlimeName.Contains(selectedSlime))
+                Instantiate(slimeIconPrefab, shopSlimeParent);
+                // 상점에 표시된 슬라임 목록에 슬라임 이름을 추가합니다.
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find a prefab for slime: {slimeName}");
+            }
+        }
+    }
+
+    public void RefreshShopSlimes()
+    {
+        showShopSlimes.Clear();
+        Debug.Log("RefreshShopSlimes");
+
+        // 상점의 모든 자식 오브젝트 삭제
+        for (int i = shopSlimeParent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(shopSlimeParent.GetChild(i).gameObject);
+        }
+
+        // hasSlimes에서 false로 설정된 슬라임만 필터링하여 슬라임 이름을 문자열 리스트로 변환
+        List<string> availableSlimes = hasSlimes
+            .Where(s => !s.Value)
+            .Select(s => s.Key + "Icon") // 아이콘 이름으로 변환
+            .ToList();
+
+        // 확률에 따라 슬라임 선택
+        List<GameObject> selectedSlimePrefabs = new List<GameObject>();
+
+        // 선택된 슬라임의 수가 4개가 될 때까지 또는 가능한 슬라임이 없을 때까지 반복
+        while (selectedSlimePrefabs.Count < 4 && availableSlimes.Count > 0)
+        {
+            foreach (var prefab in shopSlimePrefabs)
+            {
+                if (selectedSlimePrefabs.Count >= 4) break; // 이미 4마리를 선택했다면 반복 중단
+
+                int index = Array.IndexOf(shopSlimePrefabs, prefab);
+                float randomValue = UnityEngine.Random.value; // 0과 1 사이의 랜덤 값을 생성
+
+                // 확률에 따라 슬라임 선택
+                bool isSelected = false;
+                if (index <= 5) isSelected = randomValue <= 0.55f;
+                else if (index >= 6 && index <= 14) isSelected = randomValue <= 0.35f;
+                else if (index >= 15 && index <= 19) isSelected = randomValue <= 0.1f;
+
+                if (isSelected && availableSlimes.Contains(prefab.name))
                 {
-                    selectedSlimeName.Add(selectedSlime);
+                    selectedSlimePrefabs.Add(prefab);
+                    availableSlimes.Remove(prefab.name); // 선택된 슬라임은 availableSlimes에서 제거
                 }
             }
         }
 
-        // 선택된 슬라임을 기반으로 상점 UI 업데이트 로직 추가
-        // 예: 상점 UI에 선택된 슬라임 표시 로직 구현
-    }
+        // 선택된 슬라임 인스턴스화 및 처리
+        foreach (var slimePrefab in selectedSlimePrefabs)
+        {
+            Instantiate(slimePrefab, shopSlimeParent);
+            string actualSlimeName = slimePrefab.name.Replace("Icon", "");
+            showShopSlimes.Add(actualSlimeName);
+            Debug.Log("RefreshShopSlimes: Spawned " + actualSlimeName);
+        }
 
+        DataManager.Instance.JsonSave();
+    }
 
     #region SlimePickUp
 
@@ -98,10 +142,12 @@ public class SlimeManager : MonoBehaviour
 
     public void SpawnSlimeIcon() // pickUp Screen
     {
-        foreach (KeyValuePair<string, bool> slime in hasSlimes)
+        // SlimeIconContent의 모든 자식 오브젝트 삭제
+        foreach (Transform child in SlimeIconContent.transform)
         {
-            Debug.Log($"Slime Name: {slime.Key}, Available: {slime.Value}");
+            Destroy(child.gameObject);
         }
+
         foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
         {
             // Check if the player owns the slime before spawning its icon.
@@ -110,7 +156,6 @@ public class SlimeManager : MonoBehaviour
                 GameObject slimeIcon = Instantiate(slimeIconPrefab, SlimeIconContent.transform);
                 slimeIcon.name = slimeIconPrefab.name;
 
-                // Optionally, perform additional setup on the slimeIcon here, such as adding listeners or setting up UI elements.
             }
         }
     }
@@ -149,22 +194,16 @@ public class SlimeManager : MonoBehaviour
         //반환하라 슬라임 프리팹의 이름이 같은
         return slimePrefabs.FirstOrDefault(slime => slime.name == name);
     }
-    public void UpdateSlime()
+    public void UpdateSlime(string slimeName)
     {
-        // Add Slime ICon Prefab
-        // Add Slime Prefab
-        // hasSlime["윤상슬라임"] = true;
+        hasSlimes[slimeName] = true;
+        SpawnSlimeIcon();
     }
 
     public void InitializeDefaultSlimes()
     {
         hasSlimes = new Dictionary<string, bool>();
 
-        foreach (GameObject slimeIconPrefab in slimeIconPrefabs)
-        {
-            hasSlimes[slimeIconPrefab.name.Replace("Icon", "")] = false;
-        }
-        
         // Test 용으로 25마리 다 true
         // 기본으로 제공하는 5마리 슬라임
         hasSlimes["GreenSlime"] = true;
@@ -172,27 +211,36 @@ public class SlimeManager : MonoBehaviour
         hasSlimes["PowerSlime"] = true;
         hasSlimes["SquareIceSlime"] = true;
         hasSlimes["AmethystSlime"] = true;
-        hasSlimes["BlockSlime"] = true;
-        hasSlimes["BearSlime"] = true;
-        hasSlimes["ClownSlime"] = true;
-        hasSlimes["BoneSlime"] = true;
-        hasSlimes["MagicSlime"] = true;
-        hasSlimes["ParabolaSlime"] = true;
-        hasSlimes["BloodSlime"] = true;
-        hasSlimes["AngelSlime"] = true;
-        hasSlimes["CowardSlime"] = true;
-        hasSlimes["BunnySlime"] = true;
-        hasSlimes["DevilSlime"] = true;
-        hasSlimes["WitchSlime"] = true;
-        hasSlimes["SkullSlime"] = true;
-        hasSlimes["BlockIceSlime"] = true;
-        hasSlimes["CupidSlime"] = true;
-        hasSlimes["GhostSlime"] = true;
-        hasSlimes["LizardSlime"] = true;
-        hasSlimes["WizardSlime"] = true;
-        hasSlimes["GrassSlime"] = true;
-        hasSlimes["CatSlime"] = true;
+        hasSlimes["BlockSlime"] = false;
+        hasSlimes["BearSlime"] = false;
+        hasSlimes["ClownSlime"] = false;
+        hasSlimes["BoneSlime"] = false;
+        hasSlimes["MagicSlime"] = false;
+        hasSlimes["ParabolaSlime"] = false;
+        hasSlimes["BloodSlime"] = false;
+        hasSlimes["AngelSlime"] = false;
+        hasSlimes["CowardSlime"] = false;
+        hasSlimes["BunnySlime"] = false;
+        hasSlimes["DevilSlime"] = false;
+        hasSlimes["WitchSlime"] = false;
+        hasSlimes["SkullSlime"] = false;
+        hasSlimes["BlockIceSlime"] = false;
+        hasSlimes["CupidSlime"] = false;
+        hasSlimes["GhostSlime"] = false;
+        hasSlimes["LizardSlime"] = false;
+        hasSlimes["WizardSlime"] = false;
+        hasSlimes["GrassSlime"] = false;
+        hasSlimes["CatSlime"] = false;
 
+        //////////////////////////////////////////////////////////////////////// Init
+        InitStartSlimeManager();
+
+    }
+    //////////////////////////////////////////////////////////////////////// Init
+    public void InitStartSlimeManager()
+    {
+        SpawnSlimeIcon();
+        LobbySlimeManager.Instance.RandomInstantiateLobbySlime();
     }
 
     public void SelectedSlimes() // PickUpScreen Start Button

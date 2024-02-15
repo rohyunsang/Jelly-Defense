@@ -114,11 +114,11 @@ public class UIManager : MonoBehaviour
 
     #region TapBar
 
-    public void InitCurrenyUI(int actionPoint, int gold, int jellyStone)
+    public void AsycCurrenyUI()
     {
-        actionPointText.text = actionPoint.ToString("N0");
-        goldText.text = gold.ToString("N0");
-        jellyStoneText.text = jellyStone.ToString("N0");
+        actionPointText.text = CurrenyManager.Instance.actionPoint.ToString("N0");
+        goldText.text = CurrenyManager.Instance.gold.ToString("N0");
+        jellyStoneText.text = CurrenyManager.Instance.jellyStone.ToString("N0");
     }
 
     #endregion
