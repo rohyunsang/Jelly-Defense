@@ -25,6 +25,7 @@ public class SaveData
 
     public int currentGiftDay; // 현재 선물 받은 일수
     public bool getDailyGift; // 일일 선물 수령 여부
+    public int currentGoldRefresh;
 }
 
 public class DataManager : MonoBehaviour
@@ -63,8 +64,8 @@ public class DataManager : MonoBehaviour
             CurrenyManager.Instance.actionPoint = 150; // 예시 초기값
             CurrenyManager.Instance.gold = 99999; // 예시 초기값
             CurrenyManager.Instance.jellyStone = 99999; // 예시 초기값
-            CurrenyManager.Instance.goldAd = 5 ;
-            CurrenyManager.Instance.jellyStoneAd = 5;
+            DayManager.Instance.goldAd = 1 ;
+            DayManager.Instance.jellyStoneAd = 1;
 
             StageManager.Instance.InitializeStageClearStatus();
 
@@ -87,8 +88,8 @@ public class DataManager : MonoBehaviour
                 CurrenyManager.Instance.gold = saveData.gold;
                 CurrenyManager.Instance.jellyStone = saveData.jellyStone;
 
-                CurrenyManager.Instance.goldAd = saveData.goldAd;
-                CurrenyManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
+                DayManager.Instance.goldAd = saveData.goldAd;
+                DayManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
 
 
                 // 스테이지 클리어 상태 불러오기
@@ -114,6 +115,8 @@ public class DataManager : MonoBehaviour
                 DayManager.Instance.currentGiftDay = saveData.currentGiftDay;
                 DayManager.Instance.getDailyGift = saveData.getDailyGift;
                 DayManager.Instance.InitGiftCheck();
+                DayManager.Instance.currentGoldRefresh = saveData.currentGoldRefresh;
+                DayManager.Instance.AsyncGoldRefreshText();
             }
 
             // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달
@@ -125,7 +128,7 @@ public class DataManager : MonoBehaviour
         
         // UI 연결 
         UIManager.instance.AsycCurrenyUI();
-        UIManager.instance.InitAdUI(CurrenyManager.Instance.goldAd, CurrenyManager.Instance.jellyStoneAd); // 광고 갯수도 업댓 
+        UIManager.instance.InitAdUI(DayManager.Instance.goldAd, DayManager.Instance.jellyStoneAd); // 광고 갯수도 업댓 
     }
 
     public void JsonSave()
@@ -136,10 +139,11 @@ public class DataManager : MonoBehaviour
             gold = CurrenyManager.Instance.gold,
             jellyStone = CurrenyManager.Instance.jellyStone,
 
-            goldAd = CurrenyManager.Instance.goldAd,
-            jellyStoneAd = CurrenyManager.Instance.jellyStoneAd,
+            goldAd = DayManager.Instance.goldAd,
+            jellyStoneAd = DayManager.Instance.jellyStoneAd,
             currentGiftDay = DayManager.Instance.currentGiftDay,
-            getDailyGift = DayManager.Instance.getDailyGift
+            getDailyGift = DayManager.Instance.getDailyGift,
+            currentGoldRefresh = DayManager.Instance.currentGoldRefresh
         };
 
         if (StageManager.Instance != null)

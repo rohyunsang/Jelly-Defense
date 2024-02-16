@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DayManager : MonoBehaviour
@@ -12,6 +13,15 @@ public class DayManager : MonoBehaviour
     public GameObject[] dailyObjects;
     public int currentGiftDay = 0;
 
+    public int currentGoldRefresh = 2;
+    // 광고 갯수 제한 
+    public int goldAd = 1;
+    public int jellyStoneAd = 1;
+    public int actionPointAd = 1;
+
+
+    // 시간 초기화 관련 UI들 
+    public TextMeshProUGUI goldRefreshInfoText;
 
 
     private void Awake()
@@ -23,6 +33,11 @@ public class DayManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        ResetDailyActivitiesCallBackUI();
     }
 
 
@@ -52,8 +67,10 @@ public class DayManager : MonoBehaviour
     private void ResetDailyActivities()
     {
         // 예시: 일일 광고 시청 기회 재설정
-        CurrenyManager.Instance.goldAd = 2;
-        CurrenyManager.Instance.jellyStoneAd = 2;
+        goldAd = 1;
+        jellyStoneAd = 1;
+        actionPointAd = 1;
+        currentGoldRefresh = 2;
 
         // 예시: 출석체크 로직 수행
         getDailyGift = false;
@@ -62,6 +79,17 @@ public class DayManager : MonoBehaviour
         DataManager.Instance.JsonSave();
 
         // 필요한 UI 업데이트 또는 알림 로직
+        ResetDailyActivitiesCallBackUI();
+    }
+
+    private void ResetDailyActivitiesCallBackUI()
+    {
+        
+    }
+
+    public void AsyncGoldRefreshText()
+    {
+        goldRefreshInfoText.text = "일일 남은 횟수 : " + currentGoldRefresh + "회";
     }
 
     public void InitGiftCheck()

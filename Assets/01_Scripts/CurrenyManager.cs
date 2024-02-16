@@ -24,8 +24,4 @@ public class CurrenyManager : MonoBehaviour
     public int gold;
     public int jellyStone;
 
-    // ±¤°í °¹¼ö Á¦ÇÑ 
-    public int goldAd;
-    public int jellyStoneAd;
-
 }

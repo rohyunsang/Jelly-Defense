@@ -402,9 +402,35 @@ public class UIManager : MonoBehaviour
     {
         if (CurrenyManager.Instance.jellyStone - 10 >= 0)
         {
+            ShopManager.Instance.purchasePanel.SetActive(false);
+            ShopManager.Instance.purchaseSuccessPanel.SetActive(false);
+            ShopManager.Instance.purchaseFailPanel.SetActive(false);
+
             SlimeManager.instance.RefreshShopSlimes();
             CurrenyManager.Instance.jellyStone -= 10;
             AsycCurrenyUI();
+            DataManager.Instance.JsonSave();
+        }
+        else
+        {
+            // ShopManager.Instance.purchaseFailPanel.SetActive(true);
+        }
+
+    }
+    public void GoldRefreshButton()
+    {
+        if (CurrenyManager.Instance.gold - 10 >= 0 && DayManager.Instance.currentGoldRefresh > 0)
+        {
+            DayManager.Instance.currentGoldRefresh--;
+
+            ShopManager.Instance.purchasePanel.SetActive(false);
+            ShopManager.Instance.purchaseSuccessPanel.SetActive(false);
+            ShopManager.Instance.purchaseFailPanel.SetActive(false);
+
+            SlimeManager.instance.RefreshShopSlimes();
+            CurrenyManager.Instance.gold -= 3000;
+            AsycCurrenyUI();
+            DayManager.Instance.AsyncGoldRefreshText();
             DataManager.Instance.JsonSave();
         }
         else

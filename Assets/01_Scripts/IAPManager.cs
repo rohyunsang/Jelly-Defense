@@ -80,10 +80,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         if (product.definition.id == jelly1000)
         {
-            CurrenyManager.Instance.jellyStone += 1000;  
-
+            CurrenyManager.Instance.jellyStone += 1000;
+            UIManager.instance.AsycCurrenyUI();
             DataManager.Instance.JsonSave(); // 바아로 저장 
-            DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
+            
         }
 
         return PurchaseProcessingResult.Complete;
