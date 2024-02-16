@@ -68,6 +68,24 @@ public class ShopManager : MonoBehaviour
             SlimeManager.instance.UpdateSlime(currentSlimeName);
             UIManager.instance.AsycCurrenyUI();
             DataManager.Instance.JsonSave();
+
+            foreach (Transform child in SlimeManager.instance.shopSlimeParent)
+            {
+                if (child.name.Contains(currentSlimeName))
+                {
+                    // purchasedSlime 찾기
+                    Transform purchasedSlime = child;
+
+                    // "PurchasedCompleteImage" 자식 오브젝트 찾기
+                    Transform purchasedCompleteImage = purchasedSlime.Find("PurchaseCompleteImage");
+                    if (purchasedCompleteImage != null)
+                    {
+                        purchasedCompleteImage.gameObject.SetActive(true);
+                    }
+
+                    break; // 찾았으니 루프 종료
+                }
+            }
         }
         else
         {
@@ -85,6 +103,24 @@ public class ShopManager : MonoBehaviour
             SlimeManager.instance.UpdateSlime(currentSlimeName);
             UIManager.instance.AsycCurrenyUI();
             DataManager.Instance.JsonSave();
+
+            foreach (Transform child in SlimeManager.instance.shopSlimeParent)
+            {
+                if (child.name.Contains(currentSlimeName))
+                {
+                    // purchasedSlime 찾기
+                    Transform purchasedSlime = child;
+
+                    // "PurchasedCompleteImage" 자식 오브젝트 찾기
+                    Transform purchasedCompleteImage = purchasedSlime.Find("PurchaseCompleteImage");
+                    if (purchasedCompleteImage != null)
+                    {
+                        purchasedCompleteImage.gameObject.SetActive(true);
+                    }
+
+                    break; // 찾았으니 루프 종료
+                }
+            }
         }
         else
         {

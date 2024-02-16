@@ -397,6 +397,23 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region ShopScreen
+
+    public void JellyRefreshButton()
+    {
+        if (CurrenyManager.Instance.jellyStone - 10 >= 0)
+        {
+            SlimeManager.instance.RefreshShopSlimes();
+            CurrenyManager.Instance.jellyStone -= 10;
+            AsycCurrenyUI();
+            DataManager.Instance.JsonSave();
+        }
+        else
+        {
+            // ShopManager.Instance.purchaseFailPanel.SetActive(true);
+        }
+
+    }
+
     public void OnShopScreen()
     {
         UIBackGround.SetActive(true);
