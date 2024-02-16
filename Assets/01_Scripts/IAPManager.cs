@@ -9,7 +9,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
 {
 
     [Header("Product ID")]
-    [SerializeField] private string jelly1000 = "jelly1000";
+    [SerializeField] private string jelly900 = "jelly900";
+    [SerializeField] private string jelly1500 = "jelly1500";
+    [SerializeField] private string jelly2700 = "jelly2700";
+    [SerializeField] private string jelly3500 = "jelly3500";
+    [SerializeField] private string jelly1900 = "jelly1900";
+    [SerializeField] private string jelly4500 = "jelly4500";
 
     [Header("Cache")]
     private IStoreController storeController; //구매 과정을 제어하는 함수 제공자
@@ -26,8 +31,13 @@ public class IAPManager : MonoBehaviour, IStoreListener
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
         /* 구글 플레이 상품들 추가 */
-        builder.AddProduct(jelly1000, ProductType.Consumable);
-        
+        builder.AddProduct(jelly900, ProductType.Consumable);
+        builder.AddProduct(jelly1500, ProductType.Consumable);
+        builder.AddProduct(jelly2700, ProductType.Consumable);
+        builder.AddProduct(jelly3500, ProductType.Consumable);
+        builder.AddProduct(jelly1900, ProductType.Consumable);
+        builder.AddProduct(jelly4500, ProductType.Consumable);
+
         UnityPurchasing.Initialize(this, builder);
     }
 
@@ -78,12 +88,42 @@ public class IAPManager : MonoBehaviour, IStoreListener
         var product = purchaseEvent.purchasedProduct;
         Debug.Log("구매에 성공했습니다" + product.definition.id);
 
-        if (product.definition.id == jelly1000)
+        if (product.definition.id == jelly900)
         {
-            CurrenyManager.Instance.jellyStone += 1000;
+            CurrenyManager.Instance.jellyStone += 100;
             UIManager.instance.AsycCurrenyUI();
             DataManager.Instance.JsonSave(); // 바아로 저장 
-            
+        }
+        else if (product.definition.id == jelly1500)
+        {
+            CurrenyManager.Instance.jellyStone += 220;
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+        }
+        else if (product.definition.id == jelly2700)
+        {
+            CurrenyManager.Instance.jellyStone += 520;
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+        }
+        else if (product.definition.id == jelly3500)
+        {
+            CurrenyManager.Instance.jellyStone += 950;
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+        }
+        else if (product.definition.id == jelly1900)  // 특별 패키지
+        {
+            Debug.Log("특별패키지 구매완료:");
+            //CurrenyManager.Instance.jellyStone += 1000;
+            //UIManager.instance.AsycCurrenyUI();
+            //DataManager.Instance.JsonSave(); // 바아로 저장 
+        }
+        else if (product.definition.id == jelly4500) // 광고 제거 
+        {
+            //CurrenyManager.Instance.jellyStone += 1000;
+            //UIManager.instance.AsycCurrenyUI();
+            //DataManager.Instance.JsonSave(); // 바아로 저장 
         }
 
         return PurchaseProcessingResult.Complete;

@@ -73,7 +73,6 @@ public class DataManager : MonoBehaviour
             SlimeManager.instance.RefreshShopSlimes();
 
 
-
             JsonSave(); // 초기 데이터를 파일에 저장
         }
         else

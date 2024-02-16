@@ -84,7 +84,7 @@ public class DayManager : MonoBehaviour
 
     private void ResetDailyActivitiesCallBackUI()
     {
-        
+        AsyncGoldRefreshText();
     }
 
     public void AsyncGoldRefreshText()
