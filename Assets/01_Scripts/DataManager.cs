@@ -12,6 +12,7 @@ public class SaveData
 
     public int goldAd;
     public int jellyStoneAd;
+    public int actionPointAd;
 
     // 스테이지 클리어 상태를 위한 필드 추가
     public List<string> stageNames = new List<string>();
@@ -66,6 +67,7 @@ public class DataManager : MonoBehaviour
             CurrenyManager.Instance.jellyStone = 99999; // 예시 초기값
             DayManager.Instance.goldAd = 1 ;
             DayManager.Instance.jellyStoneAd = 1;
+            DayManager.Instance.actionPointAd = 1 ;
 
             StageManager.Instance.InitializeStageClearStatus();
 
@@ -127,7 +129,6 @@ public class DataManager : MonoBehaviour
         
         // UI 연결 
         UIManager.instance.AsycCurrenyUI();
-        UIManager.instance.InitAdUI(DayManager.Instance.goldAd, DayManager.Instance.jellyStoneAd); // 광고 갯수도 업댓 
     }
 
     public void JsonSave()
@@ -140,6 +141,7 @@ public class DataManager : MonoBehaviour
 
             goldAd = DayManager.Instance.goldAd,
             jellyStoneAd = DayManager.Instance.jellyStoneAd,
+            actionPointAd = DayManager.Instance.actionPointAd,
             currentGiftDay = DayManager.Instance.currentGiftDay,
             getDailyGift = DayManager.Instance.getDailyGift,
             currentGoldRefresh = DayManager.Instance.currentGoldRefresh

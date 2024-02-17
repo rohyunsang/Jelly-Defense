@@ -492,15 +492,22 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("광고 버튼 눌림 ");
         AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
-
+    }
+    public void OnClickFreeActionPointButton()
+    {
+        Debug.Log("광고 버튼 눌림 ");
+        AdManager.instance.ShowAds(2);
     }
 
-    // 광고 갯수 표시.. 
+
+    /*
     public void InitAdUI(int goldAd, int jellyStoneAd)
     {
         goldAdText.text = goldAd.ToString() + " / 5";
         jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
-    }
+    } 
+     */
+
 
     #endregion
 

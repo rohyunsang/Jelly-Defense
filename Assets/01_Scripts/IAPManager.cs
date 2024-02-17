@@ -115,9 +115,14 @@ public class IAPManager : MonoBehaviour, IStoreListener
         else if (product.definition.id == jelly1900)  // 특별 패키지
         {
             Debug.Log("특별패키지 구매완료:");
-            //CurrenyManager.Instance.jellyStone += 1000;
-            //UIManager.instance.AsycCurrenyUI();
-            //DataManager.Instance.JsonSave(); // 바아로 저장 
+            CurrenyManager.Instance.jellyStone += 500;
+            CurrenyManager.Instance.gold += 50000;
+            CurrenyManager.Instance.actionPoint += 100;
+
+            SlimeManager.instance.UpdateSlime("BearSlime");
+
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave(); // 바아로 저장 
         }
         else if (product.definition.id == jelly4500) // 광고 제거 
         {

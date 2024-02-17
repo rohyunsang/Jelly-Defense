@@ -86,6 +86,11 @@ public class AdManager : MonoBehaviour
             rewardedAd.Show(GetJellyReward);
             Debug.Log("광고 보여줌 ");
         }
+        else if (rewardedAd.CanShowAd() && rewardType == 2 && DayManager.Instance.actionPointAd > 0)
+        {
+            rewardedAd.Show(GetActionPointReward);
+            Debug.Log("광고 보여줌 ");
+        }
         else
         {
             Debug.Log("광고 재생 실패");
@@ -100,7 +105,7 @@ public class AdManager : MonoBehaviour
         DayManager.Instance.goldAd--; // 한개 깍음
 
         DataManager.Instance.JsonSave(); // 바아로 저장 
-        DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
+        UIManager.instance.AsycCurrenyUI();
 
         LoadAds();
     }
@@ -113,7 +118,19 @@ public class AdManager : MonoBehaviour
         DayManager.Instance.jellyStoneAd--; // 한개 깍음
 
         DataManager.Instance.JsonSave(); // 바아로 저장 
-        DataManager.Instance.JsonLoad(); // 여기 UI init 있으므로 
+        UIManager.instance.AsycCurrenyUI();
+        LoadAds();
+    }
+
+    public void GetActionPointReward(Reward reward)
+    {
+        Debug.Log("행동력 획득함");
+
+        CurrenyManager.Instance.actionPoint += 20; //  
+        DayManager.Instance.actionPointAd--; // 한개 깍음
+
+        DataManager.Instance.JsonSave(); // 바아로 저장 
+        UIManager.instance.AsycCurrenyUI();
 
         LoadAds();
     }
