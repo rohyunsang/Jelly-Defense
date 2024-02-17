@@ -41,9 +41,9 @@ public class GameManager : MonoBehaviour
         string preStageName = UIManager.instance.selectedStageName;
         string originScene = "";
         originScene = sceneName;
-        if (sceneName == "Stage2" || sceneName == "Stage3") sceneName = "Stage1";
-        else if (sceneName == "Stage5" || sceneName == "Stage6" || sceneName == "Stage7") sceneName = "Stage4";
-        else if (sceneName == "Stage9" || sceneName == "Stage10") sceneName = "Stage8";
+        if (sceneName == "NormalStage2" || sceneName == "NormalStage3") sceneName = "NormalStage1";
+        else if (sceneName == "NormalStage5" || sceneName == "NormalStage6" || sceneName == "NormalStage7") sceneName = "NormalStage4";
+        else if (sceneName == "NormalStage9" || sceneName == "NormalStage10") sceneName = "NormalStage8";
 
         // 비동기적으로 씬 로딩
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);

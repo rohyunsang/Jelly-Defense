@@ -40,34 +40,34 @@ public class EnhanceObject : MonoBehaviour
         string stageName = UIManager.instance.selectedStageName;
         switch (stageName)
         {
-            case "Stage1":
+            case "NormalStage1":
                 objectType = ObjectType.Jelly;
                 break;
-            case "Stage2":
+            case "NormalStage2":
                 objectType = ObjectType.Defense;
                 break;
-            case "Stage3":
+            case "NormalStage3":
                 objectType = ObjectType.AttackSpeed;
                 break;
-            case "Stage4":
+            case "NormalStage4":
                 objectType = ObjectType.Hp;
                 break;
-            case "Stage5":
+            case "NormalStage5":
                 objectType = ObjectType.Jelly;
                 break;
-            case "Stage6":
+            case "NormalStage6":
                 objectType = ObjectType.AttackSpeed;
                 break;
-            case "Stage7":
+            case "NormalStage7":
                 objectType = ObjectType.Attack;
                 break;
-            case "Stage8":
+            case "NormalStage8":
                 objectType = ObjectType.AttackSpeed;
                 break;
-            case "Stage9":
+            case "NormalStage9":
                 objectType = ObjectType.Defense;
                 break;
-            case "Stage10":
+            case "NormalStage10":
                 objectType = ObjectType.AttackSpeed;
                 break;
         }

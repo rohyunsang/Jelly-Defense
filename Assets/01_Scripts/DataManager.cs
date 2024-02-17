@@ -18,6 +18,9 @@ public class SaveData
     public List<string> stageNames = new List<string>();
     public List<bool> stageClearStatuses = new List<bool>();
 
+    // 스테이지 별
+    public List<int> stageStars = new List<int>();
+
     public List<string> slimeNames = new List<string>();
     public List<bool> hasSlime = new List<bool>();
 
@@ -70,7 +73,7 @@ public class DataManager : MonoBehaviour
             DayManager.Instance.actionPointAd = 1 ;
 
             StageManager.Instance.InitializeStageClearStatus();
-
+            
             SlimeManager.instance.InitializeDefaultSlimes();
             SlimeManager.instance.RefreshShopSlimes();
 
@@ -99,6 +102,13 @@ public class DataManager : MonoBehaviour
                 {
                     // 이미 존재하는 키에 대한 처리가 필요 없으므로, Add 대신 인덱싱을 사용하여 값을 할당
                     StageManager.Instance.stageClearStatus[saveData.stageNames[i]] = saveData.stageClearStatuses[i];
+                }
+
+                StageManager.Instance.stageStarStatus.Clear();
+                for (int i = 0; i < saveData.stageNames.Count; i++)
+                {
+                    // 이미 존재하는 키에 대한 처리가 필요 없으므로, Add 대신 인덱싱을 사용하여 값을 할당
+                    StageManager.Instance.stageStarStatus[saveData.stageNames[i]] = saveData.stageStars[i];
                 }
 
                 // 슬라임 정보 불러오기
@@ -153,6 +163,10 @@ public class DataManager : MonoBehaviour
             {
                 saveData.stageNames.Add(stage.Key);
                 saveData.stageClearStatuses.Add(stage.Value);
+            }
+            foreach(var stageStar in StageManager.Instance.stageStarStatus)
+            {
+                saveData.stageStars.Add(stageStar.Value);
             }
         }
 

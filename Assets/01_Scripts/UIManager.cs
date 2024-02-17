@@ -37,6 +37,9 @@ public class UIManager : MonoBehaviour
     public GameObject settingScreenMain;
     public string selectedStageName = null;
 
+    public GameObject[] stageButtons;
+
+
     [Header("HUDScreen")]
     public GameObject HUDsettingScreen;
     public GameObject stageFailScreen;
@@ -108,7 +111,10 @@ public class UIManager : MonoBehaviour
     public GameObject currenyManager;
     public GameObject dataManager;
     public GameObject lobbySlimeManager;
-
+    public GameObject shopManager;
+    public GameObject dayManager;
+    public GameObject adManager;
+    public GameObject iAPManager;
 
 
 
@@ -186,7 +192,12 @@ public class UIManager : MonoBehaviour
     public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
     {
         selectedStageName = button.name;
-        imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
+
+        // 여기에 클리어 했냐 안했냐 체크 
+        if (StageManager.Instance.CanEnterStage(selectedStageName))
+        {
+            imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
+        }
     }
     public void OffImageStageStory()
     {
@@ -526,7 +537,7 @@ public class UIManager : MonoBehaviour
         preButtonCollectionScreen.SetActive(false);
         collectionScreen.SetActive(false);
     }
-    
+
 
     #endregion
 
@@ -548,5 +559,9 @@ public class UIManager : MonoBehaviour
         Destroy(currenyManager);
         Destroy(dataManager);
         Destroy(lobbySlimeManager);
+        Destroy(shopManager);
+        Destroy(dayManager);
+        Destroy(adManager);
+        Destroy(iAPManager);
     }
 }
