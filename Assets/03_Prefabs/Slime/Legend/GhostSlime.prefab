@@ -19489,7 +19489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &420985661
 Transform:
   m_ObjectHideFlags: 0
@@ -54192,6 +54192,7 @@ MonoBehaviour:
   damageReduction: 1
   isFire: 0
   tankerSlimeType: 2
+  classType: 0
 --- !u!195 &1406724189
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -54295,6 +54296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 10
+  classType: 0
 --- !u!1 &5933740660882992532
 GameObject:
   m_ObjectHideFlags: 0
