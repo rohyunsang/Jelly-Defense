@@ -1164,6 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 0
+  classType: 0
 --- !u!65 &8600261815432006805
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2266,7 +2267,7 @@ Transform:
   m_GameObject: {fileID: 7237178871622730094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7237178871623097622}

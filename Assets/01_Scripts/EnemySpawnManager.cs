@@ -34,6 +34,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     public TMP_Text waveText;
 
+    public bool isWaveEnd = false;
     void Awake()
     {
         if (instance != null && instance != this)
@@ -53,6 +54,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
+        isWaveEnd = false;
         // 전체 소환 몬스터 리스트 생성
         List<EnemySpawnInfo> spawnList = new List<EnemySpawnInfo>();
         foreach (var spawnInfo in currentWaveSpawns)
@@ -75,6 +77,9 @@ public class EnemySpawnManager : MonoBehaviour
             }
             spawnList.RemoveAt(randomIndex); // 소환된 몬스터는 리스트에서 제거
         }
+
+        Debug.Log("웨이브 끝났어@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        isWaveEnd = true;
     }
 
     IEnumerator StartSequentialWaves(List<List<EnemySpawnInfo>> allWaves)
@@ -108,8 +113,9 @@ public class EnemySpawnManager : MonoBehaviour
             currentWaveSpawns = wave;
             yield return StartCoroutine(SpawnWave());
             // 웨이브 사이에 딜레이 추가 (예: 5초)
-            yield return new WaitForSeconds(5f);
             currentWave++;
+
+            yield return new WaitForSeconds(5f);
             if(currentWave == 2)
             {
                 Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
@@ -120,13 +126,25 @@ public class EnemySpawnManager : MonoBehaviour
                 spawnedTreasure.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
             }
         }
+
+        // 모든 소환이 끝나면 
+        
+    }
+
+    void Update()
+    {
+        if (isWaveEnd && enemyParent.transform.childCount == 0)
+        {
+            GameObject.FindWithTag("EnemyCastle").GetComponent<EnemyCastle>().CriticalHit();
+            isWaveEnd = false;
+        }
     }
 
     public void EnemySpawnTable(string stageName) // 여기가 진입점.
     {
         InitEnemySpawn();
 
-        if (stageName == "Stage1")
+        if (stageName == "NormalStage1")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -152,7 +170,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage2")
+        else if (stageName == "NormalStage2")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -178,7 +196,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage3")
+        else if (stageName == "NormalStage3")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -209,7 +227,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage4")
+        else if (stageName == "NormalStage4")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -239,7 +257,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage5")
+        else if (stageName == "NormalStage5")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -268,7 +286,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage6")
+        else if (stageName == "NormalStage6")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -299,7 +317,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage7")
+        else if (stageName == "NormalStage7")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -326,7 +344,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage8")
+        else if (stageName == "NormalStage8")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -359,7 +377,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage9")
+        else if (stageName == "NormalStage9")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -392,7 +410,7 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
-        else if (stageName == "Stage10")
+        else if (stageName == "NormalStage10")
         {
             // 모든 웨이브를 포함하는 리스트
             List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
@@ -422,6 +440,315 @@ public class EnemySpawnManager : MonoBehaviour
             };
             StartCoroutine(StartSequentialWaves(allWaves));
         }
+        else if (stageName == "ChaosStage1")
+        {
+            // 모든 웨이브를 포함하는 리스트
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+            {
+            // Wave1
+            new List<EnemySpawnInfo>
+            {
+                new EnemySpawnInfo(enemyPrefab[3], 4),
+                new EnemySpawnInfo(enemyPrefab[4], 2),
+                new EnemySpawnInfo(enemyPrefab[9], 4),
+            },
+            // Wave2
+            new List<EnemySpawnInfo>
+            {
+                new EnemySpawnInfo(enemyPrefab[4], 3),
+                new EnemySpawnInfo(enemyPrefab[7], 5),
+                new EnemySpawnInfo(enemyPrefab[9], 2),
+            },
+            // Wave3
+            new List<EnemySpawnInfo>
+            {
+                new EnemySpawnInfo(enemyPrefab[3], 3),
+                new EnemySpawnInfo(enemyPrefab[8], 2),
+                new EnemySpawnInfo(enemyPrefab[9], 4),
+                new EnemySpawnInfo(enemyPrefab[11], 1)
+
+            }
+            };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+        else if (stageName == "ChaosStage2")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+            {
+            // Wave1
+            new List<EnemySpawnInfo>
+            {
+            new EnemySpawnInfo(enemyPrefab[6], 3),
+            new EnemySpawnInfo(enemyPrefab[8], 2),
+            new EnemySpawnInfo(enemyPrefab[10], 3),
+            new EnemySpawnInfo(enemyPrefab[11], 2),
+            },
+            // Wave2
+            new List<EnemySpawnInfo>
+            {
+            new EnemySpawnInfo(enemyPrefab[4], 2),
+            new EnemySpawnInfo(enemyPrefab[6], 3),
+            new EnemySpawnInfo(enemyPrefab[9], 3),
+            new EnemySpawnInfo(enemyPrefab[16], 2),
+            },
+            // Wave3
+            new List<EnemySpawnInfo>
+            {
+            new EnemySpawnInfo(enemyPrefab[6], 1),
+            new EnemySpawnInfo(enemyPrefab[7], 2),
+            new EnemySpawnInfo(enemyPrefab[10], 4),
+            new EnemySpawnInfo(enemyPrefab[12], 2),
+            new EnemySpawnInfo(enemyPrefab[13], 1),
+            }
+            };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+        else if (stageName == "ChaosStage3")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[7], 3),
+            new EnemySpawnInfo(enemyPrefab[8], 3),
+            new EnemySpawnInfo(enemyPrefab[9], 3),
+            new EnemySpawnInfo(enemyPrefab[12], 1),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[7], 4),
+            new EnemySpawnInfo(enemyPrefab[8], 2),
+            new EnemySpawnInfo(enemyPrefab[9], 2),
+            new EnemySpawnInfo(enemyPrefab[12], 2),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[7], 2),
+            new EnemySpawnInfo(enemyPrefab[8], 1),
+            new EnemySpawnInfo(enemyPrefab[9], 3),
+            new EnemySpawnInfo(enemyPrefab[10], 1),
+            new EnemySpawnInfo(enemyPrefab[16], 3),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage4
+        else if (stageName == "ChaosStage4")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[6], 3),
+            new EnemySpawnInfo(enemyPrefab[7], 5),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[7], 4),
+            new EnemySpawnInfo(enemyPrefab[8], 1),
+            new EnemySpawnInfo(enemyPrefab[13], 3),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[14], 3),
+            new EnemySpawnInfo(enemyPrefab[27], 1),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage5
+        else if (stageName == "ChaosStage5")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[6], 2),
+            new EnemySpawnInfo(enemyPrefab[8], 2),
+            new EnemySpawnInfo(enemyPrefab[9], 2),
+            new EnemySpawnInfo(enemyPrefab[11], 4),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[6], 2),
+            new EnemySpawnInfo(enemyPrefab[8], 2),
+            new EnemySpawnInfo(enemyPrefab[9], 2),
+            new EnemySpawnInfo(enemyPrefab[11], 4),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[7], 2),
+            new EnemySpawnInfo(enemyPrefab[8], 1),
+            new EnemySpawnInfo(enemyPrefab[9], 3),
+            new EnemySpawnInfo(enemyPrefab[10], 1),
+            new EnemySpawnInfo(enemyPrefab[16], 3),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage6
+        else if (stageName == "ChaosStage6")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[14], 5),
+            new EnemySpawnInfo(enemyPrefab[16], 5),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[14], 5),
+            new EnemySpawnInfo(enemyPrefab[15], 1),
+            new EnemySpawnInfo(enemyPrefab[16], 3),
+            new EnemySpawnInfo(enemyPrefab[19], 1),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[14], 6),
+            new EnemySpawnInfo(enemyPrefab[15], 1),
+            new EnemySpawnInfo(enemyPrefab[16], 1),
+            new EnemySpawnInfo(enemyPrefab[19], 2),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage7
+        else if (stageName == "ChaosStage7")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[17], 4),
+            new EnemySpawnInfo(enemyPrefab[18], 4),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[16], 2),
+            new EnemySpawnInfo(enemyPrefab[17], 3),
+            new EnemySpawnInfo(enemyPrefab[18], 3),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[28], 1),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage8
+        else if (stageName == "ChaosStage8")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[16], 2),
+            new EnemySpawnInfo(enemyPrefab[19], 2),
+            new EnemySpawnInfo(enemyPrefab[22], 6),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[19], 4),
+            new EnemySpawnInfo(enemyPrefab[22], 6),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[15], 2),
+            new EnemySpawnInfo(enemyPrefab[19], 2),
+            new EnemySpawnInfo(enemyPrefab[22], 4),
+            new EnemySpawnInfo(enemyPrefab[23], 2),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage9
+        else if (stageName == "ChaosStage9")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[19], 2),
+            new EnemySpawnInfo(enemyPrefab[20], 2),
+            new EnemySpawnInfo(enemyPrefab[21], 2),
+            new EnemySpawnInfo(enemyPrefab[22], 4),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[19], 2),
+            new EnemySpawnInfo(enemyPrefab[20], 2),
+            new EnemySpawnInfo(enemyPrefab[21], 2),
+            new EnemySpawnInfo(enemyPrefab[22], 2),
+            new EnemySpawnInfo(enemyPrefab[23], 2),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[19], 2),
+            new EnemySpawnInfo(enemyPrefab[20], 2),
+            new EnemySpawnInfo(enemyPrefab[21], 1),
+            new EnemySpawnInfo(enemyPrefab[22], 4),
+            new EnemySpawnInfo(enemyPrefab[23], 1),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        }
+
+        // ChaosStage10
+        else if (stageName == "ChaosStage10")
+        {
+            List<List<EnemySpawnInfo>> allWaves = new List<List<EnemySpawnInfo>>
+    {
+        // Wave1
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[16], 2),
+            new EnemySpawnInfo(enemyPrefab[20], 3),
+            new EnemySpawnInfo(enemyPrefab[22], 3),
+        },
+        // Wave2
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[19], 1),
+            new EnemySpawnInfo(enemyPrefab[21], 2),
+            new EnemySpawnInfo(enemyPrefab[22], 3),
+            new EnemySpawnInfo(enemyPrefab[23], 2),
+        },
+        // Wave3
+        new List<EnemySpawnInfo>
+        {
+            new EnemySpawnInfo(enemyPrefab[29], 1),
+        }
+    };
+            StartCoroutine(StartSequentialWaves(allWaves));
+        } 
     }
 
     public void InitEnemySpawn()

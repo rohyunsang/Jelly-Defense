@@ -5,13 +5,21 @@ using UnityEngine;
 
 public class EnemyCastle : MonoBehaviour
 {
-    public float HP = 1000f;
+    public float HP = 3000f;
     public float currentHP;
     public TextMeshPro enemyCastleHPTMP;
+    [SerializeField] bool isClear = false;
 
     void Start() // 시작할때 실행돼야함.
     {
         currentHP = HP;
+        enemyCastleHPTMP.text = currentHP.ToString("F0");
+        isClear = false;
+    }
+
+    public void CriticalHit()
+    {
+        currentHP *= 0.1f;
         enemyCastleHPTMP.text = currentHP.ToString("F0");
     }
 
@@ -48,8 +56,10 @@ public class EnemyCastle : MonoBehaviour
         Debug.Log("Enemy Castle HP : " + currentHP); //콘솔창에 출력
         enemyCastleHPTMP.text = currentHP.ToString("F0");
 
-        if (currentHP <= 0)
+        if (currentHP <= 0 && !isClear)
         {
+            isClear = true;
+            StageManager.Instance.EstimateStageStar();
             UIManager.instance.OnStageClearScreen();
             
         }

@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 0
+  classType: 0
 --- !u!65 &7159187867960628704
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -398,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 6017196609115446882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6023564198538526042}
@@ -469,9 +470,11 @@ MonoBehaviour:
   <AttackSpeed>k__BackingField: 0
   <MoveSpeed>k__BackingField: 0
   <AttackRange>k__BackingField: 0
+  <DropJellyPower>k__BackingField: 0
   weaponCollider: {fileID: 7159187867960628704}
   enemyWeapon: {fileID: 2801471253782088560}
   isFire: 0
+  classType: 0
 --- !u!136 &8372058715644362317
 CapsuleCollider:
   m_ObjectHideFlags: 0

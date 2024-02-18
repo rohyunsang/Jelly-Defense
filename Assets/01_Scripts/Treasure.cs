@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class Treasure : MonoBehaviour
 
 
 
+
     void Start()
     {
         slimeTotalDamage = 0f;
@@ -20,7 +22,7 @@ public class Treasure : MonoBehaviour
 
         anim = GetComponent<Animator>();
         
-        Invoke("CompareTotalDamage", 10f);
+        Invoke("CompareTotalDamage", 20f);
     }
 
     public void CompareTotalDamage()
@@ -32,6 +34,8 @@ public class Treasure : MonoBehaviour
 
         if(slimeTotalDamage > enemyTotalDamage)
         {
+            StageManager.Instance.objectOpen = true;
+
             SlimeSpawnManager.instance.isEnhanced = true;
 
             GameObject slimeCastle = GameObject.FindWithTag("SlimeCastle");

@@ -128,6 +128,8 @@ public class DataManager : MonoBehaviour
                 DayManager.Instance.InitGiftCheck();
                 DayManager.Instance.currentGoldRefresh = saveData.currentGoldRefresh;
                 DayManager.Instance.AsyncGoldRefreshText();
+
+                StageManager.Instance.AsyncJsonStageStars();
             }
 
             // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달

@@ -129,38 +129,79 @@ public class DayManager : MonoBehaviour
     {
         if(currentGiftDay == 0)
         {
-            CurrenyManager.Instance.gold += 3000;
-            UIManager.instance.AsycCurrenyUI();
+            SlimeManager.instance.UpdateSlime("AmethystSlime");
         }
         else if (currentGiftDay == 1)
         {
-            CurrenyManager.Instance.gold += 3000;
+            CurrenyManager.Instance.jellyStone += 20;
             UIManager.instance.AsycCurrenyUI();
         }
         else if (currentGiftDay == 2)
         {
-            CurrenyManager.Instance.gold += 3000;
+            CurrenyManager.Instance.gold += 5000;
             UIManager.instance.AsycCurrenyUI();
         }
         else if (currentGiftDay == 3)
         {
-            CurrenyManager.Instance.gold += 3000;
+            CurrenyManager.Instance.jellyStone += 40;
             UIManager.instance.AsycCurrenyUI();
         }
         else if (currentGiftDay == 4)
         {
-            CurrenyManager.Instance.gold += 3000;
+            CurrenyManager.Instance.gold += 5000;
             UIManager.instance.AsycCurrenyUI();
         }
         else if (currentGiftDay == 5)
         {
-            CurrenyManager.Instance.gold += 3000;
+            CurrenyManager.Instance.jellyStone += 40;
             UIManager.instance.AsycCurrenyUI();
         }
         else if (currentGiftDay == 6)
         {
-            CurrenyManager.Instance.gold += 3000;
+            CurrenyManager.Instance.gold += 10000;
+            CurrenyManager.Instance.jellyStone += 50;
             UIManager.instance.AsycCurrenyUI();
         }
+        else if (currentGiftDay == 7)
+        {
+            CurrenyManager.Instance.jellyStone += 50;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 8)
+        {
+            CurrenyManager.Instance.gold += 10000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 9)
+        {
+            CurrenyManager.Instance.jellyStone += 50;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 10)
+        {
+            CurrenyManager.Instance.gold += 10000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 11)
+        {
+            CurrenyManager.Instance.jellyStone += 50;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 12)
+        {
+            CurrenyManager.Instance.gold += 15000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay == 13)
+        {
+            CurrenyManager.Instance.jellyStone += 100;
+            CurrenyManager.Instance.gold += 20000;
+            UIManager.instance.AsycCurrenyUI();
+        }
+        else if (currentGiftDay >= 14)
+        {
+            return;
+        }
+        
     }
 }

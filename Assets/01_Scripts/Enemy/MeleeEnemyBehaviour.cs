@@ -271,6 +271,8 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
 
     void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.CompareTag("Slime") || other.gameObject.CompareTag("SlimeCastle")) weaponCollider.enabled = false;
+
         if (other.gameObject.CompareTag("SlimeWeapon"))
         {
             if(ClassType.Tanker == classType)  // 몬스터가 탱커

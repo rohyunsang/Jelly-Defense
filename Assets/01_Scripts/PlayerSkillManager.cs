@@ -63,8 +63,8 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void OnClickSkill_1() // Depo need cost 100
     {
-        if (currentPlayerSkillPower < 100f) return;
-        currentPlayerSkillPower -= 100f;
+        if (currentPlayerSkillPower < 150f) return;
+        currentPlayerSkillPower -= 150f;
         Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
         Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
 
