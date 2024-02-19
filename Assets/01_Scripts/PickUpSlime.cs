@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems; // Required for detecting clicks on GameObjects
 
@@ -40,10 +41,10 @@ public class PickUpSlime : MonoBehaviour, IPointerClickHandler, IPointerDownHand
     private IEnumerator CheckLongClick()
     {
         // 2초 대기
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         // 2초 후에 여전히 클릭 중이면 정보창 표시
-        if (Time.time - clickStartTime >= 1.5f)
+        if (Time.time - clickStartTime >= 1.0f)
         {
             longClickDetected = true; // 긴 클릭 감지 상태 설정
             ShowInfoPanel();
@@ -52,6 +53,17 @@ public class PickUpSlime : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 
     private void ShowInfoPanel()
     {
+        //여기 부분. 
+        Debug.Log(gameObject.name);
+        Slime slimeData = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == gameObject.name.Replace("Icon",""));
+        SlimeManager.instance.slimeName.text = slimeData.KRName;
+        SlimeManager.instance.slimeDesText.text = slimeData.DesText;
+        SlimeManager.instance.slimeHPText.text = slimeData.HP.ToString();
+        SlimeManager.instance.slimeAttackText.text = slimeData.AttackDamage.ToString();
+        SlimeManager.instance.slimeDefenseText.text = slimeData.Defense.ToString(); 
+        SlimeManager.instance.slimeMoveSpeedText.text = slimeData.MoveSpeed.ToString();
+        SlimeManager.instance.slimeRangeText.text = slimeData.AttackRange.ToString();
+        SlimeManager.instance.slimeAttackSpeedText.text = slimeData.AttackSpeed.ToString();
         SlimeManager.instance.ActivateSlimeInfo();
     }
 

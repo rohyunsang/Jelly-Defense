@@ -245,11 +245,11 @@ public class UIManager : MonoBehaviour
                 enemyDesText.text = "독을 멀리까지 내뿜어 슬라임의 젤리를 오염시킨다. \n8개의 다리가 컴플렉스라 매끈한 슬라임을 부러워한다.";
                 break;
             case "Skeleton":
-                enemyName.text = "대게";
+                enemyName.text = "해골";
                 enemyDesText.text = "슬라임의 피부를 부러워하는 해골은 슬라임 젤리를 얻어 로션 대신 바르려고 한다.";
                 break;
             case "CrabMonster":
-                enemyName.text = "해골";
+                enemyName.text = "대게";
                 enemyDesText.text = "오염된 젤리로 인해 흉측해진 집게다리를 감추고 싶어 한다. \n과거 단단한 몸과 아름다운 집게다리로 미스터 대게 수상 경력이 있다.";
                 break;
             case "RatAssassin":

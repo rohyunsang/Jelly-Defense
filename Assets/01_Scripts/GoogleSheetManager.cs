@@ -61,7 +61,7 @@ public class GoogleSheetManager : MonoBehaviour
         for (int i = 1; i < lines.Length; i++) // 첫 번째 줄은 헤더이므로 건너뜁니다.
         {
             string[] fields = lines[i].Split('\t');
-            if (fields.Length >= 11) // 필드가 충분한지 확인
+            if (fields.Length >= 12) // 필드가 충분한지 확인
             {
                 Slime slime = new Slime()
                 {
@@ -76,6 +76,8 @@ public class GoogleSheetManager : MonoBehaviour
                     Class = int.Parse(fields[8]),
                     AttackRange = float.Parse(fields[9]),
                     Cost = int.Parse(fields[10]),
+                    KRName = fields[11],
+                    DesText = fields[12],
                 };
                 slimes.Add(slime);
             }
@@ -123,6 +125,8 @@ public class Slime
     public int Class;
     public float AttackRange;
     public int Cost;
+    public string KRName;
+    public string DesText;
 }
 [System.Serializable]
 public class Enemy

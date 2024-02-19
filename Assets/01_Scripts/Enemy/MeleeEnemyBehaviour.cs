@@ -70,6 +70,7 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
             AttackSpeed = enemyData.AttackSpeed;
             AttackRange = enemyData.AttackRange;
             DropJellyPower = enemyData.DropJellyPower;
+            navAgent.speed = enemyData.MoveSpeed;
         }
         else
         {

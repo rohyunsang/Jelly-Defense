@@ -41,6 +41,16 @@ public class SlimeManager : MonoBehaviour
     public GameObject[] SlimeButtons;
 
     public GameObject slimeInfo;
+    public TextMeshProUGUI slimeName;
+    public TextMeshProUGUI slimeDesText;
+    
+    public TextMeshProUGUI slimeHPText;
+    public TextMeshProUGUI slimeAttackText;
+    public TextMeshProUGUI slimeDefenseText;
+    public TextMeshProUGUI slimeMoveSpeedText;
+    public TextMeshProUGUI slimeRangeText;
+    public TextMeshProUGUI slimeAttackSpeedText;
+
 
     public List<int> epicSlimeSkillIconIdx;
     public List<string> epicSlimeSkillIconName;

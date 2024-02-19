@@ -84,6 +84,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
             Defense = slimeData.Defense;
             AttackSpeed = slimeData.AttackSpeed;
             AttackRange = slimeData.AttackRange;
+            navAgent.speed = slimeData.MoveSpeed;
          }
          else
          {

@@ -59,7 +59,8 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
 
         string enemyPrefabName = gameObject.name.Replace("(Clone)", "");
 
-        Enemy enemyData = GoogleSheetManager.Instance.enemys.FirstOrDefault(enemy => enemy.Name == enemyPrefabName);
+        Enemy enemyData = GoogleSheetManager
+            .Instance.enemys.FirstOrDefault(enemy => enemy.Name == enemyPrefabName);
 
         if (enemyData != null)
         {
@@ -70,6 +71,7 @@ public class MagicianEnemyBehaviour : MonoBehaviour, IEnemy
             AttackSpeed = enemyData.AttackSpeed;
             AttackRange = enemyData.AttackRange;
             DropJellyPower = enemyData.DropJellyPower;
+            navAgent.speed = enemyData.MoveSpeed;
         }
         else
         {

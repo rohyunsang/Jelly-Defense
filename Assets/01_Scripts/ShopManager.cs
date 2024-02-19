@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -76,12 +77,15 @@ public class ShopManager : MonoBehaviour
                     // purchasedSlime 찾기
                     Transform purchasedSlime = child;
 
+                    purchasedSlime.gameObject.GetComponent<Button>().enabled = false;
+
                     // "PurchasedCompleteImage" 자식 오브젝트 찾기
                     Transform purchasedCompleteImage = purchasedSlime.Find("PurchaseCompleteImage");
                     if (purchasedCompleteImage != null)
                     {
                         purchasedCompleteImage.gameObject.SetActive(true);
                     }
+
 
                     break; // 찾았으니 루프 종료
                 }
@@ -110,6 +114,8 @@ public class ShopManager : MonoBehaviour
                 {
                     // purchasedSlime 찾기
                     Transform purchasedSlime = child;
+
+                    purchasedSlime.gameObject.GetComponent<Button>().enabled = false;
 
                     // "PurchasedCompleteImage" 자식 오브젝트 찾기
                     Transform purchasedCompleteImage = purchasedSlime.Find("PurchaseCompleteImage");
