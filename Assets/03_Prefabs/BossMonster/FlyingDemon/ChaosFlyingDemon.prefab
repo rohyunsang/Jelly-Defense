@@ -1934,7 +1934,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bfd95676563b425a973ae4cbd940d5f0, type: 2}
+  - {fileID: 2100000, guid: 6dde8a74ee2c4433b62a4c9b27a167f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2363,6 +2363,8 @@ MonoBehaviour:
   magicSpeed: 20
   magicPrefab: {fileID: 426949901636449925, guid: e9cd4e86fcc60074b809d572595874f0,
     type: 3}
+  barrierDefensePower: 0.3
+  buffAttackPower: 0.3
 --- !u!1 &3891923349452443984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,6 +2686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 0
+  classType: 0
 --- !u!65 &1593855178664504242
 BoxCollider:
   m_ObjectHideFlags: 0

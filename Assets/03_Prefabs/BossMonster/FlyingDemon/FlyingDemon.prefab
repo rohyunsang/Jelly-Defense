@@ -2363,6 +2363,8 @@ MonoBehaviour:
   magicSpeed: 20
   magicPrefab: {fileID: 426949901636449925, guid: e9cd4e86fcc60074b809d572595874f0,
     type: 3}
+  barrierDefensePower: 0.15
+  buffAttackPower: 0.15
 --- !u!1 &3891923349452443984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,6 +2686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 0
+  classType: 0
 --- !u!65 &1593855178664504242
 BoxCollider:
   m_ObjectHideFlags: 0

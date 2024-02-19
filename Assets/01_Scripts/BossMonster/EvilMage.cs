@@ -54,7 +54,7 @@ public class EvilMage : MonoBehaviour, IEnemy
     private bool hasSpawnedAllies = false; // 아군 몬스터 소환 여부 체크
     private bool hasLockedJelly = false; // 소환 코스트 잠금 여부 체크
 
-
+    public bool isNormalBoss = true;
 
     void Awake()
     {
@@ -130,8 +130,14 @@ public class EvilMage : MonoBehaviour, IEnemy
             hasSpawnedAllies = true; // 아군 몬스터를 소환했음을 표시
         }
 
+        if (CurrentHP / MaxHP <= 0.30f && !hasLockedJelly && !isNormalBoss)
+        {
+            LockJellySkill();
+            hasLockedJelly = true; // 소환 코스트를 잠갔음을 표시
+        }
+
         // 체력이 15% 이하이고 아직 소환 코스트를 잠그지 않았다면 잠금 스킬 실행
-        if (CurrentHP / MaxHP <= 0.15f && !hasLockedJelly)
+        if (CurrentHP / MaxHP <= 0.15f && !hasLockedJelly && isNormalBoss)
         {
             LockJellySkill();
             hasLockedJelly = true; // 소환 코스트를 잠갔음을 표시
@@ -337,6 +343,11 @@ public class EvilMage : MonoBehaviour, IEnemy
     {
         // 소환할 몬스터의 인덱스를 정의합니다.
         int[] spawnIndexes = new int[] { 4, 5, 5, 6 };
+
+        if (!isNormalBoss)
+        {
+            spawnIndexes = new int[] { 19, 20, 21, 22, 23 };
+        }
 
         // 각 인덱스에 대해 몬스터를 소환합니다.
         for (int i = 0; i < spawnIndexes.Length; i++)

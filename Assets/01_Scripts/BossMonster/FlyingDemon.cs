@@ -67,6 +67,8 @@ public class FlyingDemon : MonoBehaviour, IEnemy
     public float magicSpeed = 20f;
     public GameObject magicPrefab;
 
+    public float barrierDefensePower;
+    public float buffAttackPower;
 
 
     void Awake()
@@ -385,7 +387,7 @@ public class FlyingDemon : MonoBehaviour, IEnemy
         if (barrierPrefab != null) // 방어막 프리팹이 설정되어 있다면
         {
             activeBarrier = Instantiate(barrierPrefab, transform.position, Quaternion.identity, transform); // 현재 위치에 방어막 생성
-            Defense += Defense * 0.15f; // 방어력 15% 증가
+            Defense += Defense * barrierDefensePower; // 방어력 15% 증가
             barrierActivated = true; // 방어막 활성화 상태를 true로 설정
         }
     }
@@ -401,7 +403,7 @@ public class FlyingDemon : MonoBehaviour, IEnemy
         }
         Instantiate(buffPrefab, transform.position, Quaternion.identity, transform); // 현재 위치에 버프 생성
         Defense = originalDefense; // 방어력을 원래대로 복원
-        AttackDamage += AttackDamage * 0.15f; // 공격력을 원래 공격력의 15% 증가
+        AttackDamage += AttackDamage * buffAttackPower; // 공격력을 원래 공격력의 15% 증가
         barrierActivated = false; // 방어막 비활성화 상태로 변경
     }
 }
