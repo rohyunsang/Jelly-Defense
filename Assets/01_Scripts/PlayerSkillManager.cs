@@ -139,13 +139,16 @@ public class PlayerSkillManager : MonoBehaviour
         Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
 
         // Calculate the direction vector from the slime castle to the enemy castle
+
+        Vector3 midPos = (enemyCastleTransform.position + slimeCastleTransform.position) / 2;
+
         Vector3 direction = (enemyCastleTransform.position - slimeCastleTransform.position).normalized;
 
         // Calculate the position 20 units away towards the enemy castle
         Vector3 skillPosition = slimeCastleTransform.position + direction * 40f;
 
         // Assuming you have a skill prefab or effect to instantiate
-        GameObject skillEffect = Instantiate(meteorPrefab, skillPosition, Quaternion.identity);
+        GameObject skillEffect = Instantiate(meteorPrefab, midPos, Quaternion.identity);
 
         // Rotate the skill effect to face the enemy castle
         skillEffect.transform.LookAt(enemyCastleTransform);
