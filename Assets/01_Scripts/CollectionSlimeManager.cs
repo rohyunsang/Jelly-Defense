@@ -31,6 +31,7 @@ public class CollectionSlimeManager : MonoBehaviour
 
     public void ShowSlimeInfoPanel(int idx)
     {
+        UIManager.instance.UIClickSound();
         SlimeInfoPanels[prevIdx].SetActive(false);
         SlimeInfoPanels[idx].SetActive(true);
         prevIdx = idx;

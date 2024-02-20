@@ -117,7 +117,7 @@ public class AdManager : MonoBehaviour
         CurrenyManager.Instance.jellyStone += 100; // ÀÏ´Ü 100°ñµå Áà º½ 
         DayManager.Instance.jellyStoneAd--; // ÇÑ°³ ±ïÀ½
 
-        DataManager.Instance.JsonSave(); // ¹Ù¾Æ·Î ÀúÀå 
+        DataManager.Instance.JsonSave(); // ÀúÀå 
         UIManager.instance.AsycCurrenyUI();
         LoadAds();
     }

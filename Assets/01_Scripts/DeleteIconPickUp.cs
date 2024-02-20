@@ -7,6 +7,7 @@ public class DeleteIconPickUp : MonoBehaviour
     public GameObject slimeIconContent;
     public void DeleteSlimeIcon(UnityEngine.UI.Button button)
     {
+        UIManager.instance.UIClickSound();
         // 버튼의 Transform 컴포넌트에서 첫 번째 자식 오브젝트를 찾음
         if (button.transform.childCount > 0)
         {

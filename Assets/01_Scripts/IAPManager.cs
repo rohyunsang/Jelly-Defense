@@ -84,6 +84,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     /* 구매를 처리하는 함수 */
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
     {
+        UIManager.instance.UIClickSound();
 
         var product = purchaseEvent.purchasedProduct;
         Debug.Log("구매에 성공했습니다" + product.definition.id);

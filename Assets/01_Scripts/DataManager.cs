@@ -94,6 +94,7 @@ public class DataManager : MonoBehaviour
 
                 DayManager.Instance.goldAd = saveData.goldAd;
                 DayManager.Instance.jellyStoneAd = saveData.jellyStoneAd;
+                DayManager.Instance.actionPointAd = saveData.actionPointAd;
 
 
                 // 스테이지 클리어 상태 불러오기
@@ -132,6 +133,11 @@ public class DataManager : MonoBehaviour
                 DayManager.Instance.AsyncGoldRefreshText();
 
                 StageManager.Instance.AsyncJsonStageStars();
+
+                for (int i = 0; i < saveData.showShopSlimes.Count; i++)
+                {
+                    SlimeManager.instance.showShopSlimes.Add(saveData.showShopSlimes[i]);
+                }
             }
 
             // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달
@@ -143,6 +149,7 @@ public class DataManager : MonoBehaviour
         
         // UI 연결 
         UIManager.instance.AsycCurrenyUI();
+        JsonSave();
     }
 
     public void JsonSave()
@@ -189,9 +196,6 @@ public class DataManager : MonoBehaviour
         }
 
         saveData.lastLoginDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); // 날짜와 시간 모두 저장
-
-
-
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);

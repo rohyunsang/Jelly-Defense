@@ -69,6 +69,7 @@ public class PickUpSlime : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 
     private void TryPickUpSlime()
     {
+        UIManager.instance.UIClickSound();
         // 이미 선택된 레전드 슬라임이 있는지 확인
         if (!string.IsNullOrEmpty(SlimeManager.instance.selectedLegendSlime))
         {

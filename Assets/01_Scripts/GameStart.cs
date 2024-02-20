@@ -7,4 +7,5 @@ public class GameStart : MonoBehaviour
     {
         SceneManager.LoadScene("Main"); //메인씬으로 이동
     }
+
 }

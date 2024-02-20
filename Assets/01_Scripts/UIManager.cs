@@ -106,6 +106,15 @@ public class UIManager : MonoBehaviour
     public GameObject AdsShopPanel;
     public GameObject CashShopPanel;
 
+    public GameObject purchaseInfoPanel;
+    public int needGold;
+    public int needJelly;
+    public int purchasedGold;
+    public int purchasedActionPoint;
+    public TextMeshProUGUI itemDesText;
+
+    public GameObject purchaseFailInfoPanel;
+
     [Header("Collection")]
     public GameObject collectionScreen;
     public GameObject preButtonCollectionScreen;
@@ -135,8 +144,12 @@ public class UIManager : MonoBehaviour
     public GameObject adManager;
     public GameObject iAPManager;
     public GameObject actionPointManager;
+    public GameObject audioManager;
 
-
+    public void UIClickSound()
+    {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_UI_ClickSound);
+    }
 
     #region TapBar
 
@@ -155,6 +168,7 @@ public class UIManager : MonoBehaviour
     #region MainScreen 
     public void OnClickBattleButton() //배틀 버튼 누르면
     {
+        UIClickSound();
         UIBackGround.SetActive(true);
         stageScreen.SetActive(true); //스테이지 화면 열기
         stageScreenBackButton.SetActive(true);
@@ -166,20 +180,24 @@ public class UIManager : MonoBehaviour
 
     public void OffSettingScreenMain()
     {
+        UIClickSound();
         settingScreenMain.SetActive(false);
         UIBackGroundLight.SetActive(false);
     }
     public void OnSettingScreenMain()
     {
+        UIClickSound();
         settingScreenMain.SetActive(true);
         UIBackGroundLight.SetActive(true);
     }
     public void OnClick_OpenURL() // 이용 약관
     {
+        UIClickSound();
         Application.OpenURL("https://sites.google.com/view/jellybangeodae"); //연결원하는 사이트
     }
     public void OnClickOpenPersonalURL() // 개인 정보 취급 방침
     {
+        UIClickSound();
         Application.OpenURL("https://sites.google.com/view/jellybangeodae"); //연결원하는 사이트
     }
 
@@ -190,6 +208,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeMode()
     {
+        UIClickSound();
         if (currentModeIsNormal)
         {
             for (int i = 0; i < 10; i++)
@@ -219,6 +238,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowEnemyInfoText(UnityEngine.UI.Button button)
     {
+        UIClickSound();
         switch (button.name)
         {
             case "TurtleShell":
@@ -325,7 +345,7 @@ public class UIManager : MonoBehaviour
         enemyInfoPanel.SetActive(true);
     }
 
-    public void ShowEnemyIcon()
+    public void ShowEnemyIcon()  //UI Sound 안넣음
     {
         foreach(GameObject enemyIcon in enemyIcons)
         {
@@ -565,6 +585,7 @@ public class UIManager : MonoBehaviour
 
     public void OffStageScreen() //스테이지 나가기 버튼 누르면
     {
+        UIClickSound();
         stageScreen.SetActive(false); //스테이지 화면 닫기
         UIBackGround.SetActive(false);
     }
@@ -572,16 +593,19 @@ public class UIManager : MonoBehaviour
    
     public void OnClickButtonEnemy() //적군을 터치하면
     {
+        UIClickSound();
         imageEnemyExplain.SetActive(true); //해당 적군의 설명이 보임
     }
 
     public void OnClickImageEnemyButton() //적군설명을 터치하면
     {
+        UIClickSound();
         imageEnemyExplain.SetActive(false); //해당 적군의 설명이 사라짐
     }
     public void OnClickStageScreenStartButton() //스테이지 시작하기 버튼 누르면
     {
-        if(CurrenyManager.Instance.actionPoint < stageActionPoint)
+        UIClickSound();
+        if (CurrenyManager.Instance.actionPoint < stageActionPoint)
         {
             InsufficientAPInfo.SetActive(true);
         }
@@ -595,9 +619,9 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
     {
+        UIClickSound();
+
         selectedStageName = button.name;
-
-
 
         if (StageManager.Instance.CanEnterStage(selectedStageName))
         {
@@ -606,6 +630,7 @@ public class UIManager : MonoBehaviour
     }
     public void OffImageStageStory()
     {
+        UIClickSound();
         imageStageStory.SetActive(false);
     }
 
@@ -618,6 +643,7 @@ public class UIManager : MonoBehaviour
 
     public void OffPickUpScreen() 
     {
+        UIClickSound();
         pickUpScreen.SetActive(false); //픽업화면 닫기
         InitSlimePickUp();
     }
@@ -630,7 +656,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStartButtonPickUpScreen()
     {
-        if(SlimeManager.instance.FindFirstEmptySlot() == -1)
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_BattleStartSound);
+        if (SlimeManager.instance.FindFirstEmptySlot() == -1)
         {
             ChangeCanvasToHUD();
             SlimeManager.instance.SelectedSlimes();
@@ -739,6 +766,7 @@ public class UIManager : MonoBehaviour
 
     public void OnOffEpicSlimeSkill()
     {
+        UIClickSound();
         epicSlimeSkillIcons.SetActive(!epicSlimeSkillIcons.activeSelf);
     }
 
@@ -749,6 +777,7 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickHomeButtonStageClearScreen()
     {
+        UIClickSound();
         stageClearScreen.SetActive(false);
         GameManager.Instance.ChangeSceneToMain();
         GameManager.Instance.InitAllStageEnd();
@@ -760,7 +789,7 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickHomeButtonStageFailScreen()
     {
-        //stageFailScreen.SetActive(false);
+        UIClickSound();
         GameManager.Instance.ChangeSceneToMain();
         GameManager.Instance.InitAllStageEnd();
         
@@ -774,12 +803,14 @@ public class UIManager : MonoBehaviour
 
     public void HUDSettingButton() //설정창 들어가기 버튼
     {
+        UIClickSound();
         GameManager.Instance.PauseGame();
         HUDsettingScreen.SetActive(true);
         HUDBackGroundLight.SetActive(true);
     }
     public void HUDResumeButton()  //이어서 하기 버튼
     {
+        UIClickSound();
         HUDsettingScreen.SetActive(false);
         GameManager.Instance.ResumeGame();
         HUDBackGroundLight.SetActive(false);
@@ -787,6 +818,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickRetryButton() //
     {
+        UIClickSound();
         HUDsettingScreen.SetActive(false);
 
         //Init
@@ -799,10 +831,12 @@ public class UIManager : MonoBehaviour
 
     public void OnClickHelpButton()
     {
+        UIClickSound();
         Debug.Log("OnClickHelpButton");
     }
     public void OnClickHomeButton()
     {
+        UIClickSound();
         HUDsettingScreen.SetActive(false);
         //Init
         GameManager.Instance.ChangeSceneToMain();
@@ -816,6 +850,7 @@ public class UIManager : MonoBehaviour
 
     public void JellyRefreshButton()
     {
+        UIClickSound();
         if (CurrenyManager.Instance.jellyStone - 10 >= 0)
         {
             ShopManager.Instance.purchasePanel.SetActive(false);
@@ -835,6 +870,7 @@ public class UIManager : MonoBehaviour
     }
     public void GoldRefreshButton()
     {
+        UIClickSound();
         if (CurrenyManager.Instance.gold - 10 >= 0 && DayManager.Instance.currentGoldRefresh > 0)
         {
             DayManager.Instance.currentGoldRefresh--;
@@ -858,6 +894,7 @@ public class UIManager : MonoBehaviour
 
     public void OnShopScreen()
     {
+        UIClickSound();
         UIBackGround.SetActive(true);
         shopScreen.SetActive(true);
         shopScreenBackButton.SetActive(true);
@@ -865,6 +902,7 @@ public class UIManager : MonoBehaviour
     }
     public void OffShopScreen()
     {
+        UIClickSound();
         UIBackGround.SetActive(false);
         shopScreen.SetActive(false);
         shopScreenBackButton.SetActive(false);
@@ -872,18 +910,21 @@ public class UIManager : MonoBehaviour
 
     public void OnClickLimitSaleButton()
     {
+        UIClickSound();
         LimitedSalePanel.SetActive(true);
         AdsShopPanel.SetActive(false);
         CashShopPanel.SetActive(false);
     }
     public void OnClickAddShopButton()
     {
+        UIClickSound();
         LimitedSalePanel.SetActive(false);
         AdsShopPanel.SetActive(true);
         CashShopPanel.SetActive(false);
     }
     public void OnClickCashStoreButton()
     {
+        UIClickSound();
         LimitedSalePanel.SetActive(false);
         AdsShopPanel.SetActive(false);
         CashShopPanel.SetActive(true);
@@ -895,34 +936,142 @@ public class UIManager : MonoBehaviour
     #region shop purchase
     public void OnClickFreeGoldButton()
     {
-        // 광고 리미트 확인 -> 0이 아니면 
-        // 광고 띄우기
-        // 재화 추가하기
-        // json 저장
-        // 광고 리미트 --
+        UIClickSound();
+
         Debug.Log("광고 버튼 눌림 ");
         AdManager.instance.ShowAds(0); // 임시로 골드는 0, 젤리는 1 
 
     }
     public void OnClickFreeJellyButton()
     {
+        UIClickSound();
+
         Debug.Log("광고 버튼 눌림 ");
         AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
     }
     public void OnClickFreeActionPointButton()
     {
+        UIClickSound();
+
         Debug.Log("광고 버튼 눌림 ");
         AdManager.instance.ShowAds(2);
     }
 
-
-    /*
-    public void InitAdUI(int goldAd, int jellyStoneAd)
+    public void BuyGoldPackage(int needJelly)
     {
-        goldAdText.text = goldAd.ToString() + " / 5";
-        jellyStoneAdText.text = jellyStoneAd.ToString() + " / 5";
-    } 
-     */
+        UIClickSound();
+
+        this.needJelly = needJelly;
+        purchasedActionPoint = 0;
+        purchasedGold = 0;
+
+        if (CurrenyManager.Instance.jellyStone >= needJelly)
+        {
+            purchaseInfoPanel.SetActive(true);
+        }
+        else
+        {
+            purchaseFailInfoPanel.SetActive(true);
+        }
+
+        if (needJelly == 30)
+        {
+            itemDesText.text = "골드 묶음\r\n<#08A200>10,000</color>";
+            purchasedGold = 10000;
+        }
+        else if (needJelly == 80)
+        {
+            itemDesText.text = "골드 가방\r\n<#08A200>30,000</color> <#FF0F00>+ 10%</color>";
+
+            purchasedGold = 33000;
+        }
+        else if (needJelly == 120)
+        {
+            itemDesText.text = "골드 상자\r\n<#08A200>50,000</color> <#FF0F00>+ 30%</color>";
+
+            purchasedGold = 65000;
+        }
+        else if(needJelly == 250)
+        {
+            itemDesText.text = "골드 박스\r\n<#08A200>100,000</color> <#FF0F00>+ 50%</color>";
+
+            purchasedGold = 150000;
+        }
+        else
+        {
+            Debug.Log("error + not jelly type");
+        }
+    }
+    public void BuyActionPointPackage(int needJellyOrGold)
+    {
+        UIClickSound();
+        this.needGold = 0;
+        this.needJelly = 0;
+        purchasedActionPoint = 0;
+        purchasedGold = 0;
+
+        if (needJellyOrGold > 500)
+        {
+            this.needGold = needJellyOrGold;
+        }
+        else
+        {
+            this.needJelly = needJellyOrGold;
+        }
+
+        if (CurrenyManager.Instance.jellyStone >= needJelly && CurrenyManager.Instance.gold >= needGold)
+        {
+            purchaseInfoPanel.SetActive(true);
+        }
+        else
+        {
+            purchaseFailInfoPanel.SetActive(true);
+        }
+
+        if (needJelly == 80)
+        {
+            itemDesText.text = "행동력 가방\r\n<#1192C5>60개</color> <#FF0F00>+ 30%</color>";
+
+            purchasedActionPoint = 78;
+        }
+        else if (needJelly == 120)
+        {
+            itemDesText.text = "행동력 상자\r\n<#1192C5>100개</color> <#FF0F00>+ 50%</color>";
+
+            purchasedActionPoint = 150;
+        }
+        else if (needGold == 9000)
+        {
+            itemDesText.text = "행동력 주머니\r\n<#1192C5>20개</color>";
+
+            purchasedActionPoint = 20;
+        }
+        else if (needGold == 20000)
+        {
+            itemDesText.text = "행동력 묶음\r\n<#1192C5>50개</color> <#FF0F00>+ 10%</color>";
+
+            purchasedActionPoint = 150;
+        }
+        else
+        {
+            Debug.Log("error + not jelly type");
+        }
+    }
+
+    public void OnClickPurchasePanelYesButton()
+    {
+        CurrenyManager.Instance.jellyStone -= needJelly;
+        CurrenyManager.Instance.gold -= needGold;
+        CurrenyManager.Instance.gold += purchasedGold;
+        CurrenyManager.Instance.actionPoint += purchasedActionPoint;
+        if (CurrenyManager.Instance.actionPoint > 180) CurrenyManager.Instance.actionPoint = 180;
+
+        AsycCurrenyUI();
+        DataManager.Instance.JsonSave();
+    }
+
+
+
 
 
     #endregion
@@ -931,6 +1080,8 @@ public class UIManager : MonoBehaviour
 
     public void OnCollectionScreen()
     {
+        UIClickSound();
+
         UIBackGround.SetActive(true);
         preButtonCollectionScreen.SetActive(true);
         collectionScreen.SetActive(true);
@@ -938,6 +1089,8 @@ public class UIManager : MonoBehaviour
 
     public void OffCollectionScreen()
     {
+        UIClickSound();
+
         UIBackGround.SetActive(false);
         preButtonCollectionScreen.SetActive(false);
         collectionScreen.SetActive(false);
@@ -969,5 +1122,6 @@ public class UIManager : MonoBehaviour
         Destroy(adManager);
         Destroy(iAPManager);
         Destroy(actionPointManager);
+        Destroy(audioManager);
     }
 }
