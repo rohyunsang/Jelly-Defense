@@ -140,7 +140,7 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
         }
         float currentVelocity = navAgent.velocity.magnitude;// 움직임 여부를 판단
 
-        if (currentVelocity <= 1f)
+        if (currentVelocity <= 0.5f)
         {
             anim.SetBool("isMove", false); //idle 애니메이션 실행
         }

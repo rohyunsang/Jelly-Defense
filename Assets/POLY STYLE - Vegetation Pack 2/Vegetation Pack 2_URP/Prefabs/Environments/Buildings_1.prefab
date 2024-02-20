@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 619928411}
   - component: {fileID: 619928410}
   - component: {fileID: 619928409}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: SlimeCastleHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  - {fileID: 3859116010438062056, guid: 7a3798de0c660b74c8b0478f257c1d6b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,8 +102,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7a3798de0c660b74c8b0478f257c1d6b, type: 2}
+  m_sharedMaterial: {fileID: 3859116010438062056, guid: 7a3798de0c660b74c8b0478f257c1d6b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -186,7 +187,7 @@ GameObject:
   - component: {fileID: 1557854049}
   - component: {fileID: 1557854050}
   - component: {fileID: 1557854048}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Buildings_1
   m_TagString: SlimeCastle
   m_Icon: {fileID: 0}
