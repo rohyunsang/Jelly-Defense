@@ -36,6 +36,10 @@ public class UIManager : MonoBehaviour
     public GameObject imageStageStory;  // 스테이지 번호마다 스토리가 바뀌도록 만들어야 함
     public GameObject settingScreenMain;
     public string selectedStageName = null;
+    public int stageActionPoint;
+    public TextMeshProUGUI actionPointTextStageScreen;
+    public GameObject InsufficientAPInfo;
+
     public TextMeshProUGUI stageText;
     public TextMeshProUGUI stageDesText;
 
@@ -130,6 +134,7 @@ public class UIManager : MonoBehaviour
     public GameObject dayManager;
     public GameObject adManager;
     public GameObject iAPManager;
+    public GameObject actionPointManager;
 
 
 
@@ -334,6 +339,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[1].SetActive(true);
                 stageText.text = "[STAGE 1]";
                 stageDesText.text = "정신없이 끌려왔지만 슬라임의 왕으로서 첫 전투에 참여 해야한다.\n일단 살아남아보자!";
+                stageActionPoint = 7;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "NormalStage2":
                 enemyIcons[0].SetActive(true);
@@ -341,6 +348,9 @@ public class UIManager : MonoBehaviour
                 enemyIcons[2].SetActive(true);
                 stageText.text = "[STAGE 2]";
                 stageDesText.text = "아직도 미지의 시계인 이곳에서 돌아갈 방법을 찾고있지만 쉽지않다.\n일단은 전투에 익숙해지도록하자 ㅠㅠ";
+                stageActionPoint = 8;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
                 break;
             case "NormalStage3":
                 enemyIcons[0].SetActive(true);
@@ -349,6 +359,9 @@ public class UIManager : MonoBehaviour
                 enemyIcons[3].SetActive(true);
                 stageText.text = "[STAGE 3]";
                 stageDesText.text = "아인슬타인과 이야기를 나누었지만 답답함은 여전하다.\n\n그나저나 물에 비친 내 모습을 보니 조금.. 귀여울지도?";
+                stageActionPoint = 9;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
                 break;
             case "NormalStage4":
                 enemyIcons[0].SetActive(true);
@@ -357,6 +370,10 @@ public class UIManager : MonoBehaviour
                 enemyIcons[24].SetActive(true); // Boss
                 stageText.text = "[STAGE 4]";
                 stageDesText.text = "마왕군단이 마침내 대규모 공격을 시작했다.\n하늘을 뒤덮는 그림자.. 난생 처음보는 공포스러운 광경\n\n과연 나는 여기서 살아남을 수 있을까..";
+                stageActionPoint = 19;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
+
                 break;
             case "NormalStage5":
                 enemyIcons[3].SetActive(true);
@@ -365,6 +382,10 @@ public class UIManager : MonoBehaviour
                 enemyIcons[6].SetActive(true);
                 stageText.text = "[STAGE 5]";
                 stageDesText.text = "드래곤에게서 살아남았지만 흔들리는 멘탈\n보스인줄 알았는데 이게 끝이 아니다!";
+                stageActionPoint = 13;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
+
                 break;
             case "NormalStage6":
                 enemyIcons[3].SetActive(true);
@@ -374,6 +395,9 @@ public class UIManager : MonoBehaviour
                 enemyIcons[11].SetActive(true);
                 stageText.text = "[STAGE 6]";
                 stageDesText.text = "최근 수상한 움직임을 보이고있는 마왕군 부대장이 격파된 후 분위기가 변했다.";
+                stageActionPoint = 14;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
                 break;
             case "NormalStage7":
                 enemyIcons[6].SetActive(true);
@@ -383,6 +407,10 @@ public class UIManager : MonoBehaviour
                 enemyIcons[24].SetActive(true); // Boss
                 stageText.text = "[STAGE 7]";
                 stageDesText.text = "드디어 마왕군 대장이 움직이기 시작했다.\n대장의 정체는 아무도 모르지만 최근 마왕군은 죽어도 되살아난다는 소문이 돌고있다..";
+                stageActionPoint = 25;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
+
                 break;
             case "NormalStage8":
                 enemyIcons[6].SetActive(true);
@@ -392,6 +420,10 @@ public class UIManager : MonoBehaviour
                 enemyIcons[16].SetActive(true);
                 stageText.text = "[STAGE 8]";
                 stageDesText.text = "네크로맨서마저 물리쳤고 슬라임대장도 다행히 무사하다.\n그리고.. 서서히 풀리는 젤리석의 비밀";
+                stageActionPoint = 18;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
+
                 break;
             case "NormalStage9":
                 enemyIcons[7].SetActive(true);
@@ -401,6 +433,10 @@ public class UIManager : MonoBehaviour
                 enemyIcons[16].SetActive(true);
                 stageText.text = "[STAGE 9]";
                 stageDesText.text = "점점 더 강력해져가는 마왕군단을 상대로 고전하는 슬라임왕국.\n이번에도 지켜낼 수 있을까?";
+                stageActionPoint = 22;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
+
                 break;
             case "NormalStage10":
                 enemyIcons[6].SetActive(true);
@@ -410,6 +446,9 @@ public class UIManager : MonoBehaviour
                 enemyIcons[24].SetActive(true); // Boss
                 stageText.text = "[STAGE 10]";
                 stageDesText.text = "마침내 마지막 전투만 남겨두고있다.\n" ;
+                stageActionPoint = 45;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
+
                 break;
             case "ChaosStage1":
                 enemyIcons[3].SetActive(true);
@@ -419,6 +458,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[11].SetActive(true);
                 stageText.text = "[STAGE 1]";
                 stageDesText.text = "";
+                stageActionPoint = 11;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage2":
                 enemyIcons[6].SetActive(true);
@@ -428,6 +469,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[16].SetActive(true);
                 stageText.text = "[STAGE 2]";
                 stageDesText.text = "";
+                stageActionPoint = 12;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage3":
                 enemyIcons[7].SetActive(true);
@@ -437,6 +480,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[12].SetActive(true);
                 stageText.text = "[STAGE 3]";
                 stageDesText.text = "";
+                stageActionPoint = 13;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage4":
                 enemyIcons[6].SetActive(true);
@@ -446,6 +491,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[24].SetActive(true);
                 stageText.text = "[STAGE 4]";
                 stageDesText.text = "";
+                stageActionPoint = 36;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage5":
                 enemyIcons[6].SetActive(true);
@@ -455,6 +502,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[11].SetActive(true);
                 stageText.text = "[STAGE 5]";
                 stageDesText.text = "";
+                stageActionPoint = 20;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage6":
                 enemyIcons[14].SetActive(true);
@@ -463,6 +512,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[19].SetActive(true);
                 stageText.text = "[STAGE 6]";
                 stageDesText.text = "";
+                stageActionPoint = 22;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage7":
                 enemyIcons[16].SetActive(true);
@@ -471,6 +522,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[24].SetActive(true);
                 stageText.text = "[STAGE 7]";
                 stageDesText.text = "";
+                stageActionPoint = 48;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage8":
                 enemyIcons[16].SetActive(true);
@@ -479,6 +532,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[23].SetActive(true);
                 stageText.text = "[STAGE 8]";
                 stageDesText.text = "";
+                stageActionPoint = 26;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage9":
                 enemyIcons[19].SetActive(true);
@@ -488,6 +543,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[23].SetActive(true);
                 stageText.text = "[STAGE 9]";
                 stageDesText.text = "";
+                stageActionPoint = 32;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             case "ChaosStage10":
                 enemyIcons[16].SetActive(true);
@@ -497,6 +554,8 @@ public class UIManager : MonoBehaviour
                 enemyIcons[24].SetActive(true);
                 stageText.text = "[STAGE 10]";
                 stageDesText.text = "";
+                stageActionPoint = 70;
+                actionPointTextStageScreen.text = "행동력 소모 " + stageActionPoint.ToString();
                 break;
             default:
                 Debug.LogError("Unknown stage: " + selectedStageName);
@@ -522,16 +581,24 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickStageScreenStartButton() //스테이지 시작하기 버튼 누르면
     {
-        pickUpScreen.SetActive(true); //픽업화면 열기
-        enemyInfoPanel.SetActive(false);
-        OffImageStageStory();
+        if(CurrenyManager.Instance.actionPoint < stageActionPoint)
+        {
+            InsufficientAPInfo.SetActive(true);
+        }
+        else
+        {
+            pickUpScreen.SetActive(true); //픽업화면 열기
+            enemyInfoPanel.SetActive(false);
+            OffImageStageStory();
+        }
     }
 
     public void OnClickStageButton(UnityEngine.UI.Button button) //스테이지를 터치하면 
     {
         selectedStageName = button.name;
 
-        // 여기에 클리어 했냐 안했냐 체크 
+
+
         if (StageManager.Instance.CanEnterStage(selectedStageName))
         {
             imageStageStory.SetActive(true); //해당 스테이지의 스토리가 보임
@@ -901,5 +968,6 @@ public class UIManager : MonoBehaviour
         Destroy(dayManager);
         Destroy(adManager);
         Destroy(iAPManager);
+        Destroy(actionPointManager);
     }
 }

@@ -77,6 +77,11 @@ public class GameManager : MonoBehaviour
             EnemySpawnManager.instance.EnemySpawnTable(originScene);
             PlayerSkillManager.instance.InitPlayerSkill();
             EnhanceObject.Instance.StageSwitch();
+            
+            
+            CurrenyManager.Instance.actionPoint -= UIManager.instance.stageActionPoint;
+            UIManager.instance.AsycCurrenyUI();
+            DataManager.Instance.JsonSave();
         }
         
 

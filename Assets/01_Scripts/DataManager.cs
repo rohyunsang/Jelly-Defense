@@ -65,7 +65,7 @@ public class DataManager : MonoBehaviour
         if (!File.Exists(path))
         {
             // 파일이 없을 경우 초기값 설정
-            CurrenyManager.Instance.actionPoint = 150; // 예시 초기값
+            CurrenyManager.Instance.actionPoint = 180; // 예시 초기값
             CurrenyManager.Instance.gold = 99999; // 예시 초기값
             CurrenyManager.Instance.jellyStone = 99999; // 예시 초기값
             DayManager.Instance.goldAd = 1 ;
@@ -117,6 +117,8 @@ public class DataManager : MonoBehaviour
                 {
                     SlimeManager.instance.hasSlimes.Add(saveData.slimeNames[i], saveData.hasSlime[i]);
                 }
+
+                ActionPointManager.Instance.UpdateActionPoints(DateTime.Parse(saveData.lastLoginDate));
 
                 SlimeManager.instance.InitStartSlimeManager();
 
@@ -186,9 +188,10 @@ public class DataManager : MonoBehaviour
             saveData.showShopSlimes.Add(slime);
         }
 
-        saveData.lastLoginDate = DateTime.Now.ToString("yyyy-MM-dd");
+        saveData.lastLoginDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); // 날짜와 시간 모두 저장
 
-        
+
+
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
