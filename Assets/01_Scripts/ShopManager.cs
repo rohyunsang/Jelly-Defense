@@ -64,6 +64,7 @@ public class ShopManager : MonoBehaviour
         purchasePanel.SetActive(false);
         if(CurrenyManager.Instance.gold - goldPrice >= 0)
         {
+            AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_PurchaseSound);
             purchaseSuccessPanel.SetActive(true);
             CurrenyManager.Instance.gold -= goldPrice;
             SlimeManager.instance.UpdateSlime(currentSlimeName);
@@ -102,6 +103,7 @@ public class ShopManager : MonoBehaviour
 
         if(CurrenyManager.Instance.jellyStone - jellyPrice >= 0)
         {
+            AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_PurchaseSound);
             purchaseSuccessPanel.SetActive(true);
             CurrenyManager.Instance.jellyStone -= jellyPrice;
             SlimeManager.instance.UpdateSlime(currentSlimeName);

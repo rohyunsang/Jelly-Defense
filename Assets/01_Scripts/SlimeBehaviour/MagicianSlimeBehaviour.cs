@@ -245,6 +245,9 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
 
     void Attack()//공격
     {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SkillSoundRanged);
+
+
         MagicArrow(target, magicPrefab);
         //anim.SetTrigger("Attack02");
         StopNavAgent();
@@ -307,6 +310,7 @@ public class MagicianSlimeBehaviour : MonoBehaviour, ISlime
     }
     void Die() //사망
     {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SlimeDeathSound);
         Destroy(gameObject); //오브젝트 삭제
     }
 

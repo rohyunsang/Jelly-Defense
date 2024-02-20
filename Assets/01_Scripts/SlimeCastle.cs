@@ -8,6 +8,8 @@ public class SlimeCastle : MonoBehaviour
     public float HP = 1000f;
     public float currentHP;
     public TextMeshPro slimeCastleHPTMP;
+
+    public bool isFailed = false;
     
 
     void Start()
@@ -50,6 +52,9 @@ public class SlimeCastle : MonoBehaviour
 
         if (currentHP <= 0)
         {
+            if (isFailed) return;
+            isFailed = true;
+            AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_StageFailSound);
             UIManager.instance.OnStageFailScreen();
         }
     }

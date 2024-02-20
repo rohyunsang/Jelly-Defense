@@ -64,6 +64,9 @@ public class PlayerSkillManager : MonoBehaviour
     public void OnClickSkill_1() // Depo need cost 100
     {
         if (currentPlayerSkillPower < 199f) return;
+
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SkillSoundCannon);
+
         currentPlayerSkillPower -= 199f;
         Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
         Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;
@@ -100,6 +103,8 @@ public class PlayerSkillManager : MonoBehaviour
     {
         if (currentPlayerSkillPower < 150f) return;
 
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SkillSoundIncreaseAttack);
+
         currentPlayerSkillPower -= 150f;
         foreach (Transform child in SlimeSpawnManager.instance.slimeParent.transform)
         {
@@ -131,9 +136,13 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-    public void OnClickSkill_3() //Meteo need cost 200
+    public void OnClickSkill_3() 
     {
         if (currentPlayerSkillPower < 150f) return;
+
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SkillSoundMeteor);
+
+
         currentPlayerSkillPower -= 150f;
         Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
         Transform enemyCastleTransform = GameObject.FindWithTag("EnemyCastle").transform;

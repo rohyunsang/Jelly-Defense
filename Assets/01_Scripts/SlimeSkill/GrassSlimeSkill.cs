@@ -10,6 +10,8 @@ public class GrassSlimeSkill : MonoBehaviour
     void Start()
     {
         sphereCollider.enabled = true;
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SkillSoundHeal);
+
     }
 
     public void OnTriggerEnter(Collider other)

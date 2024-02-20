@@ -13,6 +13,8 @@ public class TreasureSlimeHit : MonoBehaviour
             || other.gameObject.CompareTag("EnemyWeapon") || other.gameObject.CompareTag("Meteor"))
             return;
 
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_ObjectAttackSound);
+
         if (other.transform.CompareTag("SlimeWeapon"))
         {
             totalDamage += (other.gameObject.GetComponent<SlimeWeapon>().weaponDamage);

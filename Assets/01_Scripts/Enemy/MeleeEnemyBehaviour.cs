@@ -267,6 +267,9 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
     void Die() //사망
     {
         SlimeSpawnManager.instance.jellyPower += DropJellyPower;
+
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_EnemyDeathSound);
+
         Destroy(gameObject); //오브젝트 삭제
     }
 

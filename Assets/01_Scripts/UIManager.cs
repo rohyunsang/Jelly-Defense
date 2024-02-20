@@ -150,6 +150,10 @@ public class UIManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_UI_ClickSound);
     }
+    public void PurchaseSound()
+    {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_PurchaseSound);
+    }
 
     #region TapBar
 
@@ -812,7 +816,14 @@ public class UIManager : MonoBehaviour
     {
         UIClickSound();
         HUDsettingScreen.SetActive(false);
-        GameManager.Instance.ResumeGame();
+        if (shiningIcon.activeSelf)
+        {
+            GameManager.Instance.DoubleTimeScale();
+        }
+        else
+        {
+            GameManager.Instance.ResumeGame();
+        }
         HUDBackGroundLight.SetActive(false);
     }
 
@@ -1050,7 +1061,7 @@ public class UIManager : MonoBehaviour
         {
             itemDesText.text = "행동력 묶음\r\n<#1192C5>50개</color> <#FF0F00>+ 10%</color>";
 
-            purchasedActionPoint = 150;
+            purchasedActionPoint = 60;
         }
         else
         {
@@ -1060,6 +1071,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPurchasePanelYesButton()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_PurchaseSound);
+
         CurrenyManager.Instance.jellyStone -= needJelly;
         CurrenyManager.Instance.gold -= needGold;
         CurrenyManager.Instance.gold += purchasedGold;

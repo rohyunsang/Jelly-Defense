@@ -246,6 +246,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
         if(MeleeSlimeType.NoneWeapon == meleeSlimeType)
         {
             anim.SetTrigger("Attack03");
+            AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_BasicAttackSound);
         }
         else
         {
@@ -316,6 +317,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
     }
     void Die() //사망
     {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SlimeDeathSound);
         Destroy(gameObject); //오브젝트 삭제
     }
 

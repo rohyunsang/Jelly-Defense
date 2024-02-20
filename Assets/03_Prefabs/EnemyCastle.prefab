@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 772413289200599956}
   - component: {fileID: 6151254744058615391}
   - component: {fileID: 178834346634631073}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: obelisk_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 5754487145152817087}
   - component: {fileID: 7985145870765092965}
   - component: {fileID: 3473020729259322547}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: obelisk_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 1318925100186791903}
   - component: {fileID: 2037867431639657116}
   - component: {fileID: 2461703366726312228}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: obelisk_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 5160597246735784770}
   - component: {fileID: 7110417213256231865}
   - component: {fileID: 2090117548459903834}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: obelisk_plate_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,8 @@ GameObject:
   - component: {fileID: 8132977820771452321}
   - component: {fileID: 8132977820771452320}
   - component: {fileID: 7966934920733414804}
-  m_Layer: 10
+  - component: {fileID: 5549741968040819821}
+  m_Layer: 9
   m_Name: EnemyCastle
   m_TagString: EnemyCastle
   m_Icon: {fileID: 0}
@@ -575,6 +576,22 @@ Rigidbody:
   m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &7966934920733414804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905292738841730820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366388c6e11b2f04984cf3b29c314084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 3000
+  currentHP: 0
+  enemyCastleHPTMP: {fileID: 338775787}
+  isClear: 0
+--- !u!114 &5549741968040819821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

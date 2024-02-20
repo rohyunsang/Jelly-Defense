@@ -257,7 +257,9 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
     void Attack()//공격
     {
         ShootArrow(target, arrowPrefab);
-        //anim.SetTrigger("Attack02");
+
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_BowShootSound);
+
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
         StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작

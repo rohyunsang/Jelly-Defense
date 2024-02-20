@@ -127,6 +127,7 @@ public class AdManager : MonoBehaviour
         Debug.Log("행동력 획득함");
 
         CurrenyManager.Instance.actionPoint += 20; //  
+        if (CurrenyManager.Instance.actionPoint > 180) CurrenyManager.Instance.actionPoint = 180;
         DayManager.Instance.actionPointAd--; // 한개 깍음
 
         DataManager.Instance.JsonSave(); // 바아로 저장 

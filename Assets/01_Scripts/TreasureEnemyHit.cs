@@ -11,6 +11,9 @@ public class TreasureEnemyHit : MonoBehaviour
         if (other.gameObject.CompareTag("Slime") || other.gameObject.CompareTag("SlimeProjectileWeapon")
             || other.gameObject.CompareTag("SlimeWeapon") || other.gameObject.CompareTag("Meteor"))
             return;
+
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_ObjectAttackSound);
+
         if (other.transform.CompareTag("EnemyWeapon"))
         {
             totalDamage += (other.gameObject.GetComponent<EnemyWeapon>().weaponDamage);

@@ -61,7 +61,7 @@ public class EnemyCastle : MonoBehaviour
             isClear = true;
             StageManager.Instance.EstimateStageStar();
             UIManager.instance.OnStageClearScreen();
-            
+            AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_StageClearSound);
         }
     }
 }

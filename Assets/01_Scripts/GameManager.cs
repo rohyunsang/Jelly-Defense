@@ -68,7 +68,8 @@ public class GameManager : MonoBehaviour
                 UIManager.instance.selectedStageName = preStageName;
                 goPickUpStage = false;
             }
-            
+            AudioManager.Instance.PlayBgm(AudioManager.BGM.BGM_Lobby);
+
         }
         else
         {
@@ -82,11 +83,70 @@ public class GameManager : MonoBehaviour
             CurrenyManager.Instance.actionPoint -= UIManager.instance.stageActionPoint;
             UIManager.instance.AsycCurrenyUI();
             DataManager.Instance.JsonSave();
+
+            ChangeBackgroundMusicBasedOnScene(sceneName);
         }
-        
-
-
     }
+
+
+    private void ChangeBackgroundMusicBasedOnScene(string sceneName)
+    {
+        AudioManager.BGM bgmToPlay = AudioManager.BGM.BGM_Lobby; // Default BGM
+
+        // Determine the BGM based on the sceneName
+        switch (sceneName)
+        {
+            case "NormalStage1":
+            case "NormalStage2":
+            case "NormalStage3":
+                bgmToPlay = AudioManager.BGM.BGM_NormalStage1;
+                break;
+            case "NormalStage4":
+                bgmToPlay = AudioManager.BGM.BGM_NormalStage4;
+                break;
+            case "NormalStage5":
+            case "NormalStage6":
+                bgmToPlay = AudioManager.BGM.BGM_NormalStage5;
+                break;
+            case "NormalStage7":
+                bgmToPlay = AudioManager.BGM.BGM_NormalStage7;
+                break;
+            case "NormalStage8":
+            case "NormalStage9":
+                bgmToPlay = AudioManager.BGM.BGM_NormalStage8;
+                break;
+            case "NormalStage10":
+                bgmToPlay = AudioManager.BGM.BGM_NormalStage10;
+                break;
+
+            case "ChaosStage1":
+            case "ChaosStage2":
+            case "ChaosStage3":
+                bgmToPlay = AudioManager.BGM.BGM_ChaosStage1;
+                break;
+            case "ChaosStage4":
+                bgmToPlay = AudioManager.BGM.BGM_ChaosStage4;
+                break;
+            case "ChaosStage5":
+            case "ChaosStage6":
+                bgmToPlay = AudioManager.BGM.BGM_ChaosStage5;
+                break;
+            case "ChaosStage7":
+                bgmToPlay = AudioManager.BGM.BGM_ChaosStage7;
+                break;
+            case "ChaosStage8":
+            case "ChaosStage9":
+                bgmToPlay = AudioManager.BGM.BGM_ChaosStage8;
+                break;
+            case "ChaosStage10":
+                bgmToPlay = AudioManager.BGM.BGM_ChaosStage10;
+                break;
+        }
+
+        // Use AudioManager's instance to play the selected BGM
+        AudioManager.Instance.PlayBgm(bgmToPlay);
+    }
+
 
     public void InitAllStageEnd()
     {

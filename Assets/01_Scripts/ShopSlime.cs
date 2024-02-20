@@ -20,6 +20,7 @@ public class ShopSlime : MonoBehaviour
     // 클릭 이벤트를 처리하는 메서드
     public void OnShopSlimeClicked()
     {
+        UIManager.instance.UIClickSound();
         slimeName = transform.name.Replace("Icon(Clone)", "");
         ShopManager.Instance.goldPrice = goldPrice;
         ShopManager.Instance.jellyPrice = jellyPrice;

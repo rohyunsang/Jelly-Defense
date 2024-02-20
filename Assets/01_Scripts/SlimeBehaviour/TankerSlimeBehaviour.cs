@@ -219,6 +219,9 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
     void Attack()//공격
     {
         anim.SetTrigger("Attack03");
+
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_BasicAttackSound);
+
         StopNavAgent();
         StartCoroutine(ResumeMovementAfterAttack());
         StartCoroutine(ActivateWeaponCollider()); // weaponCollider 활성화 코루틴 시작
@@ -282,6 +285,7 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
     }
     void Die() //사망
     {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SlimeDeathSound);
         Destroy(gameObject); //오브젝트 삭제
     }
 

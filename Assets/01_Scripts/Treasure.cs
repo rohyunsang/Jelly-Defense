@@ -29,6 +29,8 @@ public class Treasure : MonoBehaviour
     {
         anim.SetTrigger("Open");
 
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_ObjectOpenSound);
+
         slimeTotalDamage = treasureSlimeHit.totalDamage;
         enemyTotalDamage += treasureEnemyHit.totalDamage;
 

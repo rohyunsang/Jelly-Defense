@@ -13,6 +13,8 @@ public class CatSlimeSkill : MonoBehaviour
     void Start()
     {
         sphereCollider.enabled = true;
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SkillSoundIncreaseAttack);
+
     }
 
     public void OnTriggerEnter(Collider other)
