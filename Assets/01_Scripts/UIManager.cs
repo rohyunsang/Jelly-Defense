@@ -119,6 +119,9 @@ public class UIManager : MonoBehaviour
     public GameObject collectionScreen;
     public GameObject preButtonCollectionScreen;
 
+    [Header("Scenario")]
+    public GameObject scenarioScreen;
+
     [Header("Etc")]
     public GameObject UIBackGround; // black transparency 100
     public GameObject UIBackGroundLight; 
