@@ -59,6 +59,9 @@ public class EnemyCastle : MonoBehaviour
         if (currentHP <= 0 && !isClear)
         {
             isClear = true;
+
+            ScenarioManager.Instance.InitScenarioStageStory(UIManager.instance.selectedStageName);
+            
             StageManager.Instance.EstimateStageStar();
             UIManager.instance.OnStageClearScreen();
             AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_StageClearSound);
