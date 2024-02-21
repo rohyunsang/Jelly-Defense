@@ -319,6 +319,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
     }
     void Die() //사망
     {
+        AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_SlimeDeathSound);
         Destroy(gameObject); //오브젝트 삭제
     }
 

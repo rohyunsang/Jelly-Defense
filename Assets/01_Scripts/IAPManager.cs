@@ -89,6 +89,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         var product = purchaseEvent.purchasedProduct;
         Debug.Log("구매에 성공했습니다" + product.definition.id);
         AudioManager.Instance.PlaySfx(AudioManager.SFX.SFX_PurchaseSound);
+
         if (product.definition.id == jelly900)
         {
             CurrenyManager.Instance.jellyStone += 100;
