@@ -24,6 +24,8 @@ public class ScenarioManager : MonoBehaviour
     #endregion
 
     public GameObject[] introScenarioPages;
+    public GameObject introScenarioScreen;
+
     public GameObject[] stagePages_1;
     public GameObject[] stagePages_2;
     public GameObject[] stagePages_3;
@@ -48,6 +50,8 @@ public class ScenarioManager : MonoBehaviour
 
     private GameObject[][] allStageStoryPages; // 모든 스테이지의 페이지를 저장
 
+    int n;
+
     private void Start()
     {
         // 스테이지 페이지 초기화
@@ -63,6 +67,8 @@ public class ScenarioManager : MonoBehaviour
             stagePages_9,
             stagePages_10
         };
+
+        introScenarioScreen.SetActive(true);
     }
 
 
@@ -70,7 +76,9 @@ public class ScenarioManager : MonoBehaviour
     {
         GameManager.Instance.PauseGame();
         int n = int.Parse(stageName[stageName.Length - 1].ToString()) - 1;
-
+        if (n == -1)
+            n = 9;
+        this.n = n;
 
         // 현재 스테이지 인덱스 업데이트
         currentStageIndex = n;
@@ -110,7 +118,7 @@ public class ScenarioManager : MonoBehaviour
         }
         else
         {
-            // 마지막 페이지일 경우의 로직, 예: 다음 스테이지로 넘어가기
+            stageStoryScreens[this.n].SetActive(false);
         }
     }
 
@@ -129,13 +137,7 @@ public class ScenarioManager : MonoBehaviour
     // 스킵 버튼 기능
     public void StageScenarioSkipButton()
     {
-        // 현재 스테이지의 모든 페이지를 비활성화
-        foreach (var page in allStageStoryPages[currentStageIndex])
-        {
-            page.SetActive(false);
-        }
-        // 스킵 로직, 예: 다음 스테이지로 넘어가기 또는 시나리오 종료 처리
-        UIManager.instance.scenarioScreen.SetActive(false); // 가정: 시나리오 스크린을 닫음
+        stageStoryScreens[this.n].SetActive(false);
     }
 
 

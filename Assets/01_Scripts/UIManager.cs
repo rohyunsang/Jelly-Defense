@@ -148,6 +148,7 @@ public class UIManager : MonoBehaviour
     public GameObject iAPManager;
     public GameObject actionPointManager;
     public GameObject audioManager;
+    public GameObject scenarioManager;
 
     public void UIClickSound()
     {
@@ -1139,5 +1140,6 @@ public class UIManager : MonoBehaviour
         Destroy(iAPManager);
         Destroy(actionPointManager);
         Destroy(audioManager);
+        Destroy(scenarioManager);
     }
 }

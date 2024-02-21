@@ -60,7 +60,8 @@ public class EnemyCastle : MonoBehaviour
         {
             isClear = true;
 
-            ScenarioManager.Instance.InitScenarioStageStory(UIManager.instance.selectedStageName);
+            if(UIManager.instance.selectedStageName.Contains("Normal"))
+                ScenarioManager.Instance.InitScenarioStageStory(UIManager.instance.selectedStageName);
             
             StageManager.Instance.EstimateStageStar();
             UIManager.instance.OnStageClearScreen();
