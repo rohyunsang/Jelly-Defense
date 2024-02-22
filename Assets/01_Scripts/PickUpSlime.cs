@@ -101,6 +101,12 @@ public class PickUpSlime : MonoBehaviour, IPointerClickHandler, IPointerDownHand
         {
             Debug.Log("모든 슬라임 슬롯이 차 있습니다.");
         }
+
+        if(emptySlotIndex == 4)
+        {
+            TutorialManager.Instance.EndTutorial(6);
+            TutorialManager.Instance.StartTutorial(7);
+        }
     }
 
     private void PickUp(int slotIndex)
