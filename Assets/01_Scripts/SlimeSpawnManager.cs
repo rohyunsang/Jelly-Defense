@@ -109,7 +109,7 @@ public class SlimeSpawnManager : MonoBehaviour
 
                     foreach (Transform child in slimeParent.transform)
                     {
-                        // 자식 오브젝트의 이름에 slimePrefab.name이 포함되어 있는지 확인합니다.
+                        // 자식 오브젝트의 이름에 slimePrefab.name이 포함되어 있는지 확인합니다.]
                         if (child.name.Contains(slimePrefab.name))
                         {
                             // 조건에 맞는 오브젝트를 찾았다면 targetSlime에 참조를 저장합니다.
@@ -190,7 +190,7 @@ public class SlimeSpawnManager : MonoBehaviour
                     Debug.LogError("Selected legend slime child not found");
                 }
 
-                // 추가적인 부분. 
+                
                 // 1. 레전드 슬라임 스폰 아이콘 (스킬 아이콘)texture로 바꾸기.
                 //UIManager.instance.slimeSpawnIcons[SlimeManager.instance.legendSlimeSpawnIconIdx]의 자식오브젝트의 자식오브젝트에 접근한다. 자식 오브젝트의 이름은
                 //    SlimeManager.instance.selectedLegendSlime.Replace("Icon", "") 이다. 

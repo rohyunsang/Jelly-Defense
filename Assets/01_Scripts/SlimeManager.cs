@@ -310,7 +310,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
 
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost/2).ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("AngelSlime");
                 skillIdx++;
@@ -325,7 +325,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost / 2).ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("DevilSlime");
                 skillIdx++;
@@ -340,7 +340,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost / 2).ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("WitchSlime");
                 skillIdx++;
@@ -355,7 +355,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = slimeData.Cost.ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost / 2).ToString();
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("SkullSlime");
                 skillIdx++;
@@ -406,7 +406,7 @@ public class SlimeManager : MonoBehaviour
         Slime foundSlime = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimeName);
 
         if (SlimeSpawnManager.instance.jellyPower < foundSlime.Cost) return;
-        SlimeSpawnManager.instance.jellyPower -= foundSlime.Cost;
+        SlimeSpawnManager.instance.jellyPower -= foundSlime.Cost / 2;
         Debug.Log(foundSlime.Cost);
 
         

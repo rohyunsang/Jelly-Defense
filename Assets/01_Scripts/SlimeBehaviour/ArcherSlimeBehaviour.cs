@@ -53,7 +53,7 @@ public class ArcherSlimeBehaviour : MonoBehaviour, ISlime
     [Header("Archer")]
     public GameObject arrowPrefab;
     public GameObject bombArrowPrefab;
-    public float arrowSpeed = 20f;
+    private float arrowSpeed = 18f;
     public Transform firePoint;
     public bool isFire = false;
     public ArcherSlimeType archerSlimeType;

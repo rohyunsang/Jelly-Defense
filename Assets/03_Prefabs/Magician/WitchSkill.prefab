@@ -158,8 +158,8 @@ Transform:
   m_GameObject: {fileID: 2634456134272416753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.42, y: 1.71, z: 3.42}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2605835164111657461}
   m_RootOrder: 1
@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 19
+  classType: 0
 --- !u!135 &6203801109801770785
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -188,7 +189,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5717400414573186835
 PrefabInstance:
@@ -211,6 +212,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984980826245493072, guid: 3e131a1a98a22664c96fa89a2000dd39,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984980826245493072, guid: 3e131a1a98a22664c96fa89a2000dd39,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984980826245493072, guid: 3e131a1a98a22664c96fa89a2000dd39,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4984980826245493072, guid: 3e131a1a98a22664c96fa89a2000dd39,
         type: 3}
