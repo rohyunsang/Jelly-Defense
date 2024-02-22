@@ -53,7 +53,7 @@ public class AdManager : MonoBehaviour
     //±¤°í ÃÊ±âÈ­ ÇÔ¼ö
     public void LoadAds()
     {
-        RewardedAd.Load(videoAdTest, new AdRequest.Builder().Build(), LoadCallback);
+        RewardedAd.Load(videoAd, new AdRequest.Builder().Build(), LoadCallback);
         Debug.Log("±¤°í init µÊ "); 
     }
 

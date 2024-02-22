@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class SaveData
@@ -30,6 +31,9 @@ public class SaveData
     public int currentGiftDay; // 현재 선물 받은 일수
     public bool getDailyGift; // 일일 선물 수령 여부
     public int currentGoldRefresh;
+
+    public bool firstTutorial;
+    
 }
 
 public class DataManager : MonoBehaviour
@@ -65,9 +69,9 @@ public class DataManager : MonoBehaviour
         if (!File.Exists(path))
         {
             // 파일이 없을 경우 초기값 설정
-            CurrenyManager.Instance.actionPoint = 180; // 예시 초기값
-            CurrenyManager.Instance.gold = 99999; // 예시 초기값
-            CurrenyManager.Instance.jellyStone = 99999; // 예시 초기값
+            CurrenyManager.Instance.actionPoint = 180; 
+            CurrenyManager.Instance.gold = 0; 
+            CurrenyManager.Instance.jellyStone = 0; 
             DayManager.Instance.goldAd = 1 ;
             DayManager.Instance.jellyStoneAd = 1;
             DayManager.Instance.actionPointAd = 1 ;
@@ -76,7 +80,10 @@ public class DataManager : MonoBehaviour
             
             SlimeManager.instance.InitializeDefaultSlimes();
             SlimeManager.instance.RefreshShopSlimes();
-
+            TutorialManager.Instance.StartTutorial(0);
+            ScenarioManager.Instance.introScenarioScreen.SetActive(true);
+            ScenarioManager.Instance.InitScenarioManager();
+            
 
             JsonSave(); // 초기 데이터를 파일에 저장
         }
@@ -99,10 +106,19 @@ public class DataManager : MonoBehaviour
 
                 // 스테이지 클리어 상태 불러오기
                 StageManager.Instance.stageClearStatus.Clear(); // 딕셔너리 초기화
-                for (int i = 0; i < saveData.stageNames.Count; i++)
+                for (int i = 0; i < saveData.stageNames.Count - 1; i++)
                 {
+
                     // 이미 존재하는 키에 대한 처리가 필요 없으므로, Add 대신 인덱싱을 사용하여 값을 할당
                     StageManager.Instance.stageClearStatus[saveData.stageNames[i]] = saveData.stageClearStatuses[i];
+                    if (saveData.stageClearStatuses[i] && i + 1<10)
+                    {
+                        UIManager.instance.stageButtons[i + 1].GetComponent<Image>().sprite = UIManager.instance.clearedStageImage;
+                    }
+                    if (saveData.stageClearStatuses[i] && i + 1 >= 10 && i < 19)
+                    {
+                        UIManager.instance.stageButtons[i + 1].GetComponent<Image>().sprite = UIManager.instance.clearedChaosStageImage;
+                    }
                 }
 
                 StageManager.Instance.stageStarStatus.Clear();
@@ -138,6 +154,11 @@ public class DataManager : MonoBehaviour
                 {
                     SlimeManager.instance.showShopSlimes.Add(saveData.showShopSlimes[i]);
                 }
+
+                TutorialManager.Instance.firstTutorial = saveData.firstTutorial;
+                ScenarioManager.Instance.InitScenarioManager();
+
+                
             }
 
             // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달
@@ -165,21 +186,21 @@ public class DataManager : MonoBehaviour
             actionPointAd = DayManager.Instance.actionPointAd,
             currentGiftDay = DayManager.Instance.currentGiftDay,
             getDailyGift = DayManager.Instance.getDailyGift,
-            currentGoldRefresh = DayManager.Instance.currentGoldRefresh
+            currentGoldRefresh = DayManager.Instance.currentGoldRefresh,
+            firstTutorial = TutorialManager.Instance.firstTutorial
         };
 
-        if (StageManager.Instance != null)
+        
+        foreach (var stage in StageManager.Instance.stageClearStatus)
         {
-            foreach (var stage in StageManager.Instance.stageClearStatus)
-            {
-                saveData.stageNames.Add(stage.Key);
-                saveData.stageClearStatuses.Add(stage.Value);
-            }
-            foreach(var stageStar in StageManager.Instance.stageStarStatus)
-            {
-                saveData.stageStars.Add(stageStar.Value);
-            }
+            saveData.stageNames.Add(stage.Key);
+            saveData.stageClearStatuses.Add(stage.Value);
         }
+        foreach(var stageStar in StageManager.Instance.stageStarStatus)
+        {
+            saveData.stageStars.Add(stageStar.Value);
+        }
+        
 
         // 슬라임 정보 저장
         saveData.slimeNames.Clear();

@@ -52,7 +52,9 @@ public class ScenarioManager : MonoBehaviour
 
     int n;
 
-    private void Start()
+    public bool hasSeenIntroScenario = false; // 새로 추가된 변수
+    
+    public void InitScenarioManager()
     {
         // 스테이지 페이지 초기화
         allStageStoryPages = new GameObject[][] {
@@ -67,18 +69,21 @@ public class ScenarioManager : MonoBehaviour
             stagePages_9,
             stagePages_10
         };
-
-        introScenarioScreen.SetActive(true);
     }
 
+   
 
     public void InitScenarioStageStory(string stageName) //
     {
-        GameManager.Instance.PauseGame();
         int n = int.Parse(stageName[stageName.Length - 1].ToString()) - 1;
         if (n == -1)
             n = 9;
         this.n = n;
+        Debug.Log(stageName);
+        Debug.Log(this.n);
+
+        GameManager.Instance.PauseGame();
+        
 
         // 현재 스테이지 인덱스 업데이트
         currentStageIndex = n;
@@ -148,6 +153,7 @@ public class ScenarioManager : MonoBehaviour
         if (idx > introScenarioLastPageIdx)
         {
             UIManager.instance.scenarioScreen.SetActive(false);
+            hasSeenIntroScenario = true;
             // intro Cutton End
         }
         else
@@ -170,6 +176,7 @@ public class ScenarioManager : MonoBehaviour
     public void introScenarioSkipButton()
     {
         UIManager.instance.scenarioScreen.SetActive(false);
+        hasSeenIntroScenario = true;
     }
 
 }

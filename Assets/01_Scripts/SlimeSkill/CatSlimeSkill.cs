@@ -31,7 +31,7 @@ public class CatSlimeSkill : MonoBehaviour
                 affectedSlime.AttackDamage *= 1.5f;
 
                 // 이펙트 생성
-                GameObject effect = Instantiate(buffEffect, other.transform.position, Quaternion.identity);
+                GameObject effect = Instantiate(buffEffect, other.transform.position, Quaternion.identity.normalized, other.transform);
 
                 // 7초 후에 이펙트 삭제 및 슬라임의 공격력 원래대로 돌려놓기
                 StartCoroutine(DeactivateSkill(effect));
@@ -49,9 +49,9 @@ public class CatSlimeSkill : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
 
-        // 7초 후에 이펙트 삭제
+        // 10초 후에 이펙트 삭제
         Destroy(effect);
 
         // 슬라임의 공격력 원래대로 돌려놓기

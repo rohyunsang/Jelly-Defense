@@ -332,7 +332,7 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyWeapon enemyWeapon = other.gameObject.GetComponent<EnemyWeapon>();
             if (enemyWeapon != null)
             {
-                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 1.2f);
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 1.3f);
                 Destroy(other.gameObject);
             }
 
@@ -399,11 +399,11 @@ public class MeleeSlimeBehaviour : MonoBehaviour, ISlime
             EnemyCastle enemyCastle = target.GetComponent<EnemyCastle>();
             if (enemy != null)
             {
-                enemy.currentHP -= AttackDamage * 4.0f; // 대미지 적용
+                enemy.currentHP -= AttackDamage * 5.0f; // 대미지 적용
             }
             else if (enemyCastle != null)
             {
-                enemyCastle.currentHP -= AttackDamage * 4.0f;
+                enemyCastle.currentHP -= AttackDamage * 5.0f;
             }
 
 

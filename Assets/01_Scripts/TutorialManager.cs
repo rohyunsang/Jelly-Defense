@@ -19,6 +19,15 @@ public class TutorialManager : MonoBehaviour
         // Set this as the instance and ensure it persists across scenes
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
+
+        tutorialObjs = new GameObject[][] {
+        tutorialObjs_0, tutorialObjs_1, tutorialObjs_2, tutorialObjs_3,
+        tutorialObjs_4, tutorialObjs_5, tutorialObjs_6, tutorialObjs_7,
+        tutorialObjs_8, tutorialObjs_9, tutorialObjs_10, tutorialObjs_11,
+        tutorialObjs_12, tutorialObjs_13, tutorialObjs_14, tutorialObjs_15
+        };
+
+        // if (firstTutorial) StartTutorial(0);
     }
     #endregion
 
@@ -47,20 +56,12 @@ public class TutorialManager : MonoBehaviour
     public List<string> tutorialStartObjects;
     public List<string> tutorialEndObjects;
 
-    private void Start()
-    {
-        tutorialObjs = new GameObject[][] {
-        tutorialObjs_0, tutorialObjs_1, tutorialObjs_2, tutorialObjs_3,
-        tutorialObjs_4, tutorialObjs_5, tutorialObjs_6, tutorialObjs_7,
-        tutorialObjs_8, tutorialObjs_9, tutorialObjs_10, tutorialObjs_11,
-        tutorialObjs_12, tutorialObjs_13, tutorialObjs_14, tutorialObjs_15
-        };
-
-        StartTutorial(0);
-    }
+    public bool firstTutorial = true;
 
     public void StartTutorial(int idx)
     {
+        if (!firstTutorial) return;
+
         if (idx > 16) return; 
 
         if (tutorialStartObjects.Contains(idx.ToString()))
@@ -86,6 +87,8 @@ public class TutorialManager : MonoBehaviour
 
     public void EndTutorial(int idx)
     {
+        if (!firstTutorial) return;
+
         if (idx > 16) return;
 
         if (tutorialEndObjects.Contains(idx.ToString()))
@@ -103,11 +106,16 @@ public class TutorialManager : MonoBehaviour
         tutorialEndObjects.Add(idx.ToString());
         currentIdx = idx;
         currentIdx++;
+
+        if(currentIdx == 16)
+        {
+            firstTutorial = false;
+            DataManager.Instance.JsonSave();
+        }
+
     }
     IEnumerator DelayedTutorialTransition()
     {
-        
-
         // 10초 대기
         yield return new WaitForSeconds(10);
         // 현재 튜토리얼 8 종료

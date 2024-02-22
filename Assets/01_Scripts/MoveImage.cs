@@ -17,7 +17,7 @@ public class MoveImage : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime; // 타이머 업데이트
+        timer += Time.unscaledDeltaTime; // 타이머 업데이트
 
         if (timer >= moveTime)
         {

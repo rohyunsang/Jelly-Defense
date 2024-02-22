@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class StageManager : MonoBehaviour
     {
         InitializeStageRewards();
     }
+
     void InitializeStageRewards()
     {
         stageRewards.Clear(); // 기존 데이터가 있다면 초기화
@@ -83,6 +85,9 @@ public class StageManager : MonoBehaviour
             {
                 if (stageStarStatus[stageName] == 10000) // 미클리어 였을때 
                 {
+                    if(stageName.Contains("Normal"))
+                        ScenarioManager.Instance.InitScenarioStageStory(stageName);
+
                     if(starCount == 11000) // 1클리어
                     {
                         jellyReward += rewardData.jellyRewards[0];
@@ -160,11 +165,11 @@ public class StageManager : MonoBehaviour
         // 일반모드 1-10, 카오스모드 1-10 초기화
         for (int i = 1; i <= 10; i++)
         {
-            stageClearStatus.Add("NormalStage" + i, true);
+            stageClearStatus.Add("NormalStage" + i, false);
         }
         for (int i = 1; i <= 10; i++)
         {
-            stageClearStatus.Add("ChaosStage" + i, true);
+            stageClearStatus.Add("ChaosStage" + i, false);
         }
         for (int i = 1; i <= 10; i++)
         {
@@ -248,6 +253,7 @@ public class StageManager : MonoBehaviour
         DataManager.Instance.JsonSave();
         AsyncJsonStageStars();
 
+       
         
     }
 
@@ -303,6 +309,44 @@ public class StageManager : MonoBehaviour
         {
             Debug.LogError("Stage name does not exist: " + UIManager.instance.selectedStageName);
         }
+
+        // 스테이지 버튼 색깔 바꾸는 거
+        int index;
+
+        if (UIManager.instance.selectedStageName.StartsWith("NormalStage"))
+        {
+            // "NormalStage" 뒤의 숫자를 파싱하여 인덱스로 사용
+            string numberString = UIManager.instance.selectedStageName.Replace("NormalStage", "");
+            int number = int.Parse(numberString);
+            index = number - 1; // 숫자에서 1을 빼서 0부터 시작하도록 조정
+        }
+        else if (UIManager.instance.selectedStageName.StartsWith("ChaosStage"))
+        {
+            // "ChaosStage" 뒤의 숫자를 파싱하여 인덱스로 사용
+            string numberString = UIManager.instance.selectedStageName.Replace("ChaosStage", "");
+            int number = int.Parse(numberString);
+            index = 10 + (number - 1); // 10을 더하고, 1을 빼서 10부터 시작하도록 조정
+            UIManager.instance.stageButtons[index].GetComponent<Image>().sprite = UIManager.instance.clearedChaosStageImage;
+
+        }
+        else
+        {
+            // 에러 처리 또는 기본값 설정
+            index = 0; // 유효하지 않은 인덱스 값
+        }
+        if (index < 9)  // 9스테이지까지 다음 스테이지 열음
+        {
+            UIManager.instance.stageButtons[index + 1].GetComponent<Image>().sprite = UIManager.instance.clearedStageImage;
+
+        }
+        else if (index <= 18) // 18이면 카오스 9스테이지 -> 카오스 10스테이지까지 
+        {
+            Debug.Log("카오스저자앚이ㅏㅣㅇ자ㅣ" + index);
+            UIManager.instance.stageButtons[index + 1].GetComponent<Image>().sprite = UIManager.instance.clearedChaosStageImage;
+
+        }// 노말 10이 index 9니까. 
+
+
     }
 
     public void SetStageStar(int starCnt)

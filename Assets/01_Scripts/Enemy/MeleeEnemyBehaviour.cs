@@ -321,18 +321,18 @@ public class MeleeEnemyBehaviour : MonoBehaviour, IEnemy
                 {
                     if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Ranged)
                     {
-                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 0.8f);
+                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 0.7f);
                     }
                     else if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Melee)
                     {
-                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.2f);
+                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.3f);
                     }
                 }
                 else if (ClassType.Melee == classType) // 몬스터가 근접
                 {
                     if (other.gameObject.GetComponent<SlimeWeapon>().classType == ClassType.Ranged) // 원거리면
                     {
-                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.2f);
+                        GetHit(other.gameObject.GetComponent<SlimeWeapon>().weaponDamage * 1.3f);
                     }
                 }
                 else

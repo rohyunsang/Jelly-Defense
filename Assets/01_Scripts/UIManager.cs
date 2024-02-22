@@ -51,6 +51,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI enemyName;
     public TextMeshProUGUI enemyDesText;
 
+    //public Texture2D clearedStageImage;
+    //public Texture2D clearedChaosStageImage;
+    public Sprite clearedStageImage;
+    public Sprite clearedChaosStageImage;
+
     public bool currentModeIsNormal = true;
 
     [Header("HUDScreen")]
@@ -149,6 +154,7 @@ public class UIManager : MonoBehaviour
     public GameObject actionPointManager;
     public GameObject audioManager;
     public GameObject scenarioManager;
+    public GameObject tutorialManager;
 
     public void UIClickSound()
     {
@@ -1141,5 +1147,6 @@ public class UIManager : MonoBehaviour
         Destroy(actionPointManager);
         Destroy(audioManager);
         Destroy(scenarioManager);
+        Destroy(tutorialManager);
     }
 }
