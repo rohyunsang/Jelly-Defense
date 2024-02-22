@@ -301,11 +301,11 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
             {
                 if (other.gameObject.GetComponent<EnemyWeapon>().classType == ClassType.Ranged)
                 {
-                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 0.8f);
+                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 0.7f);
                 }
                 else if (other.gameObject.GetComponent<EnemyWeapon>().classType == ClassType.Melee)
                 {
-                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 1.2f);
+                    GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 1.3f);
                 }
                 else
                 {
@@ -322,7 +322,7 @@ public class TankerSlimeBehaviour : MonoBehaviour, ISlime
             EnemyWeapon enemyWeapon = other.gameObject.GetComponent<EnemyWeapon>();
             if (enemyWeapon != null)
             {
-                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 0.8f);
+                GetHit(other.gameObject.GetComponent<EnemyWeapon>().weaponDamage * 0.7f);
                 Destroy(other.gameObject);
             }
 

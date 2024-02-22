@@ -40,7 +40,6 @@ public class TutorialManager : MonoBehaviour
     public GameObject[] tutorialObjs_13;
     public GameObject[] tutorialObjs_14;
     public GameObject[] tutorialObjs_15;
-    public GameObject[] tutorialObjs_16;
 
 
     public GameObject[][] tutorialObjs;
@@ -54,7 +53,7 @@ public class TutorialManager : MonoBehaviour
         tutorialObjs_0, tutorialObjs_1, tutorialObjs_2, tutorialObjs_3,
         tutorialObjs_4, tutorialObjs_5, tutorialObjs_6, tutorialObjs_7,
         tutorialObjs_8, tutorialObjs_9, tutorialObjs_10, tutorialObjs_11,
-        tutorialObjs_12, tutorialObjs_13, tutorialObjs_14, tutorialObjs_15, tutorialObjs_16
+        tutorialObjs_12, tutorialObjs_13, tutorialObjs_14, tutorialObjs_15
         };
 
         StartTutorial(0);
