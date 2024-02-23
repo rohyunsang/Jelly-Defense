@@ -121,6 +121,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
             CurrenyManager.Instance.gold += 50000;
             CurrenyManager.Instance.actionPoint += 100;
 
+            if (CurrenyManager.Instance.actionPoint >= 180) CurrenyManager.Instance.actionPoint = 180;
+
             SlimeManager.instance.UpdateSlime("BearSlime");
 
             UIManager.instance.AsycCurrenyUI();
@@ -128,9 +130,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
         }
         else if (product.definition.id == jelly4500) // 광고 제거 
         {
-            //CurrenyManager.Instance.jellyStone += 1000;
-            //UIManager.instance.AsycCurrenyUI();
-            //DataManager.Instance.JsonSave(); // 바아로 저장 
+            DataManager.Instance.isAdPass = true;
+            DataManager.Instance.JsonSave();
         }
 
         return PurchaseProcessingResult.Complete;

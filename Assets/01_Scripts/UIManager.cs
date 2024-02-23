@@ -119,6 +119,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI itemDesText;
 
     public GameObject purchaseFailInfoPanel;
+    public GameObject adSuccessInfo;
 
     [Header("Collection")]
     public GameObject collectionScreen;
@@ -960,22 +961,59 @@ public class UIManager : MonoBehaviour
         UIClickSound();
 
         Debug.Log("광고 버튼 눌림 ");
-        AdManager.instance.ShowAds(0); // 임시로 골드는 0, 젤리는 1 
+        if(!DataManager.Instance.isAdPass)
+            AdManager.instance.ShowAds(0); // 임시로 골드는 0, 젤리는 1 
+        else
+        {
+            if (DayManager.Instance.goldAd <= 0)
+                return;
+            CurrenyManager.Instance.gold += 5000; // 일단 100골드 줘 봄 
+            DayManager.Instance.goldAd--; // 한개 깍음
+
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+            UIManager.instance.AsycCurrenyUI();
+            adSuccessInfo.SetActive(true);
+
+        }
 
     }
     public void OnClickFreeJellyButton()
     {
         UIClickSound();
 
-        Debug.Log("광고 버튼 눌림 ");
-        AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
+        if (!DataManager.Instance.isAdPass)
+            AdManager.instance.ShowAds(1); // 임시로 골드는 0, 젤리는 1 
+        else
+        {
+            if (DayManager.Instance.jellyStoneAd <= 0)
+                return;
+            CurrenyManager.Instance.jellyStone += 20; 
+            DayManager.Instance.jellyStoneAd--; // 한개 깍음
+
+            DataManager.Instance.JsonSave(); // 저장 
+            UIManager.instance.AsycCurrenyUI();
+            adSuccessInfo.SetActive(true);
+
+        }
     }
     public void OnClickFreeActionPointButton()
     {
         UIClickSound();
 
-        Debug.Log("광고 버튼 눌림 ");
-        AdManager.instance.ShowAds(2);
+        if (!DataManager.Instance.isAdPass)
+            AdManager.instance.ShowAds(2); // 임시로 골드는 0, 젤리는 1 
+        else
+        {
+            if (DayManager.Instance.actionPointAd <= 0)
+                return;
+            CurrenyManager.Instance.actionPoint += 20; //  
+            if (CurrenyManager.Instance.actionPoint > 180) CurrenyManager.Instance.actionPoint = 180;
+            DayManager.Instance.actionPointAd--; // 한개 깍음
+
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+            UIManager.instance.AsycCurrenyUI();
+            adSuccessInfo.SetActive(true);
+        }
     }
 
     public void BuyGoldPackage(int needJelly)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,8 @@ public class SaveData
     public int currentGoldRefresh;
 
     public bool firstTutorial;
+    public bool isUsedCoupon;
+    public bool isAdPass;
     
 }
 
@@ -56,6 +59,28 @@ public class DataManager : MonoBehaviour
     }
     // 저장 파일 경로
     public string path;
+    public bool isUsedCoupon;
+    public bool isAdPass;
+    public GameObject successCuponInfo;
+
+    public TMP_InputField tmp_inputField;
+    public void AcceptCoupon()
+    {
+        if(tmp_inputField.text == "한판만더해주세요" && !isUsedCoupon)
+        {
+            CurrenyManager.Instance.jellyStone += 500;
+            CurrenyManager.Instance.gold += 50000;
+            CurrenyManager.Instance.actionPoint += 100;
+            if (CurrenyManager.Instance.actionPoint >= 180) CurrenyManager.Instance.actionPoint = 180;
+
+            SlimeManager.instance.UpdateSlime("BearSlime");
+
+            UIManager.instance.AsycCurrenyUI();
+            isUsedCoupon = true;
+            successCuponInfo.SetActive(true);
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+        }
+    }
 
     void Start()
     {
@@ -106,11 +131,14 @@ public class DataManager : MonoBehaviour
 
                 // 스테이지 클리어 상태 불러오기
                 StageManager.Instance.stageClearStatus.Clear(); // 딕셔너리 초기화
+
+                for (int i = 0; i < saveData.stageNames.Count; i++)
+                {
+                    // 이미 존재하는 키에 대한 처리가 필요 없으므로, Add 대신 인덱싱을 사용하여 값을 할당
+                    StageManager.Instance.stageClearStatus.Add(saveData.stageNames[i], saveData.stageClearStatuses[i]);
+                }
                 for (int i = 0; i < saveData.stageNames.Count - 1; i++)
                 {
-
-                    // 이미 존재하는 키에 대한 처리가 필요 없으므로, Add 대신 인덱싱을 사용하여 값을 할당
-                    StageManager.Instance.stageClearStatus[saveData.stageNames[i]] = saveData.stageClearStatuses[i];
                     if (saveData.stageClearStatuses[i] && i + 1<10)
                     {
                         UIManager.instance.stageButtons[i + 1].GetComponent<Image>().sprite = UIManager.instance.clearedStageImage;
@@ -157,8 +185,10 @@ public class DataManager : MonoBehaviour
 
                 TutorialManager.Instance.firstTutorial = saveData.firstTutorial;
                 ScenarioManager.Instance.InitScenarioManager();
+                isUsedCoupon = saveData.isUsedCoupon;
+                isAdPass = saveData.isAdPass;
 
-                
+
             }
 
             // 마지막 로그인 날짜 로드 및 DayManager로 처리 전달
@@ -187,7 +217,9 @@ public class DataManager : MonoBehaviour
             currentGiftDay = DayManager.Instance.currentGiftDay,
             getDailyGift = DayManager.Instance.getDailyGift,
             currentGoldRefresh = DayManager.Instance.currentGoldRefresh,
-            firstTutorial = TutorialManager.Instance.firstTutorial
+            firstTutorial = TutorialManager.Instance.firstTutorial,
+            isUsedCoupon = isUsedCoupon,
+            isAdPass = isAdPass
         };
 
         
@@ -222,5 +254,7 @@ public class DataManager : MonoBehaviour
         File.WriteAllText(path, json);
 
     }
+
+
    
 }

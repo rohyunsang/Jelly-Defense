@@ -101,11 +101,12 @@ public class AdManager : MonoBehaviour
     {
         Debug.Log("∞ÒµÂ »πµÊ«‘");
 
-        CurrenyManager.Instance.gold += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
+        CurrenyManager.Instance.gold += 5000; 
         DayManager.Instance.goldAd--; // «—∞≥ ±Ô¿Ω
 
         DataManager.Instance.JsonSave(); // πŸæ∆∑Œ ¿˙¿Â 
         UIManager.instance.AsycCurrenyUI();
+        UIManager.instance.adSuccessInfo.SetActive(true);
 
         LoadAds();
     }
@@ -114,11 +115,13 @@ public class AdManager : MonoBehaviour
     {
         Debug.Log("¡©∏Æ »πµÊ«‘");
 
-        CurrenyManager.Instance.jellyStone += 100; // ¿œ¥‹ 100∞ÒµÂ ¡‡ ∫Ω 
+        CurrenyManager.Instance.jellyStone += 20; 
         DayManager.Instance.jellyStoneAd--; // «—∞≥ ±Ô¿Ω
 
         DataManager.Instance.JsonSave(); // ¿˙¿Â 
         UIManager.instance.AsycCurrenyUI();
+        UIManager.instance.adSuccessInfo.SetActive(true);
+
         LoadAds();
     }
 
@@ -132,6 +135,7 @@ public class AdManager : MonoBehaviour
 
         DataManager.Instance.JsonSave(); // πŸæ∆∑Œ ¿˙¿Â 
         UIManager.instance.AsycCurrenyUI();
+        UIManager.instance.adSuccessInfo.SetActive(true);
 
         LoadAds();
     }

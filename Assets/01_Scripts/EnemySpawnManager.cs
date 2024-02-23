@@ -133,7 +133,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     void Update()
     {
-        if (isWaveEnd && enemyParent.transform.childCount == 0)
+        if (isWaveEnd && enemyParent.transform.childCount == 0 && currentWave >= 3)
         {
             GameObject.FindWithTag("EnemyCastle").GetComponent<EnemyCastle>().CriticalHit();
             isWaveEnd = false;
@@ -448,7 +448,7 @@ public class EnemySpawnManager : MonoBehaviour
             // Wave1
             new List<EnemySpawnInfo>
             {
-                new EnemySpawnInfo(enemyPrefab[3], 4),
+                new EnemySpawnInfo(enemyPrefab[3], 3),
                 new EnemySpawnInfo(enemyPrefab[4], 2),
                 new EnemySpawnInfo(enemyPrefab[9], 4),
             },
@@ -457,16 +457,15 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 new EnemySpawnInfo(enemyPrefab[4], 3),
                 new EnemySpawnInfo(enemyPrefab[7], 5),
-                new EnemySpawnInfo(enemyPrefab[9], 2),
+                new EnemySpawnInfo(enemyPrefab[9], 4),
             },
             // Wave3
             new List<EnemySpawnInfo>
             {
-                new EnemySpawnInfo(enemyPrefab[3], 3),
+                new EnemySpawnInfo(enemyPrefab[3], 5),
                 new EnemySpawnInfo(enemyPrefab[8], 2),
-                new EnemySpawnInfo(enemyPrefab[9], 4),
-                new EnemySpawnInfo(enemyPrefab[11], 1)
-
+                new EnemySpawnInfo(enemyPrefab[9], 6),
+                new EnemySpawnInfo(enemyPrefab[11], 2)
             }
             };
             StartCoroutine(StartSequentialWaves(allWaves));
@@ -480,13 +479,13 @@ public class EnemySpawnManager : MonoBehaviour
             {
             new EnemySpawnInfo(enemyPrefab[6], 3),
             new EnemySpawnInfo(enemyPrefab[8], 2),
-            new EnemySpawnInfo(enemyPrefab[10], 3),
+            new EnemySpawnInfo(enemyPrefab[10], 2),
             new EnemySpawnInfo(enemyPrefab[11], 2),
             },
             // Wave2
             new List<EnemySpawnInfo>
             {
-            new EnemySpawnInfo(enemyPrefab[4], 2),
+            new EnemySpawnInfo(enemyPrefab[4], 4),
             new EnemySpawnInfo(enemyPrefab[6], 3),
             new EnemySpawnInfo(enemyPrefab[9], 3),
             new EnemySpawnInfo(enemyPrefab[16], 2),
@@ -494,11 +493,11 @@ public class EnemySpawnManager : MonoBehaviour
             // Wave3
             new List<EnemySpawnInfo>
             {
-            new EnemySpawnInfo(enemyPrefab[6], 1),
-            new EnemySpawnInfo(enemyPrefab[7], 2),
+            new EnemySpawnInfo(enemyPrefab[6], 3),
+            new EnemySpawnInfo(enemyPrefab[7], 3),
             new EnemySpawnInfo(enemyPrefab[10], 4),
-            new EnemySpawnInfo(enemyPrefab[12], 2),
-            new EnemySpawnInfo(enemyPrefab[13], 1),
+            new EnemySpawnInfo(enemyPrefab[12], 3),
+            new EnemySpawnInfo(enemyPrefab[13], 2),
             }
             };
             StartCoroutine(StartSequentialWaves(allWaves));
@@ -512,7 +511,7 @@ public class EnemySpawnManager : MonoBehaviour
         {
             new EnemySpawnInfo(enemyPrefab[7], 3),
             new EnemySpawnInfo(enemyPrefab[8], 3),
-            new EnemySpawnInfo(enemyPrefab[9], 3),
+            new EnemySpawnInfo(enemyPrefab[9], 2),
             new EnemySpawnInfo(enemyPrefab[12], 1),
         },
         // Wave2
@@ -521,15 +520,15 @@ public class EnemySpawnManager : MonoBehaviour
             new EnemySpawnInfo(enemyPrefab[7], 4),
             new EnemySpawnInfo(enemyPrefab[8], 2),
             new EnemySpawnInfo(enemyPrefab[9], 2),
-            new EnemySpawnInfo(enemyPrefab[12], 2),
+            new EnemySpawnInfo(enemyPrefab[12], 4),
         },
         // Wave3
         new List<EnemySpawnInfo>
         {
-            new EnemySpawnInfo(enemyPrefab[7], 2),
-            new EnemySpawnInfo(enemyPrefab[8], 1),
+            new EnemySpawnInfo(enemyPrefab[7], 4),
+            new EnemySpawnInfo(enemyPrefab[8], 3),
             new EnemySpawnInfo(enemyPrefab[9], 3),
-            new EnemySpawnInfo(enemyPrefab[10], 1),
+            new EnemySpawnInfo(enemyPrefab[10], 2),
             new EnemySpawnInfo(enemyPrefab[16], 3),
         }
     };
@@ -551,12 +550,13 @@ public class EnemySpawnManager : MonoBehaviour
         new List<EnemySpawnInfo>
         {
             new EnemySpawnInfo(enemyPrefab[7], 4),
-            new EnemySpawnInfo(enemyPrefab[8], 1),
-            new EnemySpawnInfo(enemyPrefab[13], 3),
+            new EnemySpawnInfo(enemyPrefab[8], 4),
+            new EnemySpawnInfo(enemyPrefab[13], 4),
         },
         // Wave3
         new List<EnemySpawnInfo>
         {
+            new EnemySpawnInfo(enemyPrefab[12], 2),
             new EnemySpawnInfo(enemyPrefab[14], 3),
             new EnemySpawnInfo(enemyPrefab[27], 1),
         }
@@ -575,23 +575,23 @@ public class EnemySpawnManager : MonoBehaviour
             new EnemySpawnInfo(enemyPrefab[6], 2),
             new EnemySpawnInfo(enemyPrefab[8], 2),
             new EnemySpawnInfo(enemyPrefab[9], 2),
-            new EnemySpawnInfo(enemyPrefab[11], 4),
+            new EnemySpawnInfo(enemyPrefab[11], 2),
         },
         // Wave2
         new List<EnemySpawnInfo>
         {
             new EnemySpawnInfo(enemyPrefab[6], 2),
             new EnemySpawnInfo(enemyPrefab[8], 2),
-            new EnemySpawnInfo(enemyPrefab[9], 2),
+            new EnemySpawnInfo(enemyPrefab[9], 4),
             new EnemySpawnInfo(enemyPrefab[11], 4),
         },
         // Wave3
         new List<EnemySpawnInfo>
         {
             new EnemySpawnInfo(enemyPrefab[7], 2),
-            new EnemySpawnInfo(enemyPrefab[8], 1),
+            new EnemySpawnInfo(enemyPrefab[8], 3),
             new EnemySpawnInfo(enemyPrefab[9], 3),
-            new EnemySpawnInfo(enemyPrefab[10], 1),
+            new EnemySpawnInfo(enemyPrefab[10], 4),
             new EnemySpawnInfo(enemyPrefab[16], 3),
         }
     };
@@ -606,23 +606,23 @@ public class EnemySpawnManager : MonoBehaviour
         // Wave1
         new List<EnemySpawnInfo>
         {
-            new EnemySpawnInfo(enemyPrefab[14], 5),
-            new EnemySpawnInfo(enemyPrefab[16], 5),
+            new EnemySpawnInfo(enemyPrefab[14], 4),
+            new EnemySpawnInfo(enemyPrefab[16], 4),
         },
         // Wave2
         new List<EnemySpawnInfo>
         {
             new EnemySpawnInfo(enemyPrefab[14], 5),
-            new EnemySpawnInfo(enemyPrefab[15], 1),
+            new EnemySpawnInfo(enemyPrefab[15], 2),
             new EnemySpawnInfo(enemyPrefab[16], 3),
-            new EnemySpawnInfo(enemyPrefab[19], 1),
+            new EnemySpawnInfo(enemyPrefab[19], 2),
         },
         // Wave3
         new List<EnemySpawnInfo>
         {
             new EnemySpawnInfo(enemyPrefab[14], 6),
-            new EnemySpawnInfo(enemyPrefab[15], 1),
-            new EnemySpawnInfo(enemyPrefab[16], 1),
+            new EnemySpawnInfo(enemyPrefab[15], 3),
+            new EnemySpawnInfo(enemyPrefab[16], 3),
             new EnemySpawnInfo(enemyPrefab[19], 2),
         }
     };
@@ -643,6 +643,7 @@ public class EnemySpawnManager : MonoBehaviour
         // Wave2
         new List<EnemySpawnInfo>
         {
+            new EnemySpawnInfo(enemyPrefab[11], 4),
             new EnemySpawnInfo(enemyPrefab[16], 2),
             new EnemySpawnInfo(enemyPrefab[17], 3),
             new EnemySpawnInfo(enemyPrefab[18], 3),
