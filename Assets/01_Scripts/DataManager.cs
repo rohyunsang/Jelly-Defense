@@ -36,7 +36,9 @@ public class SaveData
     public bool firstTutorial;
     public bool isUsedCoupon;
     public bool isAdPass;
-    
+    public bool isLimitedSalePurchase;
+    public bool isUsedCoupon2;
+
 }
 
 public class DataManager : MonoBehaviour
@@ -61,7 +63,12 @@ public class DataManager : MonoBehaviour
     public string path;
     public bool isUsedCoupon;
     public bool isAdPass;
+    public bool isLimitedSalePurchase;
+
+    public bool isUsedCoupon2;
+
     public GameObject successCuponInfo;
+    public GameObject successCuponInfo2;
 
     public TMP_InputField tmp_inputField;
     public void AcceptCoupon()
@@ -78,6 +85,15 @@ public class DataManager : MonoBehaviour
             UIManager.instance.AsycCurrenyUI();
             isUsedCoupon = true;
             successCuponInfo.SetActive(true);
+            DataManager.Instance.JsonSave(); // 바아로 저장 
+        }
+        if (tmp_inputField.text == "감사감사합니다" && !isUsedCoupon2)
+        {
+            CurrenyManager.Instance.jellyStone += 100;
+
+            UIManager.instance.AsycCurrenyUI();
+            isUsedCoupon2 = true;
+            successCuponInfo2.SetActive(true);
             DataManager.Instance.JsonSave(); // 바아로 저장 
         }
     }
@@ -186,7 +202,23 @@ public class DataManager : MonoBehaviour
                 TutorialManager.Instance.firstTutorial = saveData.firstTutorial;
                 ScenarioManager.Instance.InitScenarioManager();
                 isUsedCoupon = saveData.isUsedCoupon;
-                isAdPass = saveData.isAdPass;
+                isUsedCoupon2 = saveData.isUsedCoupon2;
+
+                if (saveData.isAdPass == null || saveData.isAdPass == false)
+                    isAdPass = false;
+                else
+                {
+                    isAdPass = saveData.isAdPass;
+                }
+                if(saveData.isLimitedSalePurchase == null || saveData.isLimitedSalePurchase == false)
+                {
+                    isLimitedSalePurchase = false;
+                }
+                else
+                {
+                    isLimitedSalePurchase = saveData.isLimitedSalePurchase;
+                }
+
 
 
             }
@@ -219,7 +251,9 @@ public class DataManager : MonoBehaviour
             currentGoldRefresh = DayManager.Instance.currentGoldRefresh,
             firstTutorial = TutorialManager.Instance.firstTutorial,
             isUsedCoupon = isUsedCoupon,
-            isAdPass = isAdPass
+            isUsedCoupon2 = isUsedCoupon2,
+            isAdPass = isAdPass,
+            isLimitedSalePurchase = isLimitedSalePurchase
         };
 
         

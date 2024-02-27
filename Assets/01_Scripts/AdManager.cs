@@ -26,6 +26,7 @@ public class AdManager : MonoBehaviour
     #endregion
 
     RewardedAd rewardedAd;
+    // ca-app-pub-9333309559865878/9920625966
     const string videoAd = "ca-app-pub-9333309559865878/9920625966"; // 진짜 광고 ID
     const string videoAdTest = "ca-app-pub-3940256099942544/5224354917";
 
@@ -36,12 +37,15 @@ public class AdManager : MonoBehaviour
     void Start()
     {
         // Google Mobile Ads SDK init 
-        MobileAds.Initialize((InitializationStatus initStatus) => {}); // 초기화 
+        //MobileAds.Initialize((InitializationStatus initStatus) => {}); // 초기화 
 
-        var requestConfiguration = new RequestConfiguration.Builder()
-           .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" }) // test Device ID
-           .build();
+        //var requestConfiguration = new RequestConfiguration.Builder()
+        //   .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" }) // test Device ID
+        //   .build();
 
+        //MobileAds.SetRequestConfiguration(requestConfiguration);
+
+        RequestConfiguration requestConfiguration = new RequestConfiguration.Builder().build();
         MobileAds.SetRequestConfiguration(requestConfiguration);
 
         Debug.Log("광고 준비 ");

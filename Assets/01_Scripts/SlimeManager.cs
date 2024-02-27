@@ -77,7 +77,18 @@ public class SlimeManager : MonoBehaviour
             // 해당하는 슬라임 아이콘 프리팹이 있으면 인스턴스화하고 상점에 추가합니다.
             if (slimeIconPrefab != null)
             {
-                Instantiate(slimeIconPrefab, shopSlimeParent);
+                GameObject shopSlimeIcon = Instantiate(slimeIconPrefab, shopSlimeParent);
+                if (hasSlimes[shopSlimeIcon.name.Replace("Icon(Clone)", "")])
+                {
+                    shopSlimeIcon.GetComponent<Button>().enabled = false;
+                    Transform purchasedCompleteImage = shopSlimeIcon.transform.Find("PurchaseCompleteImage");
+                    if (purchasedCompleteImage != null)
+                    {
+                        purchasedCompleteImage.gameObject.SetActive(true);
+                    }
+                }
+
+
                 // 상점에 표시된 슬라임 목록에 슬라임 이름을 추가합니다.
             }
             else
@@ -310,7 +321,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
 
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost/2).ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = "90";
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("AngelSlime");
                 skillIdx++;
@@ -325,7 +336,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost / 2).ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = "90";
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("DevilSlime");
                 skillIdx++;
@@ -340,7 +351,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost / 2).ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = "90";
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("WitchSlime");
                 skillIdx++;
@@ -355,7 +366,7 @@ public class SlimeManager : MonoBehaviour
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].GetComponent<Image>().sprite = sprite;
                 UIManager.instance.epicSlimeSkillTextures[skillIdx].SetActive(true);
                 UIManager.instance.epicSlimeSkillCostText[skillIdx].SetActive(true);
-                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = (slimeData.Cost / 2).ToString();
+                UIManager.instance.epicSlimeSkillCostText[skillIdx].GetComponent<TextMeshProUGUI>().text = "90";
                 epicSlimeSkillIconIdx.Add(skillIdx);
                 epicSlimeSkillIconName.Add("SkullSlime");
                 skillIdx++;
@@ -405,8 +416,8 @@ public class SlimeManager : MonoBehaviour
         string slimeName = epicSlimeSkillIconName[buttonIndex];
         Slime foundSlime = GoogleSheetManager.Instance.slimes.FirstOrDefault(slime => slime.Name == slimeName);
 
-        if (SlimeSpawnManager.instance.jellyPower < foundSlime.Cost) return;
-        SlimeSpawnManager.instance.jellyPower -= foundSlime.Cost / 2;
+        if (SlimeSpawnManager.instance.jellyPower < 90) return;
+        SlimeSpawnManager.instance.jellyPower -= 90;
         Debug.Log(foundSlime.Cost);
 
         
@@ -432,7 +443,7 @@ public class SlimeManager : MonoBehaviour
                 isNotEpic = false;
             }
         }
-        if(isNotEpic) SlimeSpawnManager.instance.jellyPower += foundSlime.Cost;
+        if(isNotEpic) SlimeSpawnManager.instance.jellyPower += 90;
     }
 }
 

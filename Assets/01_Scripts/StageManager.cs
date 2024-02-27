@@ -165,11 +165,11 @@ public class StageManager : MonoBehaviour
         // 일반모드 1-10, 카오스모드 1-10 초기화
         for (int i = 1; i <= 10; i++)
         {
-            stageClearStatus.Add("NormalStage" + i, false);
+            stageClearStatus.Add("NormalStage" + i, true);
         }
         for (int i = 1; i <= 10; i++)
         {
-            stageClearStatus.Add("ChaosStage" + i, false);
+            stageClearStatus.Add("ChaosStage" + i, true);
         }
         for (int i = 1; i <= 10; i++)
         {

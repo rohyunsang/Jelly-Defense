@@ -893,7 +893,7 @@ public class UIManager : MonoBehaviour
     public void GoldRefreshButton()
     {
         UIClickSound();
-        if (CurrenyManager.Instance.gold - 10 >= 0 && DayManager.Instance.currentGoldRefresh > 0)
+        if (CurrenyManager.Instance.gold - 3000 >= 0 && DayManager.Instance.currentGoldRefresh > 0)
         {
             DayManager.Instance.currentGoldRefresh--;
 

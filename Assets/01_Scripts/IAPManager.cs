@@ -14,7 +14,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     [SerializeField] private string jelly2700 = "jelly2700";
     [SerializeField] private string jelly3500 = "jelly3500";
     [SerializeField] private string jelly1900 = "jelly1900";
-    [SerializeField] private string jelly4500 = "jelly4500";
+    [SerializeField] private string jelly4900 = "jelly4900";
 
     [Header("Cache")]
     private IStoreController storeController; //구매 과정을 제어하는 함수 제공자
@@ -35,8 +35,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
         builder.AddProduct(jelly1500, ProductType.Consumable);
         builder.AddProduct(jelly2700, ProductType.Consumable);
         builder.AddProduct(jelly3500, ProductType.Consumable);
-        builder.AddProduct(jelly1900, ProductType.Consumable);
-        builder.AddProduct(jelly4500, ProductType.Consumable);
+        builder.AddProduct(jelly1900, ProductType.NonConsumable);
+        builder.AddProduct(jelly4900, ProductType.NonConsumable);
 
         UnityPurchasing.Initialize(this, builder);
     }
@@ -44,7 +44,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
     /* 구매하는 함수 */
     public void Purchase(string productId)
     {
-       storeController.InitiatePurchase(productId);
+        if (productId == "jelly4900" && DataManager.Instance.isAdPass)
+            return;
+        if (productId == "jelly1900" && DataManager.Instance.isLimitedSalePurchase)
+            return;
+
+        storeController.InitiatePurchase(productId);
     }
 
     private void CheckNonConsumalbe(string id)
@@ -124,11 +129,11 @@ public class IAPManager : MonoBehaviour, IStoreListener
             if (CurrenyManager.Instance.actionPoint >= 180) CurrenyManager.Instance.actionPoint = 180;
 
             SlimeManager.instance.UpdateSlime("BearSlime");
-
+            DataManager.Instance.isLimitedSalePurchase = true;
             UIManager.instance.AsycCurrenyUI();
             DataManager.Instance.JsonSave(); // 바아로 저장 
         }
-        else if (product.definition.id == jelly4500) // 광고 제거 
+        else if (product.definition.id == jelly4900) // 광고 제거 
         {
             DataManager.Instance.isAdPass = true;
             DataManager.Instance.JsonSave();
