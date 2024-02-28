@@ -95,6 +95,9 @@ public class SlimeManager : MonoBehaviour
             {
                 Debug.LogWarning($"Could not find a prefab for slime: {slimeName}");
             }
+
+
+               
         }
     }
 
@@ -130,9 +133,9 @@ public class SlimeManager : MonoBehaviour
 
                 // 확률에 따라 슬라임 선택
                 bool isSelected = false;
-                if (index <= 5) isSelected = randomValue <= 0.55f;
-                else if (index >= 6 && index <= 14) isSelected = randomValue <= 0.35f;
-                else if (index >= 15 && index <= 19) isSelected = randomValue <= 0.1f;
+                if (index <= 4) isSelected = randomValue <= 0.55f;
+                else if (index >= 5 && index <= 13) isSelected = randomValue <= 0.35f;
+                else if (index >= 14 && index <= 18) isSelected = randomValue <= 0.1f;
 
                 if (isSelected && availableSlimes.Contains(prefab.name))
                 {
@@ -231,10 +234,10 @@ public class SlimeManager : MonoBehaviour
         hasSlimes["WindSlime"] = true;
         hasSlimes["PowerSlime"] = true;
         hasSlimes["SquareIceSlime"] = true;
-        hasSlimes["AmethystSlime"] = true;
+        hasSlimes["AmethystSlime"] = false;
         hasSlimes["BlockSlime"] = false;
         hasSlimes["BearSlime"] = false;
-        hasSlimes["ClownSlime"] = false;
+        hasSlimes["ClownSlime"] = true;
         hasSlimes["BoneSlime"] = false;
         hasSlimes["MagicSlime"] = false;
         hasSlimes["ParabolaSlime"] = false;
