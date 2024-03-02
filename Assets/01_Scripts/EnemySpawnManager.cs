@@ -106,7 +106,7 @@ public class EnemySpawnManager : MonoBehaviour
             else
             {
                 // 총 몬스터 개수가 5마리 이하인 경우 기본 spawnInterval 사용 또는 오류 처리
-                spawnInterval = 5f; // 예시: 기본 값을 사용하거나 적절한 처리를 할 수 있습니다.
+                spawnInterval = 3f; // 예시: 기본 값을 사용하거나 적절한 처리를 할 수 있습니다.
             }
             Debug.Log(spawnInterval);
 
@@ -115,7 +115,7 @@ public class EnemySpawnManager : MonoBehaviour
             // 웨이브 사이에 딜레이 추가 (예: 5초)
             currentWave++;
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(4f);
             if(currentWave == 2)
             {
                 Transform slimeCastleTransform = GameObject.FindWithTag("SlimeCastle").transform;
@@ -133,7 +133,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     void Update()
     {
-        if (isWaveEnd && enemyParent.transform.childCount == 0 && currentWave >= 3)
+        if (isWaveEnd && enemyParent.transform.childCount == 0 && currentWave >= 4)
         {
             GameObject.FindWithTag("EnemyCastle").GetComponent<EnemyCastle>().CriticalHit();
             isWaveEnd = false;

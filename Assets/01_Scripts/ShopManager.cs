@@ -204,5 +204,4 @@ public class ShopManager : MonoBehaviour
         currentTimerText_TMP.text = string.Format("자동 갱신까지 {0:D2}:{1:D2}:{2:D2}", timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds);
     }
 
-
 }

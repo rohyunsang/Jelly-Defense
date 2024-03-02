@@ -19,7 +19,7 @@ public class EnemyCastle : MonoBehaviour
 
     public void CriticalHit()
     {
-        currentHP *= 0.1f;
+        if (currentHP >= 300f) currentHP = 300f;
         enemyCastleHPTMP.text = currentHP.ToString("F0");
     }
 

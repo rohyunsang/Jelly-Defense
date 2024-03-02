@@ -216,6 +216,18 @@ public class UIManager : MonoBehaviour
         Application.OpenURL("https://sites.google.com/view/jellybangeodae"); //연결원하는 사이트
     }
 
+    public void OnClickYoutubeURL() // 개인 정보 취급 방침
+    {
+        UIClickSound();
+        Application.OpenURL("https://www.youtube.com/watch?v=mXT7D9Yqy2o"); //연결원하는 사이트
+    }
+
+    public void OnClickInstaURL() // 개인 정보 취급 방침
+    {
+        UIClickSound();
+        Application.OpenURL("https://www.instagram.com/jelly_bangeodae/"); //연결원하는 사이트
+    }
+
     #endregion
 
     //스테이지 스크린
@@ -667,6 +679,7 @@ public class UIManager : MonoBehaviour
     {
         SlimeManager.instance.InitSlimeSlot();
         SlimeManager.instance.InitSlimeIconCheckImageSetActiveFalse();
+        SlimeManager.instance.selectedLegendSlime = null;
     }
 
     public void OnClickStartButtonPickUpScreen()

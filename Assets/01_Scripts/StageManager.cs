@@ -127,10 +127,16 @@ public class StageManager : MonoBehaviour
                 UIManager.instance.jellyTextHUD.text = jellyReward.ToString();
                 UIManager.instance.jellyImageHUD.SetActive(true);
             }
-            if(starCount == 11000)
+
+            // UI - ClearPanel
+            
+            Debug.Log("A   " + stageStarStatus[stageName]);
+            Debug.Log("B " + starCount);
+            if (starCount == 11000)
             {
                 UIManager.instance.leftStar.SetActive(true);
-            }else if (starCount == 11100)
+            }
+            else if (starCount == 11100)
             {
                 UIManager.instance.leftStar.SetActive(true);
                 UIManager.instance.middelStar.SetActive(true);
@@ -146,6 +152,7 @@ public class StageManager : MonoBehaviour
                 UIManager.instance.middelStar.SetActive(true);
                 UIManager.instance.rightStar.SetActive(true);
             }
+            
 
             CurrenyManager.Instance.gold += rewardData.goldReward;
             CurrenyManager.Instance.jellyStone += jellyReward;
@@ -252,9 +259,7 @@ public class StageManager : MonoBehaviour
         SetStageStar(starCount);
         DataManager.Instance.JsonSave();
         AsyncJsonStageStars();
-
-       
-        
+         
     }
 
 
@@ -341,7 +346,6 @@ public class StageManager : MonoBehaviour
         }
         else if (index <= 18) // 18이면 카오스 9스테이지 -> 카오스 10스테이지까지 
         {
-            Debug.Log("카오스저자앚이ㅏㅣㅇ자ㅣ" + index);
             UIManager.instance.stageButtons[index + 1].GetComponent<Image>().sprite = UIManager.instance.clearedChaosStageImage;
 
         }// 노말 10이 index 9니까. 
@@ -351,9 +355,11 @@ public class StageManager : MonoBehaviour
 
     public void SetStageStar(int starCnt)
     {
-        Debug.Log("스타의 개수는@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + starCnt);
+
         if (stageStarStatus.ContainsKey(UIManager.instance.selectedStageName))
         {
+            if (stageStarStatus[UIManager.instance.selectedStageName] > starCnt)
+                return;
             stageStarStatus[UIManager.instance.selectedStageName] = starCnt;
         }
         else
