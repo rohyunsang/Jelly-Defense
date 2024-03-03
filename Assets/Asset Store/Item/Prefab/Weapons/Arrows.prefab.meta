@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Asset Store/Item/Prefab/Weapons/Arrows.prefab.meta
 guid: 3148b8d68e8343939f58244212435bd5
+=======
+guid: 4fa043fecbe81674781d753a52f69973
+>>>>>>> main:Assets/Prefabs/SlimeIcon/IceSlime.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
