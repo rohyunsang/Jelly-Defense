@@ -6,9 +6,16 @@ TagManager:
   tags:
   - EnemyCastle
   - Enemy
-  - Icon
   - SlimeCastle
   - Slime
+  - SlimeIcon
+  - SlimeWeapon
+  - Ground
+  - EnemyWeapon
+  - SlimeProjectileWeapon
+  - EnemyProjectileWeapon
+  - Meteor
+  - EnemyIcon
   layers:
   - Default
   - TransparentFX
@@ -16,11 +23,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - UISafe
+  - Ground
+  - Slime
+  - Enemy
+  - Castle
   - 
   - 
   - 
