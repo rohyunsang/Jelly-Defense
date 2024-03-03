@@ -1,6 +1,9 @@
 # 젤리방어대 
 
-전략 디펜스 게임
+전략 디펜스 게임 
+
+
+게임 소개 
 
 <p align="center">
 <img src="https://github.com/rohyunsang/Jelly-Defense/assets/82229769/d91710ce-32e5-4f96-9a4d-68226960d66e">
@@ -21,4 +24,4 @@ Insta :
 https://www.instagram.com/jelly_bangeodae/
 
 Youtube : 
-https://www.youtube.com/@JellyBangeodae/videos
+https://www.youtube.com/watch?v=B5X7x1-P6jQ)https://www.youtube.com/watch?v=B5X7x1-P6jQ
