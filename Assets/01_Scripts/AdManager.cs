@@ -28,9 +28,6 @@ public class AdManager : MonoBehaviour
     RewardedAd rewardedAd;
     // ca-app-pub-9333309559865878/9920625966
     const string videoAd = "ca-app-pub-9333309559865878/9920625966"; // ÁøÂ¥ ±¤°í ID
-    const string videoAdTest = "ca-app-pub-3940256099942544/5224354917";
-
-    const string goldAdId = "ca-app-pub-9333309559865878/2838210859"; // Å×½ºÆ® ±¤°í ID
     //const string jellyAdId = "ca-app-pub-9333309559865878/3299614974"; // Å×½ºÆ® ±¤°í ID
 
 
